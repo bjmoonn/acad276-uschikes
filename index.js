@@ -1,4 +1,3 @@
-// Define the card component using a template
 // this is the shittiest code i've ever written idk if will even work
 const cardTemplate = document.createElement('template');
 cardTemplate.innerHTML = `
@@ -53,5 +52,4 @@ class Card extends HTMLElement {
     }
 }
 
-// Define the custom element
 customElements.define('card', Card);
