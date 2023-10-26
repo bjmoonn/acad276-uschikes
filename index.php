@@ -1,5 +1,3 @@
-<!-- FILEPATH: /Users/bjmoon/src/bjmoon/ACAD276/acad276-uschikes/index.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,14 +28,34 @@
         </div>
     </div>
     <div class="feature">
-        <card>
-            <span slot="photoUrl"></span>
-            <span slot="author"></span>
-            <span slot="title"></span>
-            <span slot="distance"></span>
-            <span slot="time"></span>
-            <span slot="difficulty"></span>
-        </card>
+        <?php
+            $mysql = new mysqli("webdev.iyaserver.com", "haminjin", "haminspw", "uschikes");
+
+            if ($mysql->connect_error) {
+                die("Connection failed: " . $mysql->connect_error);
+            }
+
+            $sql = "SELECT * FROM hikes";
+            $result = $mysql->query($sql);
+
+            if ($result->num_rows > 0) {
+                // output data of each row
+                while($currentRow = $result->fetch_assoc()) {
+                    echo '<card>';
+                    echo '<span slot="photoUrl">' . $currentRow["photoUrl"] . '</span>';
+                    echo '<span slot="author">' . $currentRow["author"] . '</span>';
+                    echo '<span slot="title">' . $currentRow["title"] . '</span>';
+                    echo '<span slot="distance">' . $currentRow["distance"] . '</span>';
+                    echo '<span slot="time">' . $currentRow["time"] . '</span>';
+                    echo '<span slot="difficulty">' . $currentRow["difficulty"] . '</span>';
+                    echo '</card>';
+                }
+            } else {
+                echo "0 results";
+            }
+
+            $mysql->close();
+        ?>
     </div>
 </body>
 </html>
