@@ -66,7 +66,7 @@
             flex-grow: 1;
             justify-content: space-between;
             align-items: center;
-            max-width: 90%;
+            max-width: 50%;
             border-radius: 100px;
             background: #FFF;
             /* drop shadow */
@@ -75,6 +75,8 @@
         .filter-label{
             display:flex;
             flex-direction:row;
+
+            align-items:center;
         }
 
         .vertical-lines{
@@ -239,3 +241,65 @@
 </body>
 
 </html>
+
+<!DOCTYPE html>
+<!--<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>USC Hikes</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <script src="index.js" type="text/javascript" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav>
+    <div class="title">USC Hikes</div>
+    <div class="openapp">Open App</div>
+</nav>
+<div class="background-image">
+    <img src="public/assets/cloud-emoji.png" alt="cloud" class="cloudemoji">
+    <img src="public/assets/mountain-emoji.png" alt="mountain" class="mountainemoji">
+    <img src="public/assets/runner-emoji.png" alt="runner" class="runneremoji">
+    <img src="public/assets/shoes-emoji.png" alt="shoes" class="shoesemoji">
+</div>
+<div class="hero">
+    <div class="hero-subtitle">Introducing USC Hikes</div>
+    <div class="hero-title">Explore the<br>Great Outdoors</div>
+    <div class="hero-alt">Browse our curated selection of trails, complete with detailed descriptions, difficulty ratings, and stunning imagery.</div>
+    <div class="hero-cta">
+        <div class="learnmore">Learn more</div>
+        <div class="openapp">Open App</div>
+    </div>
+</div>
+<div class="feature">
+    <?php
+            $mysql = new mysqli("webdev.iyaserver.com", "haminjin", "haminspw", "uschikes");
+
+            if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+    }
+
+    $sql = "SELECT * FROM hikes";
+    $result = $mysql->query($sql);
+
+    if ($result->num_rows > 0) {
+    // output data of each row
+    while($currentRow = $result->fetch_assoc()) {
+    echo '<card>';
+    echo '<span slot="photoUrl">' . $currentRow["photoUrl"] . '</span>';
+    echo '<span slot="author">' . $currentRow["author"] . '</span>';
+    echo '<span slot="title">' . $currentRow["title"] . '</span>';
+    echo '<span slot="distance">' . $currentRow["distance"] . '</span>';
+    echo '<span slot="time">' . $currentRow["time"] . '</span>';
+    echo '<span slot="difficulty">' . $currentRow["difficulty"] . '</span>';
+    echo '</card>';
+    }
+    } else {
+    echo "0 results";
+    }
+
+    $mysql->close();
+    ?>
+</div>
+</body>
+</html>-->
