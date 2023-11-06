@@ -13,7 +13,10 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: 2%;
+    width:100vw;
+
+  
 }
 
 .title {
