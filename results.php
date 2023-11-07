@@ -124,7 +124,7 @@
 
 <div class="browse">
     <div class="section-title">
-        <h3>All Hikes</h3>
+        <h3>Search Results</h3>
     </div>
     <div class="hike-row">
 
@@ -135,10 +135,95 @@
             die("Connection failed: " . $mysql->connect_error);
         }
 
-        $sql = "SELECT * FROM mainView";
+        $sql = "SELECT * FROM mainView ";
+        if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+            $sql .= "WHERE ";
+        }
+        //Difficulty
+        if(isset($_REQUEST['Easy'])){
+            $sql .= "(difficulty = 'Easy' ";
+            if(isset($_REQUEST['Moderate'])){
+                $sql .= "OR difficulty = 'Moderate' ";
+            }
+            if(isset($_REQUEST['Hard'])){
+                $sql .= "OR difficulty = 'Hard' ";
+            }
+            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+                $sql .= ") AND ";
+            }
+        }
+        else if(isset($_REQUEST['Moderate'])){
+            $sql .= "(difficulty = 'Moderate' ";
+            if(isset($_REQUEST['Hard'])){
+                $sql .= "OR difficulty = 'Hard' ";
+            }
+            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+                $sql .= ") AND ";
+            }
+        }
+        else if(isset($_REQUEST['Hard'])){
+            $sql .= "(difficulty = 'Hard' ";
+            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+                $sql .= ") AND ";
+            }
+        }
+
+        //Length
+        if(isset($_REQUEST['15'])){
+            $sql .= "(length <= 5 ";
+            if(isset($_REQUEST['510'])){
+                $sql .= "OR (length >= 5 AND length <= 10) ";
+            }
+            if(isset($_REQUEST['10'])){
+                $sql .= "OR 10 <= length ";
+            }
+            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+                $sql .= ") AND ";
+            }
+        }
+        else if(isset($_REQUEST['510'])){
+            $sql .= "((length >= 5 AND length <= 10) ";
+            if(isset($_REQUEST['10'])){
+                $sql .= "OR 10 <= length ";
+            }
+            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+                $sql .= ") AND ";
+            }
+        }
+        else if(isset($_REQUEST['50'])){
+            $sql .= "(10 <= length ";
+            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+                $sql .= ") AND ";
+            }
+        }
+
+        //Duration
+        if(isset($_REQUEST['1'])){
+            $sql .= "(duration <= 1 ";
+            if(isset($_REQUEST['12'])){
+                $sql .= "OR (duration >= 1 AND duration <= 2) ";
+            }
+            if(isset($_REQUEST['2'])){
+                $sql .= "OR 2 <= duration ";
+            }
+        }
+        else if(isset($_REQUEST['12'])){
+            $sql .= "((duration >= 1 AND duration <= 2) ";
+            if(isset($_REQUEST['2'])){
+                $sql .= "OR 2 <= duration ";
+            }
+        }
+        else if(isset($_REQUEST['2'])){
+            $sql .= "(2 <= duration ";
+        }
+
+        if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['1']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+            $sql .= ");";
+        }
+
         $result = $mysql->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result) {
             // output data of each row
             while($currentrow = $result->fetch_assoc()) {
                 $difficulty = "wow";
