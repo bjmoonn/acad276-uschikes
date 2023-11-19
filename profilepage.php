@@ -92,7 +92,7 @@
         <div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
 
         <!-- ACCOUNT NAME AND PHOTO-->
-        <div class = "account-header" style="padding-bottom:4rem;">
+        <div class = "account-header" style="padding-bottom:3rem;">
             <div style="text-align:center;">
                 <img src="public/assets/profile-picture.png" style="width:6rem;"><br><br>Account Name</div>
         </div>
@@ -184,7 +184,7 @@
 
                 </div>
             </div>
-        </div>
+        </div></div>
 
         <div class="footer">
             <img src="logotype bottom.png"  id="bottomLogo">
