@@ -48,6 +48,7 @@ html {
   border-radius: 2.3125rem;
   margin: 0%;
   margin-left: 3%;
+  gap:8px;
 }
 .filter-icon{
   width:12px;
@@ -93,6 +94,7 @@ html {
 }
 .hike-thumbnail{
   height: 200px;
+
   align-self: stretch;
   overflow: hidden;
 }
@@ -168,6 +170,7 @@ html {
 h3 {
   font-size: 32pt;
   font-weight: medium;
+
 }
 
 h2 {
@@ -193,6 +196,7 @@ h1 {
 .caption1 {
   font-size: 14px;
   font-weight: bolder;
+  text-transform: uppercase;
 }
 
 .caption2 {
@@ -282,6 +286,7 @@ border-radius:76px;
   justify-content:space-between;
   align-items:center;
   width:90%;
+  height:6vh;
   color: black;
   padding-top:2%;
   padding-bottom:2%;
