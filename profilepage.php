@@ -74,7 +74,7 @@
         <div class="background">
             <div class="nav">
                 <div class="logo">
-                    <img src="green logo.png">
+                    <img src="public/assets/green logo.png">
                 </div>
                 <div class="nav-items">
                     <text class="copy1">Map</text>
@@ -87,14 +87,14 @@
         <!-- ACCOUNT NAME. PHOTO, AND BACKGROUND IMAGE-->
         <!-- BACKGROUND IMAGE -->
         <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-            <img src = "background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
+            <img src = "public/assets/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
         </div>
         <div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
 
         <!-- ACCOUNT NAME AND PHOTO-->
         <div class = "account-header" style="padding-bottom:4rem;">
             <div style="text-align:center;">
-                <img src="profile-picture.png" style="width:6rem;"><br><br>Account Name</div>
+                <img src="public/assets/profile-picture.png" style="width:6rem;"><br><br>Account Name</div>
         </div>
 
         <div class = "profilepage-body">
@@ -171,7 +171,7 @@
 
                         <form action="" method="get">
                             <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;">Choose a Hike
-                                <img src="CaretDown.svg" class="filter-icon">
+                                <img src="public/assets/CaretDown.svg" class="filter-icon">
                             </div>
 
                             <div class="review">
