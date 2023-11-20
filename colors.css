@@ -1,0 +1,11 @@
+/* shades of grey */
+
+.darkgrey {
+    color: #000000;
+    opacity: 80%;
+}
+
+.lightgrey {
+    color: #000000;
+    opacity: 50%;
+}
