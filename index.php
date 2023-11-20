@@ -24,7 +24,7 @@
     <form action="results.php" method="get">
         <div class="filters-holder">
             <div class="filter-label" id="difficulty">
-                <text>Difficulty</text>
+                <text>Difficulty </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
@@ -45,7 +45,7 @@
             </div>
             <div class="vertical-lines"></div>
             <div class="filter-label">
-                <text>Distance from USC</text>
+                <text>Distance from USC </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
@@ -66,7 +66,7 @@
             </div>
             <div class="vertical-lines"></div>
             <div class="filter-label">
-                <text>Length</text>
+                <text>Length </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
@@ -87,20 +87,20 @@
             </div>
             <div class="vertical-lines"></div>
             <div class="filter-label">
-                <text>Duration</text>
+                <text>  Duration </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
-                            <label for="myDurationCheckbox1" class="copy1">0-1 hour</label>
+                            <label for="myDurationCheckbox1" class="copy1">0-1 hr</label>
                             <input type="checkbox" id="1" name="1">
                         </div>
                         <div class="checkbox-holder">
-                            <label for="myLengthCheckbox2" class="copy1">1-2 hours</label>
+                            <label for="myLengthCheckbox2" class="copy1">1-2 hrs</label>
                             <input type="checkbox" id="12" name="12">
                         </div>
                         <div class="checkbox-holder">
-                            <label for="myLengthCheckbox3" class="copy1">2+ hours</label>
+                            <label for="myLengthCheckbox3" class="copy1">2+ hrs</label>
                             <input type="checkbox" id="2" name="2">
                         </div>
                     </div>
@@ -159,13 +159,13 @@
             </div>
             <div class="hike-description">
                 <div class="hike-text">
-                    <text class="copy1 hike-reviewer" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
+                    <text class="location" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
                     <text class="copy1">' . $currentrow["name"] . '</text>
-                    <text class="copy1">' . $currentrow["length"] . ' miles</text>
-                    <text class="copy1">' . $currentrow["duration"] . ' hr</text>
+                    <text class="copy2">' . $currentrow["length"] . ' miles</text>
+                    <text class="copy2">' . $currentrow["duration"] . ' hr</text>
                 </div>
                 <div class="hike-difficulty" id="'. $difficulty .'">
-                    <text class="copy1">' . $currentrow["difficulty"] . '</text>
+                    <text class="copy2">' . $currentrow["difficulty"] . '</text>
                 </div>
             </div>
         </div>   

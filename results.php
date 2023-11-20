@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>USC Hikes</title>
-    <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="globals.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,14 +17,10 @@
             <text class="copy1">Profile</text>
         </div>
     </div>
-    <div class="headline">
-        <text class="editorial1">Hike On!</text>
-        <text class="copy1">The ultimate hiking guide for USC students</text>
-    </div>
     <form action="results.php" method="get">
         <div class="filters-holder">
             <div class="filter-label" id="difficulty">
-                <text>Difficulty</text>
+                <text>Difficulty </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
@@ -45,7 +41,7 @@
             </div>
             <div class="vertical-lines"></div>
             <div class="filter-label">
-                <text>Distance from USC</text>
+                <text>Distance from USC </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
@@ -66,7 +62,7 @@
             </div>
             <div class="vertical-lines"></div>
             <div class="filter-label">
-                <text>Length</text>
+                <text>Length </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
@@ -87,20 +83,20 @@
             </div>
             <div class="vertical-lines"></div>
             <div class="filter-label">
-                <text>Duration</text>
+                <text>  Duration </text>
                 <img src="public/assets/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
-                            <label for="myDurationCheckbox1" class="copy1">0-1 hour</label>
+                            <label for="myDurationCheckbox1" class="copy1">0-1 hr</label>
                             <input type="checkbox" id="1" name="1">
                         </div>
                         <div class="checkbox-holder">
-                            <label for="myLengthCheckbox2" class="copy1">1-2 hours</label>
+                            <label for="myLengthCheckbox2" class="copy1">1-2 hrs</label>
                             <input type="checkbox" id="12" name="12">
                         </div>
                         <div class="checkbox-holder">
-                            <label for="myLengthCheckbox3" class="copy1">2+ hours</label>
+                            <label for="myLengthCheckbox3" class="copy1">2+ hrs</label>
                             <input type="checkbox" id="2" name="2">
                         </div>
                     </div>
