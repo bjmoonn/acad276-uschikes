@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <title>USC Hikes</title>
-    <link rel="stylesheet" href="globals.css" type="text/css">
+    <link rel="stylesheet" href="stylesheet.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -16,6 +16,10 @@
             <text class="copy1">Groups</text>
             <text class="copy1">Profile</text>
         </div>
+    </div>
+    <div class="headline">
+        <text class="editorial1">Hike On!</text>
+        <text class="copy1">The ultimate hiking guide for USC students</text>
     </div>
     <form action="results.php" method="get">
         <div class="filters-holder">
@@ -120,7 +124,7 @@
 
 <div class="browse">
     <div class="section-title">
-        <h3>Search Results</h3>
+        <h3>All Hikes</h3>
     </div>
     <div class="hike-row">
 
@@ -131,95 +135,10 @@
             die("Connection failed: " . $mysql->connect_error);
         }
 
-        $sql = "SELECT * FROM mainView ";
-        if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-            $sql .= "WHERE ";
-        }
-        //Difficulty
-        if(isset($_REQUEST['Easy'])){
-            $sql .= "(difficulty = 'Easy' ";
-            if(isset($_REQUEST['Moderate'])){
-                $sql .= "OR difficulty = 'Moderate' ";
-            }
-            if(isset($_REQUEST['Hard'])){
-                $sql .= "OR difficulty = 'Hard' ";
-            }
-            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['Moderate'])){
-            $sql .= "(difficulty = 'Moderate' ";
-            if(isset($_REQUEST['Hard'])){
-                $sql .= "OR difficulty = 'Hard' ";
-            }
-            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['Hard'])){
-            $sql .= "(difficulty = 'Hard' ";
-            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-                $sql .= ") AND ";
-            }
-        }
-
-        //Length
-        if(isset($_REQUEST['15'])){
-            $sql .= "(length <= 5 ";
-            if(isset($_REQUEST['510'])){
-                $sql .= "OR (length >= 5 AND length <= 10) ";
-            }
-            if(isset($_REQUEST['10'])){
-                $sql .= "OR 10 <= length ";
-            }
-            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['510'])){
-            $sql .= "((length >= 5 AND length <= 10) ";
-            if(isset($_REQUEST['10'])){
-                $sql .= "OR 10 <= length ";
-            }
-            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['50'])){
-            $sql .= "(10 <= length ";
-            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
-                $sql .= ") AND ";
-            }
-        }
-
-        //Duration
-        if(isset($_REQUEST['1'])){
-            $sql .= "(duration <= 1 ";
-            if(isset($_REQUEST['12'])){
-                $sql .= "OR (duration >= 1 AND duration <= 2) ";
-            }
-            if(isset($_REQUEST['2'])){
-                $sql .= "OR 2 <= duration ";
-            }
-        }
-        else if(isset($_REQUEST['12'])){
-            $sql .= "((duration >= 1 AND duration <= 2) ";
-            if(isset($_REQUEST['2'])){
-                $sql .= "OR 2 <= duration ";
-            }
-        }
-        else if(isset($_REQUEST['2'])){
-            $sql .= "(2 <= duration ";
-        }
-
-        if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['1']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-            $sql .= ");";
-        }
-
+        $sql = "SELECT * FROM mainView";
         $result = $mysql->query($sql);
 
-        if ($result) {
+        if ($result->num_rows > 0) {
             // output data of each row
             while($currentrow = $result->fetch_assoc()) {
                 $difficulty = "wow";
@@ -240,13 +159,13 @@
             </div>
             <div class="hike-description">
                 <div class="hike-text">
-                    <text class="copy1 hike-reviewer" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
+                    <text class="location" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
                     <text class="copy1">' . $currentrow["name"] . '</text>
-                    <text class="copy1">' . $currentrow["length"] . ' miles</text>
-                    <text class="copy1">' . $currentrow["duration"] . ' hr</text>
+                    <text class="copy2">' . $currentrow["length"] . ' miles</text>
+                    <text class="copy2">' . $currentrow["duration"] . ' hr</text>
                 </div>
                 <div class="hike-difficulty" id="'. $difficulty .'">
-                    <text class="copy1">' . $currentrow["difficulty"] . '</text>
+                    <text class="copy2">' . $currentrow["difficulty"] . '</text>
                 </div>
             </div>
         </div>   
