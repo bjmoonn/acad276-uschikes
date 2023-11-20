@@ -1,0 +1,210 @@
+/* Globals and Resets */
+html {
+  font-family: 'Public Sans', sans-serif;
+  background: #ffffff;
+  font-size: 16px;
+}
+
+/* Navbar Styles */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  padding: 1rem 1.5rem;
+}
+
+.nav-items {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.logo img {
+  height: 50px; /* this is not defined in your CSS but is inferred from your HTML */
+}
+
+/* Headline Styles */
+.headline {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10rem 0 0 0;
+}
+
+.bigger-filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: fit-content;
+  margin: auto;
+}
+
+.filter-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  border-radius: 0.5rem;
+  width: fit-content;
+  margin: 2rem auto;
+  border: 1px solid #E7EDEF;
+  box-shadow: 4px 4px 16px 0px rgba(150, 150, 150, 0.25);
+}
+
+.dropdown-groups {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1rem;
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+}
+
+.dropdown-text {
+  padding-right: 0.5rem;
+}
+
+.dropdown-button {
+  height: 1rem;
+  width: 1rem;
+  padding-left: 0.5rem;
+}
+
+.search-button {
+  background-color: #000;
+  color: white;
+  padding: 1.1rem 1.25rem;
+  margin-right: 0.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+  cursor: pointer;
+}
+
+
+/* .filters-holder {
+  display: flex;
+  padding: 1rem 1.5rem;
+  
+}
+.filter-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.vertical-lines {
+  width: 1px;
+  height: 32px;
+  background: #999;
+  margin-left: 3%;
+  margin-right: 3%;
+}
+
+.search-button {
+  color: white;
+  font-weight: bold;
+  background: #3E5D15;
+  display: flex;
+  padding: 0.6rem 1.5rem;
+  align-items: center;
+  border-radius: 2.3125rem;
+  margin-left: 3%;
+}
+
+.dropdown-wrapper {
+  display: none;
+  position: relative;
+}
+
+.dropdown-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  gap: 12px;
+  padding: 20px 12px;
+  border-radius: 20px;
+  background-color: white;
+  min-width: 100px;
+  z-index: 1;
+  border: 1px solid var(--ui-border, #E5E5E5);
+} */
+
+/* Hikes Section Styles */
+.browse {
+  margin: 0 1.5rem;
+}
+
+.section-title h3 {
+  font-size: 32pt;
+  font-weight: medium;
+}
+
+.hike-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+.hike-individual {
+  display: flex;
+  width: 37%;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  border-radius: 20px;
+  border: 1px solid var(--ui-border, #E5E5E5);
+  background: #FFF;
+}
+
+.hike-thumbnail {
+  height: 12rem;
+  align-self: stretch;
+  overflow: hidden;
+}
+
+.hike-description {
+  display: flex;
+  padding: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  align-self: stretch;
+}
+
+/* Footer Styles */
+.footer {
+  width: 100%;
+  display: flex;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  background: var(--brand-green, #3E5D15);
+}
+
+#bottomLogo {
+  width: 8%;
+}
