@@ -22,3 +22,27 @@
 - Use a consistent font size and weight throughout the project.
 - Use a consistent color scheme.
 - Follow accessibility guidelines. -->
+
+
+## Directories
+acad276-uschikes/
+│
+├── .gitignore (hidden file, for .env)
+├── README.md
+├── index.php
+├── index.html (for local testing)
+├── pages/
+│   ├── individual-hike.php
+│   ├── profilepage.php
+│   └── results.php
+├── css/
+│   ├── styles.css
+│   ├── typography.css
+│   └── colors.css
+└── public/
+    ├── assets/
+        ├── icons/ (where icons will be)
+    │   ├── images (where images will be)
+    │   └── other images (not sure why?)
+
+
