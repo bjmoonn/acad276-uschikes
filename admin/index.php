@@ -7,7 +7,7 @@ if ($mysql->connect_error) {
 }
 
 // Fetch all hikes from the mainView table
-$result = $mysqli->query("SELECT * FROM mainView");
+$result = $mysql->query("SELECT * FROM mainView");
 
 ?>
 
@@ -21,9 +21,9 @@ $result = $mysqli->query("SELECT * FROM mainView");
 </head>
 <body>
     <div id="admin-nav">
-        <a href="/admin/add.php">Add Hike</a>
-        <a href="/admin/edit.php">Edit Hike</a>
-        <a href="/admin/delete.php">Delete Hike</a>
+        <a href="add.php">Add Hike</a>
+        <a href="edit.php">Edit Hike</a>
+        <a href="delete.php">Delete Hike</a>
     </div>
 
     <div id="admin-main">

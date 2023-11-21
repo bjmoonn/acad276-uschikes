@@ -217,7 +217,9 @@
         </div>
         <div class="nav-items">
             <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
-            <text class="body bold"><a href="../pages/group-page.php">Groups</a></text>
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold"><a href="../admin/index.php">Admin</a></text>
+            <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
             <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
     </div>
@@ -433,12 +435,12 @@
 </div>
 
 
-<div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png"  id="bottomLogo">
-    <div>
-        <text>Acad 276: Dev II</text>
+    <div class="footer">
+        <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
+        <div class="body">Acad 276: Dev II</div>
+        <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
+        <div class="body"><a href="../faq.html">FAQ</a></div>
     </div>
-</div>
 
 
 </body>

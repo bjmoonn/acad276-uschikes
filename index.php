@@ -12,7 +12,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php include "logged-in.php" ?>
+    <?php include "pages/logged-in.php" ?>
     <div class="main">
         <!-- Navigation -->
         <div class="nav">
@@ -21,14 +21,11 @@ session_start();
             </div>
             <div class="nav-items">
                 <text class="body bold"><a href="pages/map-page.php">Map</a></text>
-                <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
+                <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
+                <text class="body bold"><a href="admin/index.php">Admin</a></text>
+                <text class="body bold"><a href="pages/login.php">Log-in</a></text>
                 <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
             </div>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="pages/map-page.php">Map</a></text>
-            <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
-            <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
         </div>
     </div>
     <div class="headline">
@@ -161,11 +158,13 @@ session_start();
                 ?>
             </div>
         </div>
-
+        <br>
         <!-- Footer -->
         <div class="footer">
             <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
             <div class="body">Acad 276: Dev II</div>
+            <div class="body"><a href="pages/Team-page.php">The Team</a></div>
+            <div class="body"><a href="faq.html">FAQ</a></div>
         </div>
 
 </body>

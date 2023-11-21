@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION["login"] = true;
                 $_SESSION["email"] = $email;
 
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit();
             } else {
                 echo "<p>Invalid email or password.</p>";
@@ -42,14 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/login-stylesheet.css">
+    <link rel="stylesheet" href="../css/login-stylesheet.css">
     <title>Login</title>
 </head>
 <body>
 <div class="login-container">
     <h2>Login</h2>
     <div class="logo-container">
-        <img src="public/assets/icons/green logo.png" alt="Logo">
+        <img src="../public/assets/icons/green logo.png" alt="Logo">
     </div>
     <form action="login.php" method="post">
         <label for="email">Email:</label>
