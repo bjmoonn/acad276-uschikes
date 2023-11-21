@@ -6,7 +6,7 @@
     <title>Title</title>
     <meta charset="UTF-8">
     <title>USC Hikes</title>
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
 
@@ -85,7 +85,7 @@
 
     <div class="nav">
       <div class="logo">
-        <img src="public/assets/green logo.png">
+        <img src="../public/assets/icons/green logo.png">
       </div>
       <div class="nav-items">
         <text class="copy1">Map</text>
@@ -94,13 +94,14 @@
       </div>
     </div>
     <div class="divider"></div>
+    <br>
   <div class="holder">
     <div class="sidenav">
         <text class="copy1" style="font-size:32px">Nearby hikes</text>
         <div class="hike-holder-vertical">
             <div class="hike-individual-small">
                 <div class="hike-thumbnail-small">
-                    <img class="small-image" src= "hikeOnImages/image4.jpeg">
+                    <img class="small-image" src= "../public/assets/images/image4.jpeg">
                 </div>
                 <div class="hike-description">
                     <div class="hike-text">
@@ -115,7 +116,7 @@
             </div>
             <div class="hike-individual-small">
                 <div class="hike-thumbnail-small">
-                    <img class="small-image" src= "hikeOnImages/image4.jpeg">
+                    <img class="small-image" src= "../public/assets/images/image4.jpeg">
                 </div>
                 <div class="hike-description">
                     <div class="hike-text">
@@ -130,7 +131,7 @@
             </div>
             <div class="hike-individual-small">
                 <div class="hike-thumbnail-small">
-                    <img class="small-image" src= "hikeOnImages/image4.jpeg">
+                    <img class="small-image" src= "../public/assets/images/image4.jpeg">
                 </div>
                 <div class="hike-description">
                     <div class="hike-text">

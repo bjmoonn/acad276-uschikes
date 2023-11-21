@@ -2,9 +2,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Profile Page</title>
-        <link rel="stylesheet" href="css/styles.css" type="text/css">
-        <link rel="stylesheet" href="css/typography.css" type="text/css">
-        <link rel="stylesheet" href="css/colors.css" type="text/css">
+        <link rel="stylesheet" href="../css/styles.css" type="text/css">
+        <link rel="stylesheet" href="../css/typography.css" type="text/css">
+        <link rel="stylesheet" href="../css/colors.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 <!--         <script src="index.js" type="text/javascript" defer></script> -->
         <style>
@@ -76,7 +76,7 @@
         <div class="background">
             <div class="nav">
                 <div class="logo">
-                    <img src="public/assets/iconsgreen logo.png">
+                    <img src="../public/assets/icons/green logo.png">
                 </div>
                 <div class="nav-items">
                     <text class="copy1">Map</text>
@@ -89,14 +89,14 @@
         <!-- ACCOUNT NAME. PHOTO, AND BACKGROUND IMAGE-->
         <!-- BACKGROUND IMAGE -->
         <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-            <img src = "public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
+            <img src = "../public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
         </div>
         <div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
 
         <!-- ACCOUNT NAME AND PHOTO-->
         <div class = "account-header" style="padding-bottom:3rem;">
             <div style="text-align:center;">
-                <img src="public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Account Name</div>
+                <img src="../public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Account Name</div>
         </div>
 
         <div class = "profilepage-body">
@@ -146,7 +146,7 @@
 
                         <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
                             <section style="display: flex; align-items: center;">
-                                <img src="profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
+                                <img src="../public/assets/images/profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
                                 <section style="position: relative;">Account Name</section>
                             </section>
                             <section class="filterButton" style="position: relative;">Edit Profile</section>
@@ -173,7 +173,7 @@
 
                         <form action="" method="get">
                             <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;">Choose a Hike
-                                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
+                                <img src="../public/assets/icons/CaretDown.svg" class="filter-icon">
                             </div>
 
                             <div class="review">
@@ -189,7 +189,7 @@
         </div></div>
 
         <div class="footer">
-            <img src="logotype bottom.png"  id="bottomLogo">
+            <img src="../public/assets/icons/logotype bottom.png"  id="bottomLogo">
             <div>
                 <text>Acad 276: Dev II</text>
             </div>
