@@ -226,7 +226,7 @@
                 echo '
                             <div class="hike-individual">
                                 <div class="hike-thumbnail">
-                                    <img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                                    <a href="../pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                                 </div>
                                 <div class="hike-description">
                                     <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>

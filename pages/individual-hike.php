@@ -408,7 +408,7 @@
                             <img src="../public/assets/icons/profile-pic.svg">
                         </div>
                         <div class="reviewer-info">
-                            <text>Tim H.</text>
+                            <text>Hamin J.</text>
                         </div>
                     </div>
                     <text class="copy1">This was a super fun hike! Best to go in the morning when its less crowded. Also really liked the view at the top of the trail. Really hard to beat it!</text>
@@ -426,11 +426,43 @@
     <div class="divider"></div>
     <div class="recs-holder">
         <h3>Similar hikes</h3>
-        <div class="hike-row">
-            <div class="hike-individual">
-                <!--reuse hike card here-->
+        <div class="browse">
+            <div class="hike-row">
+                <?php
+                $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+                if ($mysql->connect_error) {
+                    die("Connection failed: " . $mysql->connect_error);
+                }
+                $sql = "SELECT * FROM mainView";
+                $result = $mysql->query($sql);
+                if ($result->num_rows > 0) {
+                    while($currentrow = $result->fetch_assoc()) {
+                        // PHP logic
+                        echo '
+                            <div class="hike-individual">
+                                <div class="hike-thumbnail">
+                                    <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                </div>
+                                <div class="hike-description">
+                                    <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                    <div class="body">' . $currentrow["name"] . '</div>
+                                    <div class="body">' . $currentrow["length"] . ' miles</div>
+                                    <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                    <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                        ' . $currentrow["difficulty"] . '
+                                    </div>
+                                </div>
+                            </div>
+                        ';
+                    }
+                } else {
+                    echo "<div class='body'>0 results</div>";
+                }
+                $mysql->close();
+                ?>
             </div>
         </div>
+        <br>
     </div>
 </div>
 
