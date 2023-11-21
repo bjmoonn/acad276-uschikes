@@ -126,26 +126,29 @@
     </div>
 
     <script>
-        // js for handling dropdowns
-        const dropdowns = document.querySelectorAll(".dropdown");
+    document.addEventListener('DOMContentLoaded', (event) => {
+        const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach(dropdown => {
-            dropdown.addEventListener('click', function() {
-                this.querySelector(".dropdown-content").classList.toggle('show');
-            });
+            const button = dropdown.querySelector('.dropdown-button');
+            const content = dropdown.querySelector('.dropdown-content');
+
+            button.onclick = function() {
+                content.classList.toggle('show');
+            };
         });
 
-        // Close the dropdown if the user clicks outside of it
+        // Close dropdowns when clicking outside
         window.onclick = function(event) {
             if (!event.target.matches('.dropdown-button')) {
-                let dropdownContents = document.getElementsByClassName("dropdown-content");
-                for (let i = 0; i < dropdownContents.length; i++) {
-                    let openDropdown = dropdownContents[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
+                const dropdownContents = document.querySelectorAll('.dropdown-content');
+                dropdownContents.forEach(content => {
+                    if (content.classList.contains('show')) {
+                        content.classList.remove('show');
                     }
-                }
+                });
             }
-        }
+        };
+    });
     </script>
 </body>
 </html>
