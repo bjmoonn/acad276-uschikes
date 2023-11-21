@@ -157,16 +157,55 @@ session_start();
                 } else {
                     echo "<div class='body'>0 results</div>";
                 }
-                $mysql->close();
-                ?>
-            </div>
-        </div>
 
-        <!-- Footer -->
-        <div class="footer">
-            <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
-            <div class="body">Acad 276: Dev II</div>
-        </div>
+                echo '
+                <div class="hike-individual">
+            <div class="hike-thumbnail">
+                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '">
+                <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                </a>
+            </div>
+            <div class="hike-description">
+                <div class="hike-text">
+                    <text class="location" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
+                    <text class="copy1">' . $currentrow["name"] . '</text>
+                    <text class="copy2">' . $currentrow["length"] . ' miles</text>
+                    <text class="copy2">' . $currentrow["duration"] . ' hr</text>
+                </div>
+                <div class="hike-difficulty" id="'. $difficulty .'">
+                    <text class="copy2">' . $currentrow["difficulty"] . '</text>
+                </div>
+            </div>
+        </div>   
+
+                ';
+            }
+        } else {
+            echo "0 results";
+        }
+
+        $mysql->close();
+        ?>
+
+    </div>
+
+</div>
+
+<div class="footer">
+    <img src="public/assets/logotype%20bottom.png"  id="bottomLogo">
+    <div>
+        <text>Acad 276: Dev II</text>
+    </div>
+</div>
+
+<script>
+    const dropdowns = document.querySelectorAll(".filter-label");
+
+    for (const dropdown of dropdowns) {
+        dropdown.addEventListener("mouseover", function() {
+            this.querySelector(".dropdown-wrapper").style.display = "block";
+        });
+</script>
 
 </body>
 </html>
