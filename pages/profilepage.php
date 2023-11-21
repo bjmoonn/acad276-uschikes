@@ -96,7 +96,7 @@
         <!-- ACCOUNT NAME AND PHOTO-->
         <div class = "account-header" style="padding-bottom:3rem;">
             <div style="text-align:center;">
-                <img src="../public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Account Name</div>
+                <img src="../public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Hamin Jin</div>
         </div>
 
         <div class = "profilepage-body">
@@ -128,7 +128,7 @@
                     <div class = "active">
                         <h3>Your Saved Hikes</h3>
                         <p>
-                            *insert saved hike cards*
+                            No saved hikes.
                         </p>
                     </div>
 
@@ -136,7 +136,7 @@
                     <!-- COMPLETED -->
                     <div>
                         <h3>Your Completed Hikes</h3>
-                        <p>hello</p>
+                        <p>No completed hikes. Start Hiking-On!</p>
                     </div>
 
                     <!-- SETTINGS -->
@@ -146,8 +146,8 @@
 
                         <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
                             <section style="display: flex; align-items: center;">
-                                <img src="../public/assets/images/profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
-                                <section style="position: relative;">Account Name</section>
+                                <img src="../public/assets/icons/profile-pic.svg" style="width: 3.5rem; margin-right: 3rem;">
+                                <section style="position: relative;">Hamin Jin</section>
                             </section>
                             <section class="filterButton" style="position: relative;">Edit Profile</section>
                         </section>
@@ -156,14 +156,14 @@
                         <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                             <section style="font-size:1rem;font-weight:bold;">Username</section>
                             <p><hr style="width:100%; margin:auto;"></p>
-                            <section style="margin-left:2rem; color:#999999;">user.name</section>
+                            <section style="margin-left:2rem; color:#999999;">thejinster</section>
                         </section>
 
                         <!-- email -->
                         <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                             <section style="font-size:1rem;font-weight:bold;">Email Address</section>
                             <p><hr style="width:100%; margin:auto;"></p>
-                            <section style="margin-left:2rem; color:#999999;">username@gmail.com</section>
+                            <section style="margin-left:2rem; color:#999999;">jinnyjin@usc.edu</section>
                         </section>
                     </div>
 
