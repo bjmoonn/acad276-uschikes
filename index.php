@@ -17,12 +17,12 @@ session_start();
         <!-- Navigation -->
         <div class="nav">
             <div class="logo">
-                <img src="public/assets/icons/green logo.png">
+                <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
             </div>
             <div class="nav-items">
-                <div class="body bold">Map</div>
-                <div class="body bold">Groups</div>
-                <div class="body bold">Profile</div>
+                <text class="body bold"><a href="pages/map-page.php">Map</a></text>
+                <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
+                <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
             </div>
         </div>
         <!-- Headline -->
