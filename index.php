@@ -153,8 +153,13 @@ session_start();
                 } else {
                     echo "<div class='body'>0 results</div>";
                 }
-                $mysql->close();
-                ?>
+
+                echo '
+                <div class="hike-individual">
+            <div class="hike-thumbnail">
+                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '">
+                <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                </a>
             </div>
         </div>
         <br>
@@ -165,6 +170,7 @@ session_start();
             <div class="body"><a href="pages/Team-page.php">The Team</a></div>
             <div class="body"><a href="faq.html">FAQ</a></div>
         </div>
+
 
 </body>
 </html>
