@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="main">
-    <div class="nav">
-        <div class="logo">
-            <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="pages/map-page.php">Map</a></text>
-            <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
-            <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
+    <?php include "pages/logged-in.php" ?>
+    <div class="main">
+        <!-- Navigation -->
+        <div class="nav">
+            <div class="logo">
+                <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
+            </div>
+            <div class="nav-items">
+                <text class="body bold"><a href="pages/map-page.php">Map</a></text>
+                <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
+                <text class="body bold"><a href="pages/login.php">Log-in</a></text>
+                <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
+            </div>
         </div>
     </div>
     <div class="headline">
@@ -129,7 +136,7 @@
                         echo '
                             <div class="hike-individual">
                                 <div class="hike-thumbnail">
-                                    <img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                                    <a href="pages/individual-hike.php"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                                 </div>
                                 <div class="hike-description">
                                     <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
@@ -146,17 +153,23 @@
                 } else {
                     echo "<div class='body'>0 results</div>";
                 }
-                $mysql->close();
-                ?>
+
+                echo '
+                <div class="hike-individual">
+            <div class="hike-thumbnail">
+                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '">
+                <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                </a>
             </div>
         </div>
-
+        <br>
         <!-- Footer -->
         <div class="footer">
             <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
             <div class="body"><a href="teampage.html">Acad 276: Dev II</a></div>
             <div class="body"><a href="faq.html">FAQ</a></div>
         </div>
+
 
 </body>
 </html>
