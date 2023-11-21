@@ -2,30 +2,34 @@
 <head>
     <meta charset="UTF-8">
     <title>USC Hikes</title>
-    <link rel="stylesheet" href="stylesheet.css" type="text/css">
+    <link rel="stylesheet" href="globals.css" type="text/css">
+    <link rel="stylesheet" href="typography.css" type="text/css">
+    <link rel="stylesheet" href="colors.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
-<body>
-<div class="background">
-    <div class="nav">
-        <div class="logo">
-            <img src="public/assets/green logo.png">
-        </div>
-        <div class="nav-items">
-            <text class="copy1">Map</text>
-            <text class="copy1">Groups</text>
-            <text class="copy1">Profile</text>
-        </div>
-    </div>
-    <div class="headline">
-        <text class="editorial1">Hike On!</text>
-        <text class="copy1">The ultimate hiking guide for USC students</text>
-    </div>
+    <body>
+        <div class="main">
+            <div class="nav">
+                <div class="logo">
+                    <img src="public/assets/icons/green logo.png">
+                </div>
+                <div class="nav-items">
+                    <text class="body bold">Map</text>
+                    <text class="body bold">Groups</text>
+                    <text class="body bold">Profile</text>
+                </div>
+            </div>
+            <div class="headline">
+                <div class="title">Hike On!</div>
+                <div class="body lightgrey">Thhe ultimate hiking guide for USC students</div>
+            </div>
+
+
     <form action="results.php" method="get">
         <div class="filters-holder">
             <div class="filter-label" id="difficulty">
                 <text>Difficulty </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -46,7 +50,7 @@
             <div class="vertical-lines"></div>
             <div class="filter-label">
                 <text>Distance from USC </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -67,7 +71,7 @@
             <div class="vertical-lines"></div>
             <div class="filter-label">
                 <text>Length </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -88,7 +92,7 @@
             <div class="vertical-lines"></div>
             <div class="filter-label">
                 <text>  Duration </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -183,7 +187,7 @@
 </div>
 
 <div class="footer">
-    <img src="public/assets/logotype bottom.png"  id="bottomLogo">
+    <img src="public/assets/icons/logotype bottom.png"  id="bottomLogo">
     <div>
         <text>Acad 276: Dev II</text>
     </div>

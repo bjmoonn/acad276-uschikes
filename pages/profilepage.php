@@ -2,9 +2,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Profile Page</title>
-        <link rel="stylesheet" href="stylesheet.css" type="text/css">
-<!--         <script src="index.js" type="text/javascript" defer></script> -->
+        <link rel="stylesheet" href="globals.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
+<!--         <script src="index.js" type="text/javascript" defer></script> -->
         <style>
             .background {
                 padding-bottom:0;
@@ -74,7 +74,7 @@
         <div class="background">
             <div class="nav">
                 <div class="logo">
-                    <img src="public/assets/green logo.png">
+                    <img src="public/assets/iconsgreen logo.png">
                 </div>
                 <div class="nav-items">
                     <text class="copy1">Map</text>
@@ -87,14 +87,14 @@
         <!-- ACCOUNT NAME. PHOTO, AND BACKGROUND IMAGE-->
         <!-- BACKGROUND IMAGE -->
         <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-            <img src = "public/assets/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
+            <img src = "public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
         </div>
         <div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
 
         <!-- ACCOUNT NAME AND PHOTO-->
         <div class = "account-header" style="padding-bottom:3rem;">
             <div style="text-align:center;">
-                <img src="public/assets/profile-picture.png" style="width:6rem;"><br><br>Account Name</div>
+                <img src="public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Account Name</div>
         </div>
 
         <div class = "profilepage-body">
@@ -171,7 +171,7 @@
 
                         <form action="" method="get">
                             <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;">Choose a Hike
-                                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                             </div>
 
                             <div class="review">
