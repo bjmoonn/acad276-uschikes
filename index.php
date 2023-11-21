@@ -154,7 +154,8 @@
         <!-- Footer -->
         <div class="footer">
             <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
-            <div class="body">Acad 276: Dev II</div>
+            <div class="body"><a href="teampage.html">Acad 276: Dev II</a></div>
+            <div class="body"><a href="faq.html">FAQ</a></div>
         </div>
 
 </body>
