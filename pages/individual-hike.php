@@ -213,15 +213,14 @@
 <div >
     <div class="nav">
         <div class="logo">
-            <img src="../public/assets/icons/green logo.png">
+            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
         </div>
         <div class="nav-items">
-            <text class="copy1">Map</text>
-            <text class="copy1">Groups</text>
-            <text class="copy1">Profile</text>
+            <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
+            <text class="body bold"><a href="../pages/group-page.php">Groups</a></text>
+            <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
     </div>
-</div>
 
 <div class="holder">
     <div class="individual-hero" style="background-image: url('hikeOnImages/image4.jpeg');height:60%;object-fit: cover;top:0;">
