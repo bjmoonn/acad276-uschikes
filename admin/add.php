@@ -1,4 +1,3 @@
-
 <?php
 
 $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
@@ -7,39 +6,63 @@ if ($mysql->connect_error) {
     die("Connection failed: " . $mysql->connect_error);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve data from the form
-    $name = $_POST["name"];
-    $description = $_POST["description"];
-    // Add additional fields as per your requirements
 
-    // Prepare and execute the SQL statement to insert data into the database
-    $stmt = $mysql->prepare("INSERT INTO mainView (name, description) VALUES (?, ?)");
-    $stmt->bind_param("ss", $name, $description);
-    $stmt->execute();
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    // Redirect to the main page after successful insertion
-    header("Location: index.php");
-    exit();
+    $name = $_POST['name'];
+    $latitude = $_POST['latitude'];
+    $longitude = $_POST['longitude'];
+    $length = $_POST['length'];
+    $duration = $_POST['duration'];
+    $numOfViews = $_POST['numOfViews'];
+    $difficulty = $_POST['difficulty'];
+    $comments = $_POST['comments'];
+    $terrain = $_POST['terrain'];
+    $imageURL = $_POST['imageURL'];
+
+    // Prepare an insert statement
+    $sql = "INSERT INTO mainView (name, latitude, longitude, length, duration, numOfViews, difficulty, comments, terrain, imageURL) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    if($result = $mysql->prepare($sql)) {
+        $result->bind_param("sddiisssss", $name, $latitude, $longitude, $length, $duration, $numOfViews, $difficulty, $comments, $terrain, $imageURL);
+        
+        if($result->execute()) {
+            // Redirect to admin main page or display a success message
+            header("Location: index.php");
+            exit();
+        } else {
+            echo "Error: " . $result->error;
+        }
+        // Close statement
+        $result->close();
+    } else {
+        echo "Error: " . $mysql->error;
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Hike</title>
-    <!-- Link to a different CSS ? -->
+    <title>Add New Hike</title>
 </head>
 <body>
-    <h1>Add Hike</h1>
-    <form method="POST" action="">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br>
-
-        <label for="description">Description:</label>
-        <textarea name="description" id="description" required></textarea><br>
-
-        <!-- Add additional form fields as per your requirements -->
-
-        <input type="submit" value="Add">
+    <h1>Add New Hike</h1>
+    <form action="add.php" method="post">
+        Name: <input type="text" name="name"><br>
+        Latitude: <input type="text" name="latitude"><br>
+        Longitude: <input type="text" name="longitude"><br>
+        Length: <input type="number" name="length"><br>
+        Duration: <input type="number" name="duration"><br>
+        Number of Views: <input type="number" name="numOfViews"><br>
+        Difficulty: <input type="text" name="difficulty"><br>
+        Comments: <textarea name="comments"></textarea><br>
+        Terrain: <input type="text" name="terrain"><br>
+        Image URL: <input type="text" name="imageURL"><br>
+        <input type="submit" value="Add Hike">
+    </form>
+</body>
+</html>
