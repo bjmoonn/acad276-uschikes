@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="main">
-    <div class="nav">
-        <div class="logo">
-            <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
+    <?php include "logged-in.php" ?>
+    <div class="main">
+        <!-- Navigation -->
+        <div class="nav">
+            <div class="logo">
+                <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
+            </div>
+            <div class="nav-items">
+                <text class="body bold"><a href="pages/map-page.php">Map</a></text>
+                <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
+                <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
+            </div>
         </div>
         <div class="nav-items">
             <text class="body bold"><a href="pages/map-page.php">Map</a></text>
