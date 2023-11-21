@@ -22,7 +22,7 @@ html {
 }
 
 .logo img {
-  height: 50px; /* this is not defined in your CSS but is inferred from your HTML */
+  height: 50px;
 }
 
 /* Headline Styles */
@@ -69,6 +69,7 @@ html {
 .dropdown {
   display: flex;
   align-items: center;
+  position: relative;
   padding-right: 1rem;
 }
 
@@ -95,66 +96,26 @@ html {
   cursor: pointer;
 }
 
-
-/* .filters-holder {
-  display: flex;
-  padding: 1rem 1.5rem;
-  
-}
-.filter-label {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.vertical-lines {
-  width: 1px;
-  height: 32px;
-  background: #999;
-  margin-left: 3%;
-  margin-right: 3%;
-}
-
-.search-button {
-  color: white;
-  font-weight: bold;
-  background: #3E5D15;
-  display: flex;
-  padding: 0.6rem 1.5rem;
-  align-items: center;
-  border-radius: 2.3125rem;
-  margin-left: 3%;
-}
-
-.dropdown-wrapper {
+/* Dropdown Content Styles */
+.dropdown-content {
   display: none;
-  position: relative;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.dropdown-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: absolute;
-  top: 10px;
-  right: 5px;
-  gap: 12px;
-  padding: 20px 12px;
-  border-radius: 20px;
-  background-color: white;
-  min-width: 100px;
-  z-index: 1;
-  border: 1px solid var(--ui-border, #E5E5E5);
-} */
+.dropdown-content label {
+  display: block;
+  margin: 5px 0;
+}
 
 /* Hikes Section Styles */
 .browse {
   margin: 0 1.5rem;
-}
-
-.section-title h3 {
-  font-size: 32pt;
-  font-weight: medium;
 }
 
 .hike-row {
@@ -209,28 +170,6 @@ html {
   width: 8%;
 }
 
-.hikeDisplay {
-  display: flex;
-  position: relative;
-  width: 93.75rem; /* Converted from 15vw */
-  height: 106.25rem; /* Converted from 17vw */
-  border-radius: 20px;
-  border: 1px solid #E5E5E5;
-  background: #FFFFFF;
-}
-
-.hikeDisplayInfo {
-  position: absolute;
-  width: 93.75rem; /* Converted from 15vw */
-  height: 31.25rem; /* Converted from 5vw */
-  border-radius: 0px 0px 20px 20px;
-  bottom: 0;
-  overflow: hidden;
-  padding: 12.5rem 6.25rem 6.25rem 6.25rem; /* Converted from 2vw 1vw 1vw 1vw */
-  font-size: 1rem; /* No change needed */
-}
-
-/* put inside img tag */
 .hikeDisplayImg {
   width: 100%;
   height: 100%;
@@ -238,22 +177,3 @@ html {
   object-fit: cover;
   top:0;
 }
-
-.footer {
-  width: 100%;
-  display: flex;
-  padding-top:5%;
-  padding-bottom:5%;
-  color:white;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align:center;
-  gap: 20px;
-  background: var(--brand-green, #3E5D15);
-
-}
-.navlogo{
-  width:30%;
-}
-
