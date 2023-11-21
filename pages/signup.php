@@ -50,7 +50,6 @@ session_start();
         <br>
         <input type="submit" value="Sign Up">
     </form>
-    <p class="signup-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
 </div>
 </body>
 </html>
