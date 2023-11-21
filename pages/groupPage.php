@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="../css/typography.css" type="text/css">
     <link rel="stylesheet" href="../css/colors.css" type="text/css">
-    <link rel="stylesheet" href="/pages/groupPage.module.css" type="text/css">
+    <link rel="stylesheet" href="groupPage.module.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 
 
@@ -15,12 +15,12 @@
 <div class="background">
     <div class="nav">
         <div class="logo">
-            <img src="../../green%20logo.png">
+            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
         </div>
         <div class="nav-items">
-            <text class="copy1">Map</text>
-            <text class="copy1">Groups</text>
-            <text class="copy1">Profile</text>
+            <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
     </div>
     <div class="headline">
