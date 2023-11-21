@@ -9,126 +9,112 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="main">
-        <!-- Navigation -->
-        <div class="nav">
-            <div class="logo">
-                <img src="public/assets/icons/green logo.png">
-            </div>
-            <div class="nav-items">
-                <div class="body bold">Map</div>
-                <div class="body bold">Groups</div>
-                <div class="body bold">Profile</div>
-            </div>
+<div class="main">
+    <div class="nav">
+        <div class="logo">
+            <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
         </div>
-        <!-- Headline -->
-        <div class="headline">
-            <div class="title">Hike On!</div>
-            <div class="body lightgrey">The ultimate hiking guide for USC students</div>
+        <div class="nav-items">
+            <text class="body bold"><a href="pages/map-page.php">Map</a></text>
+            <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
+            <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
         </div>
-        <!-- Filters -->
-        <form action="results.php" method="get">
-        <div class="filters-holder">
-            <!-- Difficulty Dropdown -->
-            <div class="filter-label" id="difficulty">
-                <div class="body">Difficulty</div>
-                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-inner">
-                        <div class="checkbox-holder">
-                            <label for="myDifficultyCheckbox1" class="body">Easy</label>
-                            <input type="checkbox" id="myDifficultyCheckbox1" name="Easy">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myDifficultyCheckbox2" class="body">Moderate</label>
-                            <input type="checkbox" id="myDifficultyCheckbox2" name="Moderate">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myDifficultyCheckbox3" class="body">Hard</label>
-                            <input type="checkbox" id="myDifficultyCheckbox3" name="Hard">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="vertical-lines"></div>
-
-            <!-- Distance Dropdown -->
-            <div class="filter-label">
-                <div class="body">Distance from USC</div>
-                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-inner">
-                        <div class="checkbox-holder">
-                            <label for="myDistanceCheckbox1" class="body">1-5 mi</label>
-                            <input type="checkbox" id="myDistanceCheckbox1" name="15Box">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myDistanceCheckbox2" class="body">5-20 mi</label>
-                            <input type="checkbox" id="myDistanceCheckbox2" name="520Box">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myDistanceCheckbox3" class="body">20+ mi</label>
-                            <input type="checkbox" id="myDistanceCheckbox3" name="20Box">
+    </div>
+    <div class="headline">
+        <div class="title">Hike On!</div>
+        <div class="body lightgrey">The ultimate hiking guide for USC students</div>
+    </div>
+    <form action="pages/results.php" method="get">
+        <div class="bigger-filter-container">
+            <div class="filter-container">
+                <div class="dropdown-groups">
+                    <div class="dropdown">
+                        <div class="dropdown-text body"><strong>Difficulty</strong></div>
+                        <div class="dropdown-wrapper">
+                            <div class="dropdown-inner">
+                                <div class="checkbox-holder">
+                                    <label for="myDifficultyCheckbox1" class="copy1 lightgrey">Easy</label>
+                                    <input type="checkbox" id="Easy" name="Easy">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myDifficultyCheckbox2" class="copy1 lightgrey">Moderate</label>
+                                    <input type="checkbox" id="Moderate" name="Moderate">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myDifficultyCheckbox3" class="copy1 lightgrey">Hard</label>
+                                    <input type="checkbox" id="Hard" name="Hard">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="vertical-lines"></div>
-
-            <!-- Length Dropdown -->
-            <div class="filter-label">
-                <div class="body">Length</div>
-                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-inner">
-                        <div class="checkbox-holder">
-                            <label for="myLengthCheckbox1" class="body">1-5 mi</label>
-                            <input type="checkbox" id="myLengthCheckbox1" name="15">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myLengthCheckbox2" class="body">5-10 mi</label>
-                            <input type="checkbox" id="myLengthCheckbox2" name="510">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myLengthCheckbox3" class="body">10+ mi</label>
-                            <input type="checkbox" id="myLengthCheckbox3" name="10">
+                    <div class="dropdown">
+                        <div class="dropdown-text body"><strong>From USC</strong></div>
+                        <div class="dropdown-wrapper">
+                            <div class="dropdown-inner">
+                                <div class="checkbox-holder">
+                                    <label for="myDistanceCheckbox1" class="copy1 lightgrey">1-5 mi</label>
+                                    <input type="checkbox" id="15Box" name="15Box">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myDistanceCheckbox2" class="copy1 lightgrey">5-20 mi</label>
+                                    <input type="checkbox" id="520Box" name="520Box">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myDistanceCheckbox3" class="copy1 lightgrey">20+ mi</label>
+                                    <input type="checkbox" id="20Box" name="20Box">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="vertical-lines"></div>
-
-            <!-- Duration Dropdown -->
-            <div class="filter-label">
-                <div class="body">Duration</div>
-                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
-                <div class="dropdown-wrapper">
-                    <div class="dropdown-inner">
-                        <div class="checkbox-holder">
-                            <label for="myDurationCheckbox1" class="body">0-1 hr</label>
-                            <input type="checkbox" id="myDurationCheckbox1" name="1">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myDurationCheckbox2" class="body">1-2 hrs</label>
-                            <input type="checkbox" id="myDurationCheckbox2" name="12">
-                        </div>
-                        <div class="checkbox-holder">
-                            <label for="myDurationCheckbox3" class="body">2+ hrs</label>
-                            <input type="checkbox" id="myDurationCheckbox3" name="2">
+                    <div class="dropdown">
+                        <div class="dropdown-text body"><strong>Length</strong></div>
+                        <div class="dropdown-wrapper">
+                            <div class="dropdown-inner">
+                                <div class="checkbox-holder">
+                                    <label for="myLengthCheckbox1" class="copy1 lightgrey">1-5 mi</label>
+                                    <input type="checkbox" id="15" name="15">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myLengthCheckbox2" class="copy1 lightgrey">5-10 mi</label>
+                                    <input type="checkbox" id="510" name="510">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myLengthCheckbox3" class="copy1 lightgrey">10+ mi</label>
+                                    <input type="checkbox" id="10" name="10">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    <div class="dropdown">
+                        <div class="dropdown-text body"><strong>Duration</strong></div>
+                        <div class="dropdown-wrapper">
+                            <div class="dropdown-inner">
+                                <div class="checkbox-holder">
+                                    <label for="myDurationCheckbox1" class="copy1 lightgrey">0-1 hr</label>
+                                    <input type="checkbox" id="1" name="1">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myLengthCheckbox2" class="copy1 lightgrey">1-2 hrs</label>
+                                    <input type="checkbox" id="12" name="12">
+                                </div>
+                                <div class="checkbox-holder">
+                                    <label for="myLengthCheckbox3" class="copy1 lightgrey">2+ hrs</label>
+                                    <input type="checkbox" id="2" name="2">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="search-button">Search</button>
                 </div>
             </div>
-
-            <input type="submit" value="Search" class="search-button">
         </div>
     </form>
+</div>
 
-        <!-- Browse Section -->
-        <div class="browse">
-            <div class="heading">
-                <div class="title">All Hikes</div>
-            </div>
+<div class="browse">
+    <div class="heading">
+        <h3>All Hikes</h3>
+    </div>
             <div class="hike-row">
                 <?php
                 $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
@@ -170,25 +156,6 @@
             <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
             <div class="body">Acad 276: Dev II</div>
         </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const dropdowns = document.querySelectorAll(".filter-label");
-
-            dropdowns.forEach(dropdown => {
-                const icon = dropdown.querySelector('.filter-icon');
-                const dropdownContent = dropdown.querySelector('.dropdown-wrapper');
-
-                icon.addEventListener("mouseover", function() {
-                    dropdownContent.style.display = "block";
-                });
-
-                icon.addEventListener("mouseout", function() {
-                    dropdownContent.style.display = "none";
-                });
-            });
-        });
-    </script>
 </body>
 </html>
