@@ -149,11 +149,13 @@ if ($result->num_rows > 0) {
                                 </div>
                             </div>
                         ';
-    }
-} else {
-    echo "<div class='body'>0 results</div>";
-}
-?>
+                    }
+                } else {
+                    echo "<div class='body'>0 results</div>";
+                }
+                ?>
+            </div>
+
         </div>
     </div>
         <br>
