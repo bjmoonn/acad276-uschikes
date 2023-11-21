@@ -2,9 +2,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Profile Page</title>
-        <link rel="stylesheet" href="stylesheet.css" type="text/css">
-<!--         <script src="index.js" type="text/javascript" defer></script> -->
+        <link rel="stylesheet" href="globals.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
+<!--         <script src="index.js" type="text/javascript" defer></script> -->
         <style>
             .background {
                 padding-bottom:0;
