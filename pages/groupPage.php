@@ -5,22 +5,22 @@
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="../css/typography.css" type="text/css">
     <link rel="stylesheet" href="../css/colors.css" type="text/css">
-    <link rel="stylesheet" href="/pages/groupPage.module.css" type="text/css">
+    <link rel="stylesheet" href="groupPage.module.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 
 
 </head>
 <body>
 
-<div class="background">
     <div class="nav">
         <div class="logo">
-            <img src="../../green%20logo.png">
+            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
         </div>
         <div class="nav-items">
-            <text class="copy1">Map</text>
-            <text class="copy1">Groups</text>
-            <text class="copy1">Profile</text>
+            <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
+            <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
     </div>
     <div class="headline">
@@ -32,7 +32,6 @@
         <div class="featured">Featured</div>
         <div class="filtersbutton "> Filters </div>
     </div>
-</div>
 
 <div class="break"></div>
 
@@ -134,12 +133,12 @@
 
 
 
-    <div class="footer">
-        <img src="logotype bottom.png"  id="bottomLogo">
-        <div>
-            <text>Acad 276: Dev II</text>
-        </div>
-    </div>
+<div class="footer">
+    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
+    <div class="body">Acad 276: Dev II</div>
+    <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
+    <div class="body"><a href="../faq.html">FAQ</a></div>
+</div>
 
 </body>
 </html>

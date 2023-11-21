@@ -7,7 +7,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="css/login-stylesheet.css">
+    <link rel="stylesheet" href="../css/login-stylesheet.css">
 </head>
 <body>
     <?php include "logged-in.php" ?>
@@ -39,7 +39,7 @@ session_start();
     ?>
 
     <div class="logo-container">
-        <img src="public/assets/icons/green logo.png" alt="Logo">
+        <img src="../public/assets/icons/green logo.png" alt="Logo">
     </div>
     <form method="post" action="signup.php">
         <label for="email">Email:</label>
@@ -50,7 +50,6 @@ session_start();
         <br>
         <input type="submit" value="Sign Up">
     </form>
-    <p class="signup-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
 </div>
 </body>
 </html>

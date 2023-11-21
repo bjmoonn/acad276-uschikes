@@ -12,7 +12,7 @@ session_start();
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <?php include "logged-in.php" ?>
+    <?php include "pages/logged-in.php" ?>
     <div class="main">
         <!-- Navigation -->
         <div class="nav">
@@ -21,14 +21,10 @@ session_start();
             </div>
             <div class="nav-items">
                 <text class="body bold"><a href="pages/map-page.php">Map</a></text>
-                <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
+                <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
+                <text class="body bold"><a href="pages/login.php">Log-in</a></text>
                 <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
             </div>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="pages/map-page.php">Map</a></text>
-            <text class="body bold"><a href="pages/group-page.php">Groups</a></text>
-            <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
         </div>
     </div>
     <div class="headline">
@@ -140,7 +136,7 @@ session_start();
                         echo '
                             <div class="hike-individual">
                                 <div class="hike-thumbnail">
-                                    <img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                                    <a href="pages/individual-hike.php"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                                 </div>
                                 <div class="hike-description">
                                     <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
@@ -165,47 +161,16 @@ session_start();
                 <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
                 </a>
             </div>
-            <div class="hike-description">
-                <div class="hike-text">
-                    <text class="location" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
-                    <text class="copy1">' . $currentrow["name"] . '</text>
-                    <text class="copy2">' . $currentrow["length"] . ' miles</text>
-                    <text class="copy2">' . $currentrow["duration"] . ' hr</text>
-                </div>
-                <div class="hike-difficulty" id="'. $difficulty .'">
-                    <text class="copy2">' . $currentrow["difficulty"] . '</text>
-                </div>
-            </div>
-        </div>   
+        </div>
+        <br>
+        <!-- Footer -->
+        <div class="footer">
+            <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
+            <div class="body">Acad 276: Dev II</div>
+            <div class="body"><a href="pages/Team-page.php">The Team</a></div>
+            <div class="body"><a href="faq.html">FAQ</a></div>
+        </div>
 
-                ';
-            }
-        } else {
-            echo "0 results";
-        }
-
-        $mysql->close();
-        ?>
-
-    </div>
-
-</div>
-
-<div class="footer">
-    <img src="public/assets/logotype%20bottom.png"  id="bottomLogo">
-    <div>
-        <text>Acad 276: Dev II</text>
-    </div>
-</div>
-
-<script>
-    const dropdowns = document.querySelectorAll(".filter-label");
-
-    for (const dropdown of dropdowns) {
-        dropdown.addEventListener("mouseover", function() {
-            this.querySelector(".dropdown-wrapper").style.display = "block";
-        });
-</script>
 
 </body>
 </html>

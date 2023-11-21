@@ -15,11 +15,12 @@
         </div>
         <div class="nav-items">
             <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
-            <text class="body bold"><a href="../pages/group-page.php">Groups</a></text>
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
             <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
     </div>
-    <form action="pages/results.php" method="get">
+    <form action="results.php" method="post">
         <div class="bigger-filter-container">
             <div class="filter-container">
                 <div class="dropdown-groups">
@@ -108,7 +109,7 @@
 </div>
 
 <div class="browse">
-    <div class="section-title">
+    <div class="heading">
         <h3>Search Results</h3>
     </div>
     <div class="hike-row">
@@ -222,24 +223,21 @@
                     $difficulty = "hardTag";
                 }
                 echo '
-                
-                <div class="hike-individual">
-            <div class="hike-thumbnail">
-                <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
-            </div>
-            <div class="hike-description">
-                <div class="hike-text">
-                    <text class="copy1 hike-reviewer" >' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</text>
-                    <text class="copy1">' . $currentrow["name"] . '</text>
-                    <text class="copy1">' . $currentrow["length"] . ' miles</text>
-                    <text class="copy1">' . $currentrow["duration"] . ' hr</text>
-                </div>
-                <div class="hike-difficulty" id="'. $difficulty .'">
-                    <text class="copy1">' . $currentrow["difficulty"] . '</text>
-                </div>
-            </div>
-        </div>   
-                ';
+                            <div class="hike-individual">
+                                <div class="hike-thumbnail">
+                                    <a href="../pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                </div>
+                                <div class="hike-description">
+                                    <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                    <div class="body">' . $currentrow["name"] . '</div>
+                                    <div class="body">' . $currentrow["length"] . ' miles</div>
+                                    <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                    <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                        ' . $currentrow["difficulty"] . '
+                                    </div>
+                                </div>
+                            </div>
+                        ';
             }
         } else {
             echo "0 results";
@@ -251,12 +249,13 @@
     </div>
 
 </div>
+<br>
 
 <div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png"  id="bottomLogo">
-    <div>
-        <text>Acad 276: Dev II</text>
-    </div>
+    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
+    <div class="body">Acad 276: Dev II</div>
+    <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
+    <div class="body"><a href="../faq.html">FAQ</a></div>
 </div>
 
 </body>
