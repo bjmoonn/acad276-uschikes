@@ -1,18 +1,18 @@
 <?php
 session_start();
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>USC Hikes</title>
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
-    <link rel="stylesheet" href="css/typography.css" type="text/css">
-    <link rel="stylesheet" href="css/colors.css" type="text/css">
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
-</head>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>USC Hikes</title>
+        <link rel="stylesheet" href="css/styles.css" type="text/css">
+        <link rel="stylesheet" href="css/typography.css" type="text/css">
+        <link rel="stylesheet" href="css/colors.css" type="text/css">
+        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
+    </head>
 <body>
-    <?php include "pages/logged-in.php" ?>
+<?php include "pages/logged-in.php" ?>
     <div class="main">
         <!-- Navigation -->
         <div class="nav">
@@ -116,24 +116,24 @@ session_start();
             </div>
         </div>
     </form>
-</div>
-
-<div class="browse">
-    <div class="heading">
-        <h3>All Hikes</h3>
     </div>
-            <div class="hike-row">
-                <?php
-                $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
-                if ($mysql->connect_error) {
-                    die("Connection failed: " . $mysql->connect_error);
-                }
-                $sql = "SELECT * FROM mainView";
-                $result = $mysql->query($sql);
-                if ($result->num_rows > 0) {
-                    while($currentrow = $result->fetch_assoc()) {
-                        // PHP logic
-                        echo '
+
+    <div class="browse">
+        <div class="heading">
+            <h3>All Hikes</h3>
+        </div>
+        <div class="hike-row">
+<?php
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+$sql = "SELECT * FROM mainView";
+$result = $mysql->query($sql);
+if ($result->num_rows > 0) {
+    while($currentrow = $result->fetch_assoc()) {
+        // PHP logic
+        echo '
                             <div class="hike-individual">
                                 <div class="hike-thumbnail">
                                     <a href="pages/individual-hike.php"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
@@ -155,13 +155,14 @@ session_start();
                 }
                 ?>
             </div>
+
         </div>
+    </div>
         <br>
         <!-- Footer -->
         <div class="footer">
             <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
-            <div class="body">Acad 276: Dev II</div>
-            <div class="body"><a href="pages/Team-page.php">The Team</a></div>
+            <div class="body"><a href="teampage.html">Acad 276: Dev II</a></div>
             <div class="body"><a href="faq.html">FAQ</a></div>
         </div>
 
