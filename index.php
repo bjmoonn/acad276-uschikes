@@ -153,13 +153,7 @@ session_start();
                 } else {
                     echo "<div class='body'>0 results</div>";
                 }
-
-                echo '
-                <div class="hike-individual">
-            <div class="hike-thumbnail">
-                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '">
-                <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
-                </a>
+                ?>
             </div>
         </div>
         <br>
