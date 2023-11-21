@@ -19,7 +19,6 @@
         <div class="nav-items">
             <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
             <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold"><a href="../admin/index.php">Admin</a></text>
             <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
             <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
