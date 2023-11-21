@@ -24,12 +24,12 @@
                 <div class="body lightgrey">Thhe ultimate hiking guide for USC students</div>
             </div>
 
-            
+
     <form action="results.php" method="get">
         <div class="filters-holder">
             <div class="filter-label" id="difficulty">
                 <text>Difficulty </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -50,7 +50,7 @@
             <div class="vertical-lines"></div>
             <div class="filter-label">
                 <text>Distance from USC </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -71,7 +71,7 @@
             <div class="vertical-lines"></div>
             <div class="filter-label">
                 <text>Length </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -92,7 +92,7 @@
             <div class="vertical-lines"></div>
             <div class="filter-label">
                 <text>  Duration </text>
-                <img src="public/assets/CaretDown.svg" class="filter-icon">
+                <img src="public/assets/icons/CaretDown.svg" class="filter-icon">
                 <div class="dropdown-wrapper">
                     <div class="dropdown-inner">
                         <div class="checkbox-holder">
@@ -187,7 +187,7 @@
 </div>
 
 <div class="footer">
-    <img src="public/assets/logotype bottom.png"  id="bottomLogo">
+    <img src="public/assets/icons/logotype bottom.png"  id="bottomLogo">
     <div>
         <text>Acad 276: Dev II</text>
     </div>

@@ -211,7 +211,7 @@
 <div >
     <div class="nav">
         <div class="logo">
-            <img src="public/assets/green logo.png">
+            <img src="public/assets/icons/green logo.png">
         </div>
         <div class="nav-items">
             <text class="copy1">Map</text>
@@ -229,24 +229,24 @@
                 <h3 style="line-height:0px">Hollywood Sign Hike</h3>
                 <div class="individual-hero-details">
                     <div class="icon-text">
-                        <img src="public/assets/map-pin.svg" class="icon">
+                        <img src="public/assets/icons/map-pin.svg" class="icon">
                         <text class="copy1">North Hollywood</text>
                     </div>
                     <div class="icon-text">
-                        <img src="public/assets/road.svg" class="icon">
+                        <img src="public/assets/icons/road.svg" class="icon">
                         <text class="copy1">2.5 mi away</text>
                     </div>
                 </div>
                 <div class="stars">
-                    <img src="public/assets/star.svg" class="icon">
-                    <img src="public/assets/star.svg" class="icon">
-                    <img src="public/assets/star.svg" class="icon">
-                    <img src="public/assets/star.svg" class="icon">
+                    <img src="public/assets/icons/star.svg" class="icon">
+                    <img src="public/assets/icons/star.svg" class="icon">
+                    <img src="public/assets/icons/star.svg" class="icon">
+                    <img src="public/assets/icons/star.svg" class="icon">
                 </div>
             </div>
 
             <button class="search-button">
-                <img src="public/assets/heart-empty.svg" class="icon">
+                <img src="public/assets/icons/heart-empty.svg" class="icon">
                 <span class="btn-text">Like</span>
             </button>
         </div>
@@ -265,21 +265,21 @@
                     <text class="caption1">Details</text>
                     <div class="info-list">
                         <div class="info-content">
-                            <img src="public/assets/footprints.svg" class="icon">
+                            <img src="public/assets/icons/footprints.svg" class="icon">
                             <div class="info-text">
                                 <text style="color:#999">Trail Length:</text>
                                 <text>3.3 mi.</text>
                             </div>
                         </div>
                         <div class="info-content">
-                            <img src="public/assets/mountains.svg" class="icon">
+                            <img src="public/assets/icons/mountains.svg" class="icon">
                             <div class="info-text">
                                 <text style="color:#999">Elevation:</text>
                                 <text>1250 ft.</text>
                             </div>
                         </div>
                         <div class="info-content">
-                            <img src="public/assets/car.svg" class="icon">
+                            <img src="public/assets/icons/car.svg" class="icon">
                             <div class="info-text">
                                 <text style="color:#999">Parking:</text>
                                 <text>3200 Canyon Dr, Los Angeles, CA.</text>
@@ -292,7 +292,7 @@
                     <text class="caption1">Weather</text>
                     <div class="weather-content">
                         <div class="weather-icons">
-                            <img src="public/assets/sun.svg" style="width:48px">
+                            <img src="public/assets/icons/sun.svg" style="width:48px">
                             <text class="temperature-colored" style ="font-size:48px; color:#EE8100;">76°F</text>
                         </div>
                         <div class="weather-info">
@@ -402,7 +402,7 @@
                 <div class="review-inner">
                     <div class="reviewer">
                         <div class="profile">
-                            <img src="public/assets/profile-pic.svg">
+                            <img src="public/assets/icons/profile-pic.svg">
                         </div>
                         <div class="reviewer-info">
                             <text>Tim H.</text>
@@ -410,10 +410,10 @@
                     </div>
                     <text class="copy1">This was a super fun hike! Best to go in the morning when its less crowded. Also really liked the view at the top of the trail. Really hard to beat it!</text>
                     <div class="stars">
-                        <img src="public/assets/star.svg" class="icon">
-                        <img src="public/assets/star.svg" class="icon">
-                        <img src="public/assets/star.svg" class="icon">
-                        <img src="public/assets/star.svg" class="icon">
+                        <img src="public/assets/icons/star.svg" class="icon">
+                        <img src="public/assets/icons/star.svg" class="icon">
+                        <img src="public/assets/icons/star.svg" class="icon">
+                        <img src="public/assets/icons/star.svg" class="icon">
                     </div>
                 </div>
             </div>
@@ -433,7 +433,7 @@
 
 
 <div class="footer">
-    <img src="public/assets/logotype bottom.png"  id="bottomLogo">
+    <img src="public/assets/icons/logotype bottom.png"  id="bottomLogo">
     <div>
         <text>Acad 276: Dev II</text>
     </div>
