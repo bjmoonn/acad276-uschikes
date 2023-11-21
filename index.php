@@ -152,10 +152,11 @@
                     $difficulty = "hardTag";
                 }
                 echo '
-                
                 <div class="hike-individual">
             <div class="hike-thumbnail">
+                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '">
                 <img src="hikeOnImages/' . $currentrow["imageURL"] . '" class="hikeDisplayImg">
+                </a>
             </div>
             <div class="hike-description">
                 <div class="hike-text">
@@ -169,6 +170,7 @@
                 </div>
             </div>
         </div>   
+
                 ';
             }
         } else {
