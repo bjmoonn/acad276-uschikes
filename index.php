@@ -137,10 +137,10 @@ if ($result->num_rows > 0) {
         echo '
                             <div class="hike-individual">
                                 <div class="hike-thumbnail">
-                                    <a href="pages/individual-hike.php"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                    <a href="pages/individual-hike.php?hikeid=' . $currentrow["hikeID"] . '"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                                 </div>
                                 <div class="hike-description">
-                                    <div class="meta">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                    <div class="meta hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . -$currentrow["longitude"] . ' W' . '</div>
                                     <div class="body">' . $currentrow["name"] . '</div>
                                     <div class="body">' . $currentrow["length"] . ' miles</div>
                                     <div class="body">' . $currentrow["duration"] . ' hr</div>
