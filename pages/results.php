@@ -1,3 +1,31 @@
+<?php
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+
+$results_per_page = 10;
+
+$sql="SELECT COUNT(hikeID) AS total FROM mainView";
+$result = $mysql->query($sql);
+$row = $result->fetch_assoc();
+$number_of_results = $row['total'];
+
+$number_of_pages = ceil($number_of_results / $results_per_page);
+
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
+$start_from = ($page-1) * $results_per_page;
+
+$sql = "SELECT * FROM mainView LIMIT " . $start_from . ", " . $results_per_page;
+$result = $mysql->query($sql);
+?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,6 +47,10 @@
             <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
             <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
         </div>
+    </div>
+    <div class="headline">
+        <div class="title">Results</div>
+        <div class="body lightgrey">You have 0 results available.</div>
     </div>
     <form action="results.php" method="post">
         <div class="bigger-filter-container">
@@ -112,152 +144,76 @@
     <div class="heading">
         <h3>Search Results</h3>
     </div>
-    <div class="hike-row">
-
+    <table class="hike-table">
         <?php
-        $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
-
-        if ($mysql->connect_error) {
-            die("Connection failed: " . $mysql->connect_error);
-        }
-
-        $sql = "SELECT * FROM mainView ";
-        if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-            $sql .= "WHERE ";
-        }
-        //Difficulty
-        if(isset($_REQUEST['Easy'])){
-            $sql .= "(difficulty = 'Easy' ";
-            if(isset($_REQUEST['Moderate'])){
-                $sql .= "OR difficulty = 'Moderate' ";
-            }
-            if(isset($_REQUEST['Hard'])){
-                $sql .= "OR difficulty = 'Hard' ";
-            }
-            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['Moderate'])){
-            $sql .= "(difficulty = 'Moderate' ";
-            if(isset($_REQUEST['Hard'])){
-                $sql .= "OR difficulty = 'Hard' ";
-            }
-            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['Hard'])){
-            $sql .= "(difficulty = 'Hard' ";
-            if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-                $sql .= ") AND ";
-            }
-        }
-
-        //Length
-        if(isset($_REQUEST['15'])){
-            $sql .= "(length <= 5 ";
-            if(isset($_REQUEST['510'])){
-                $sql .= "OR (length >= 5 AND length <= 10) ";
-            }
-            if(isset($_REQUEST['10'])){
-                $sql .= "OR 10 <= length ";
-            }
-            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['510'])){
-            $sql .= "((length >= 5 AND length <= 10) ";
-            if(isset($_REQUEST['10'])){
-                $sql .= "OR 10 <= length ";
-            }
-            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
-                $sql .= ") AND ";
-            }
-        }
-        else if(isset($_REQUEST['50'])){
-            $sql .= "(10 <= length ";
-            if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
-                $sql .= ") AND ";
-            }
-        }
-
-        //Duration
-        if(isset($_REQUEST['1'])){
-            $sql .= "(duration <= 1 ";
-            if(isset($_REQUEST['12'])){
-                $sql .= "OR (duration >= 1 AND duration <= 2) ";
-            }
-            if(isset($_REQUEST['2'])){
-                $sql .= "OR 2 <= duration ";
-            }
-        }
-        else if(isset($_REQUEST['12'])){
-            $sql .= "((duration >= 1 AND duration <= 2) ";
-            if(isset($_REQUEST['2'])){
-                $sql .= "OR 2 <= duration ";
-            }
-        }
-        else if(isset($_REQUEST['2'])){
-            $sql .= "(2 <= duration ";
-        }
-
-        if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['1']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
-            $sql .= ");";
-        }
-
-        $result = $mysql->query($sql);
-
         if ($result) {
-            // output data of each row
+            $count = 0; // Counter for the number of results displayed
             while($currentrow = $result->fetch_assoc()) {
-                $difficulty = "wow";
-                if($currentrow["difficulty"] == "Easy"){
-                    $difficulty = "easyTag";
-                }
-                else if($currentrow["difficulty"] == "Moderate"){
-                    $difficulty = "mediumTag";
-                }
-                else if($currentrow["difficulty"] == "Hard"){
-                    $difficulty = "hardTag";
+                if ($count % 5 == 0) {
+                    echo '<tr>';
                 }
                 echo '
-                            <div class="hike-individual">
-                                <div class="hike-thumbnail">
-                                    <a href="../pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
-                                </div>
-                                <div class="hike-description">
-                                    <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
-                                    <div class="body">' . $currentrow["name"] . '</div>
-                                    <div class="body">' . $currentrow["length"] . ' miles</div>
-                                    <div class="body">' . $currentrow["duration"] . ' hr</div>
-                                    <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
-                                        ' . $currentrow["difficulty"] . '
-                                    </div>
+                    <td>
+                        <div class="hike-individual">
+                            <div class="hike-thumbnail">
+                                <a href="../pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                            </div>
+                            <div class="hike-description">
+                                <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                <div class="body">' . $currentrow["name"] . '</div>
+                                <div class="body">' . $currentrow["length"] . ' miles</div>
+                                <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                    ' . $currentrow["difficulty"] . '
                                 </div>
                             </div>
-                        ';
+                        </div>
+                    </td>
+                ';
+
+                $count++;
+                if ($count % 5 == 0) {
+                    echo '</tr>';
+                }
+            }
+            if ($count % 5 != 0) {
+                while ($count % 5 != 0) {
+                    echo '<td></td>';
+                    $count++;
+                }
+                echo '</tr>';
             }
         } else {
-            echo "0 results";
+            echo "<tr><td colspan='5'>No results found</td></tr>";
         }
-
-        $mysql->close();
         ?>
+    </table> 
 
+
+    <div class="pagination">
+      <?php
+      for ($page=1; $page<=$number_of_pages; $page++) {
+          echo '<a href="results.php?page=' . $page . '">' . $page . '</a> ';
+      }
+      ?>
     </div>
-
 </div>
+
+
 <br>
 
 <div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-    <div class="body">Acad 276: Dev II</div>
-    <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
-    <div class="body"><a href="../faq.html">FAQ</a></div>
+    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+    <div class="footer-links">
+        <a href="../pages/teampage.php">Team</a>
+        <a href="../pages/faq.html">FAQ</a>
+    </div>
 </div>
-
 </body>
 
 </html>
+
+
+<?php
+$mysql->close();
+?>
