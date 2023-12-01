@@ -10,6 +10,15 @@ session_start();
         <link rel="stylesheet" href="css/typography.css" type="text/css">
         <link rel="stylesheet" href="css/colors.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-9M94LZNHV6"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-9M94LZNHV6');
+        </script>
     </head>
 <body>
 <!-- <?php include "pages/logged-in.php" ?> -->
