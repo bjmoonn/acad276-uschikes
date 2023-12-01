@@ -229,6 +229,8 @@ while($currentrow = $result->fetch_assoc()) {
     $h_diff = $currentrow["difficulty"];
     $h_lat = $currentrow["lattitude"];
     $h_long = $currentrow["longitude"];
+
+    $currentrow["numOfViews"] += 1;
 }
 }
 
