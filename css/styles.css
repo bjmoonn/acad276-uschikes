@@ -5,6 +5,15 @@ html {
   font-size: 16px;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 /* Navbar Styles */
 .nav {
   display: flex;
@@ -124,7 +133,7 @@ html {
 
 /* Hikes Section Styles */
 .browse {
-  margin: 0 1.5rem;
+  margin: 4rem 1.5rem;
 }
 
 .hike-row {
@@ -136,7 +145,7 @@ html {
 
 .hike-individual {
   display: flex;
-  width: 37%;
+  width: 20rem;
   flex-direction: column;
   align-items: flex-start;
   flex-shrink: 0;
@@ -153,30 +162,32 @@ html {
 
 .hike-description {
   display: flex;
-  padding: 16px;
+  padding: 1rem;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
-  align-self: stretch;
+  gap: 1rem;
 }
 
 /* Footer Styles */
 .footer {
-  width: 100%;
+  width: auto;
   display: flex;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  color: white;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  gap: 20px;
+  justify-content: space-between;
+  flex-direction: row;
+  padding: 1rem 1.5rem;
   background: var(--brand-green, #3E5D15);
 }
 
-#bottomLogo {
-  width: 8%;
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+  color: white;
+}
+
+.footer-logo {
+  width: 5rem;
 }
 
 .hikeDisplayImg {

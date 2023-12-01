@@ -1,6 +1,10 @@
 # macOS DS_Store file
 .DS_Store
 
+# .idea folder
+.idea
+
 # env files
 .env
 .env.local
+
