@@ -230,7 +230,8 @@ while($currentrow = $result->fetch_assoc()) {
     $h_lat = $currentrow["lattitude"];
     $h_long = $currentrow["longitude"];
 
-    $currentrow["numOfViews"] += 1;
+    $sql2 = "UPDATE mainView SET " . " numOfViews = " . $currentrow["numOfViews"] . " + 1 WHERE hikeID = " . $currentrow["hikeID"];
+    $mysql->query($sql2);
 }
 }
 
