@@ -121,7 +121,7 @@ session_start();
 
     <div class="browse">
         <div class="heading">
-            <h3>All Hikes</h3>
+            <h3>Popular Hikes</h3>
         </div>
         <div class="hike-row">
 <?php
@@ -129,12 +129,14 @@ $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", 
 if ($mysql->connect_error) {
     die("Connection failed: " . $mysql->connect_error);
 }
-$sql = "SELECT * FROM mainView";
+$sql = "SELECT * FROM mainView ORDER BY numOfViews DESC";
 $result = $mysql->query($sql);
+$resultCount = 0;
 if ($result->num_rows > 0) {
     while($currentrow = $result->fetch_assoc()) {
-        // PHP logic
-        echo '
+        $resultCount++;
+        if($resultCount<=10){
+            echo '
                             <div class="hike-individual">
                                 <div class="hike-thumbnail">
                                     <a href="pages/individual-hike.php"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
@@ -150,16 +152,18 @@ if ($result->num_rows > 0) {
                                 </div>
                             </div>
                         ';
-                    }
-                } else {
-                    echo "<div class='body'>0 results</div>";
-                }
-                ?>
+        }
+    }
+} else {
+    echo "<div class='body'>0 results</div>";
+}
+?>
             </div>
 
         </div>
     </div>
         <br>
+<br>
         <!-- Footer -->
         <div class="footer">
             <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
