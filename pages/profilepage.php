@@ -190,11 +190,12 @@
         </div></div>
 
         <div class="footer">
-            <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-            <div class="body">Acad 276: Dev II</div>
-            <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
-            <div class="body"><a href="../faq.html">FAQ</a></div>
-        </div>
+    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+    <div class="footer-links">
+        <a href="../pages/teampage.php">Team</a>
+        <a href="../pages/faq.html">FAQ</a>
+    </div>
+</div>
 
         <script>
             let tabHeader = document.getElementsByClassName("tab-header")[0];

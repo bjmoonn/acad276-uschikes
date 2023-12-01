@@ -140,12 +140,13 @@
 </div>
 
 
-<div class="footer">
-    <img src="logotype bottom.png"  id="bottomLogo">
-    <div>
-        <text>Acad 276: Dev II</text>
-    </div>
-</div>
+        <div class="footer">
+            <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+            <div class="footer-links">
+                <a href="../pages/teampage.php">Team</a>
+                <a href="../pages/faq.html">FAQ</a>
+            </div>
+        </div>
 
 </body>
 </html>

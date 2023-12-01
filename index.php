@@ -14,7 +14,7 @@ session_start();
 <body>
 <!-- <?php include "pages/logged-in.php" ?> -->
     <div class="main">
-        <!-- Navigation -->
+
         <div class="nav">
             <div class="logo">
                 <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
@@ -167,7 +167,6 @@ if ($result->num_rows > 0) {
                 <a href="../pages/teampage.php">Team</a>
                 <a href="../pages/faq.html">FAQ</a>
             </div>
-            
         </div>
 
 
