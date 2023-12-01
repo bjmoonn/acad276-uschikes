@@ -12,7 +12,7 @@ session_start();
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
     </head>
 <body>
-<?php include "pages/logged-in.php" ?>
+<!-- <?php include "pages/logged-in.php" ?> -->
     <div class="main">
         <!-- Navigation -->
         <div class="nav">
@@ -23,7 +23,8 @@ session_start();
                 <text class="body bold"><a href="pages/map-page.php">Map</a></text>
                 <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
                 <text class="body bold"><a href="pages/login.php">Log-in</a></text>
-                <text class="body bold"><a href="pages/profilepage.php">Profile</a></text>
+                <text class="body bold"><a href="pages/profilepage.php">Your Profile</a></text>
+                <!-- login/profile button to be changed to dynamic when log in flow is complete -->
             </div>
         </div>
     </div>
@@ -139,7 +140,7 @@ if ($result->num_rows > 0) {
                                     <a href="pages/individual-hike.php"><img src="public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                                 </div>
                                 <div class="hike-description">
-                                    <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                    <div class="meta">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
                                     <div class="body">' . $currentrow["name"] . '</div>
                                     <div class="body">' . $currentrow["length"] . ' miles</div>
                                     <div class="body">' . $currentrow["duration"] . ' hr</div>
@@ -161,9 +162,12 @@ if ($result->num_rows > 0) {
         <br>
         <!-- Footer -->
         <div class="footer">
-            <img src="public/assets/icons/logotype bottom.png" id="bottomLogo">
-            <div class="body"><a href="teampage.html">Acad 276: Dev II</a></div>
-            <div class="body"><a href="faq.html">FAQ</a></div>
+            <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+            <div class="footer-links">
+                <a href="../pages/teampage.php">Team</a>
+                <a href="../pages/faq.html">FAQ</a>
+            </div>
+            
         </div>
 
 
