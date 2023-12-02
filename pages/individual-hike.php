@@ -1,4 +1,4 @@
-
+<?php include 'logged-in.php'; ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,13 +8,41 @@
     <link rel="stylesheet" href="../css/colors.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/ol@v7.1.0/dist/ol.js"></script>
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+    <script>
+        function on() {
+            document.getElementById("overlay").style.display = "block";
+        }
+        function off() {
+            document.getElementById("overlay").style.display = "none";
+        }
+        function rateStars(){
+            // Select all elements with the "i" tag and store them in a NodeList called "stars"
+            const stars = document.querySelectorAll(".stars i");
+            // Loop through the "stars" NodeList
+            stars.forEach((star, index1) => {
+                // Add an event listener that runs a function when the "click" event is triggered
+                star.addEventListener("click", () => {
+                    // Loop through the "stars" NodeList Again
+                    stars.forEach((star, index2) => {
+                        // Add the "active" class to the clicked star and any stars with a lower index
+                        // and remove the "active" class from any stars with a higher index
+                        index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+                    });
+                });
+            });
+        }
+    </script>
     <style>
+        body{
+            background: var(--background, #FFFFFB);
+        }
         .holder{
             padding: 0px 60px 0px 60px;
         }
         .divider{
+            margin-top:5rem;
+            margin-bottom:5rem;
             width: 100%;
             height: 1px;
             background: #999;
@@ -35,6 +63,7 @@
         }
         .individual-title-holder{
             display: flex;
+            flex-direction:row;
             justify-content: space-between;
             align-items: center;
             flex: 1 0 0;
@@ -43,7 +72,7 @@
         .details-content{
             display: flex;
             align-items: flex-start;
-            gap: 80px;
+            gap: 5rem;
             align-self: stretch;
             flex-direction:row;
         }
@@ -51,14 +80,15 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            gap: 20px;
+            gap: 1rem;
             align-self: stretch;
-            padding-bottom:80px;
+            padding-bottom:3rem;
         }
         .text-content{
             display: flex;
+            flex-direction:row;
             align-items: flex-start;
-            gap: 80px;
+            gap: 5rem;
             align-self: stretch;
         }
         .stars{
@@ -99,6 +129,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            width:12rem;
         }
         .review{
             display: flex;
@@ -113,6 +144,7 @@
         .review-inner{
             display: flex;
             flex-direction: column;
+            background-color:white;
             justify-content: center;
             align-items: flex-start;
             gap: 20px;
@@ -123,6 +155,11 @@
             align-items: flex-start;
             gap: 40px;
             align-self: stretch;
+        }
+        .review-criteria-holder{
+            display:flex;
+            width:100%;
+            justify-content:space-between;
         }
         .reviewer{
             display: flex;
@@ -205,6 +242,103 @@
             gap: 16px;
             flex-direction:row;
         }
+        .add-review-holder{
+            display:flex;
+            flex-direction:column;
+        }
+        .button-holder{
+            width:20rem;
+        }
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 100%;
+            height: 100%;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            left: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+            cursor: pointer;
+        }
+        .form-holder{
+            display: inline-flex;
+            padding: 5rem 5rem;
+            position:relative;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 2rem;
+            border-radius: 20px;
+            background: #FFF;
+        }
+        .form-labels{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+            width:100%;
+        }
+        .text-box{
+            border-radius: 4px;
+            border: 1px solid var(--ui-border, #E5E5E5);
+        }
+        .share-field{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            width:100%;
+        }
+        .form{
+        }
+        .centered-form{
+            width:100%;
+            height:100%;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .stars{
+            width:12rem;
+        }
+        .stars i {
+            color: #e6e6e6;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .stars i.active {
+            color: #FFE600;
+        }
+        @media screen and (max-width: 600px) {
+            .holder{
+                padding: 0px 20px 0px 20px;
+            }
+            .details-content{
+                flex-direction:column;
+            }
+            .reviews-row{
+                flex-direction:column;
+            }
+            #map{
+                width: 20rem;
+            }
+            .about-holder{
+                width:20rem;
+            }
+            .individual-title-holder{
+                flex-direction:column;
+                gap:2rem;
+                align-items: flex-start;
+            }
+            .weather-content{
+                flex-direction:column;
+            }
+            .form{
+                width:80%;
+            }
+        }
 
 
     </style>
@@ -258,7 +392,63 @@ while($currentrow = $result->fetch_assoc()) {
     }
 </script>
 
-<div >
+<div>
+    <!--php for sharing hike-->
+    <?php
+    require 'logged-in.php';
+    require 'login.php';
+    if(!empty($_REQUEST["friend-email"]))
+    {
+        $message = "";
+        // mail tag with variables plugged into mail command
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+        $domain = $_SERVER['HTTP_HOST'];
+        $path = $_SERVER['REQUEST_URI'];
+        $current_url = $protocol . "://" . $domain . $path;
+
+        $to = $_REQUEST["friend-email"];
+        $subject = "Let's go on a hike!";
+
+        $message = "Hey there, ". $_REQUEST["friend-name"]. "<br>"." A friend suggested you might like this hike: " . $current_url."<br><br>"."Their custom message: ".$_REQUEST["special-message"];
+        $from = $_SESSION['email'];
+        $headers = "From: $from";
+        $test = mail($to,$subject,$message,$from);
+        // if you set a variable EQUAL to the mail command
+        // then that variable "stores" the response from the php server
+        if ($test==1)
+        {
+            echo "Mail sent to " . $_REQUEST["friend-email"];
+            exit();
+        }
+    }
+    ?>
+    <div id="overlay">
+        <div class="centered-form">
+            <form action="" method="post" class="form">
+                <div class="form-holder">
+                    <img onclick="off()" style="position:absolute; top: 1rem; right: 1rem;" src="../public/assets/icons/light-x.svg">
+                    <div class="form-labels">
+                        <h2>Share this hike!</h2>
+                        <text class ="copy1">Fill out this form to email this hike to a friend</text>
+                    </div>
+                    <div class="form-labels">
+                        <text class ="caption1">Name of Friend</text>
+                        <input type="text" class="share-field" name="friend-name">
+                    </div>
+                    <div class="form-labels">
+                        <text class ="caption1">Friend's Email</text>
+                        <input type="text" class="share-field" name="friend-email">
+                    </div>
+                    <div class="form-labels">
+                        <text class ="caption1">Custom message</text>
+                        <textarea type="text" name="special-message" style="min-width:100%; height:2rem; border-radius: 10px;"
+                                  placeholder="Write a custom message.."></textarea>
+                    </div>
+                    <input type="submit" value="Submit" class="search-button" style="width:8rem">
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="nav">
         <div class="logo">
             <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
@@ -291,24 +481,30 @@ while($currentrow = $result->fetch_assoc()) {
                 </div>
             </div>
 
-            <button class="search-button">
-                <img src="../public/assets/icons/heart-empty.svg" class="icon">
-                <span class="btn-text">Like</span>
-            </button>
+            <div class="button-holder">
+                <button class="search-button">
+                    <img src="../public/assets/icons/heart-empty.svg" class="icon">
+                    <span class="btn-text">Like</span>
+                </button>
+                <button class="search-button" onclick="on()">
+                    <img src="../public/assets/icons/share.svg" class="icon">
+                    <span class="btn-text">Share</span>
+                </button>
+            </div>
         </div>
         <div class="gradient">
         </div>
     </div>
     <div class="details-holder">
-        <h3>Details</h3>
+        <h1>Details</h1>
         <div class="details-content">
             <div class="text-content">
                 <div class="about-holder">
-                    <text class="caption1">About</text>
+                    <h2 style="line-height:1rem">About</h2>
                     <text class="copy1"><?php echo $h_desc?></text>
                 </div>
                 <div class="info-holder">
-                    <text class="caption1">Details</text>
+                    <h2 style="line-height:1rem">Information</h2>
                     <div class="info-list">
                         <div class="info-content">
                             <img src="../public/assets/icons/footprints.svg" class="icon">
@@ -347,7 +543,7 @@ while($currentrow = $result->fetch_assoc()) {
 
                     </div>
                 </div>
-                <div class="weather-holder">
+                <!--<div class="weather-holder">
                     <text class="caption1">Weather</text>
                     <div class="weather-content">
                         <div class="weather-icons">
@@ -362,7 +558,7 @@ while($currentrow = $result->fetch_assoc()) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div class="map-holder">
                 <div id="map">
@@ -455,7 +651,7 @@ while($currentrow = $result->fetch_assoc()) {
     </div>
     <div class="divider"></div>
     <div class="reviews-holder">
-        <h3>Reviews</h3>
+        <h1>Reviews</h1>
         <div class="reviews-row">
             <div class="review">
                 <div class="review-inner">
@@ -481,7 +677,7 @@ while($currentrow = $result->fetch_assoc()) {
     </div>
     <div class="divider"></div>
     <div class="recs-holder">
-        <h3>Similar hikes</h3>
+        <h1>Similar hikes</h1>
         <div class="browse">
             <div class="hike-row">
                 <?php
@@ -518,7 +714,34 @@ while($currentrow = $result->fetch_assoc()) {
                 ?>
             </div>
         </div>
-        <br>
+        <div class="divider"></div>
+        <div>
+            <div>
+                <div class = "ReviewForm"><h1>Add Your Review</h1></div>
+                <form action="" method="get" class="add-review-holder">
+                    <div class="review-criteria-holder">
+                        <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;display:flex;align-items: center;">
+                            Choose a hike
+                            <img src="../public/assets/icons/CaretDown.svg" class="filter-icon">
+                        </div>
+                        <div class="stars" >
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                        <script>rateStars()</script>
+                    </div>
+                    <div>
+                        <textarea type="text" name="review" style="min-width:100%; height:250px; border-radius: 10px;"
+                                  placeholder=" Write a Review..."></textarea>
+                    </div>
+                    <input type="submit" value="Submit" class="search-button" style="margin-top:20px;float:right;width:10rem">
+                </form>
+            </div>
+        </div>
+
     </div>
 </div>
 
