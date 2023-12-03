@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="../css/typography.css" type="text/css">
         <link rel="stylesheet" href="../css/colors.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
-<!--         <script src="index.js" type="text/javascript" defer></script> -->
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
         <style>
             .background {
                 padding-bottom:0;
@@ -69,6 +69,97 @@
                 width:100%;
                 min-height: 50%;
             }
+
+            /*reviews css*/
+        .reviews-holder{
+            padding-bottom:5rem;
+        }
+        .reviews-row{
+            display: flex;
+            align-items: flex-start;
+            gap: 2.5rem;
+            align-self: stretch;
+        }
+        .review{
+            display: flex;
+            padding: 1.5rem 2.5rem;
+            align-items: flex-start;
+            gap: 2.5rem;
+            flex: 1 0 0;
+            border-radius: 1.25rem;
+            border: 1px solid #E5E5E5;
+            background: #FFF;
+        }
+        .review-inner{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 1.25rem;
+            align-self: stretch;
+        }
+        .reviewer{
+            display: flex;
+            align-items: center;
+            flex-direction:row;
+            gap: 0.5rem;
+            flex: 1 0 0;
+        }
+        .stars{
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        #editProfile {
+            display: inline-flex;
+            padding: 1rem 1.5rem;
+            align-items: center;
+            gap: .25rem;
+            border-radius: 2rem;
+            border: 1px solid var(--ui-border, #E5E5E5);
+            background: var(--ui-white, #FFF);
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+        }
+        #editProfile:hover {
+            background: #E5E5E5;
+        }
+        #overlay {
+            position: fixed;
+            display: none;
+            width: 70%;
+            min-height: 95%;
+            background-color: white;
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+            border-radius: 2rem;
+            z-index: 2;
+            cursor: pointer;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin: auto;
+        }
+
+        form {
+            padding-left:3rem;
+            padding-right:3rem;
+            padding-bottom:3rem;
+        }
+
+
+        @media only screen and (max-width: 480px) {
+            .tabs .tab-header > div {
+                font-size: 0.9rem;
+            }
+
+            .tabs .tab-indicator {
+                width: calc(100% / 4);
+            }
+
+            .tabs .tab-body > div {
+                padding: 2rem 1rem 1rem 1rem;
+            }
+        }
         </style>
     </head>
     <body>
@@ -115,7 +206,7 @@
                         Settings
                     </div>
                     <div>
-                        Add A Review
+                        My Reviews
                     </div>
                 </div>
 
@@ -143,46 +234,100 @@
                     <!-- SETTINGS -->
                     <div>
                         <h3>Profile</h3>
-                        <p><hr></p>
+                    <p><hr></p>
 
-                        <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
-                            <section style="display: flex; align-items: center;">
-                                <img src="../public/assets/icons/profile-pic.svg" style="width: 3.5rem; margin-right: 3rem;">
-                                <section style="position: relative;">Hamin Jin</section>
-                            </section>
-                            <section class="filterButton" style="position: relative;">Edit Profile</section>
+                    <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
+                        <section style="display: flex; align-items: center;">
+                            <img src="../public/assets/icons/profile-pic.svg" style="width: 3.5rem; margin-right: 3rem;">
+                            <section style="position: relative;">Hamin Jin</section>
                         </section>
+                        <section id="editProfile" style="position: relative;" onclick="on()">Edit Profile</section>
+                    </section>
 
-                        <!-- username -->
-                        <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
-                            <section style="font-size:1rem;font-weight:bold;">Username</section>
-                            <p><hr style="width:100%; margin:auto;"></p>
-                            <section style="margin-left:2rem; color:#999999;">thejinster</section>
-                        </section>
+                    <!-- edit profile overlay -->
+                    <section id="overlay">
+                        <h3 style="padding-left:2rem; padding-top:1rem; padding-bottom:0.5rem;">Edit Your Information:</h3>
+                        <!--                        <img src = "../public/assets/icons/light-x.svg" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;" onclick="off()">-->
+                        <img src = "light-x.svg" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;" onclick="off()">
+                        <form action="#" method="post" enctype="multipart/form-data">
+                            <label for="name">Name: </label>
+                            <input type="text" id="name" name="name" required><br><br>
 
-                        <!-- email -->
-                        <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
-                            <section style="font-size:1rem;font-weight:bold;">Email Address</section>
-                            <p><hr style="width:100%; margin:auto;"></p>
-                            <section style="margin-left:2rem; color:#999999;">jinnyjin@usc.edu</section>
-                        </section>
+                            <label for="email">Email: </label>
+                            <input type="email" id="email" name="email" required><br><br>
+
+                            <label for="major">Major: </label>
+                            <input type="text" id="major" name="major" required><br><br>
+
+                            <label for="year">Graduation Year: </label>
+                            <input type="text" id="year" name="year" required><br><br>
+
+                            <label for="gender">Gender: </label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected></option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select><br><br>
+
+                            <label for="profilePicture">Upload Profile Picture: </label>
+                            <input type="file" id="profilePicture" name="profilePicture" accept="image/*"><br><br>
+
+                            <label for="backgroundPicture">Upload Background Picture: </label>
+                            <input type="file" id="backgroundPicture" name="backgroundPicture" accept="image/*"><br><br>
+
+                            <button type="submit" class="search-button" style="float:right; margin-bottom:2rem;">Submit</button>
+                        </form>
+                    </section>
+
+                    <!-- username -->
+                    <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
+                        <section style="font-size:1rem;font-weight:bold;">Email Address</section>
+                        <p><hr style="width:100%; margin:auto;"></p>
+                        <section style="margin-left:2rem; color:#999999;">jinnyjin@usc.edu</section>
+                    </section>
+
+                    <!-- email -->
+                    <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
+                        <section style="font-size:1rem;font-weight:bold;">Major</section>
+                        <p><hr style="width:100%; margin:auto;"></p>
+                        <section style="margin-left:2rem; color:#999999;">Business</section>
+                    </section>
+
+                    <!-- grad year -->
+                    <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
+                        <section style="font-size:1rem;font-weight:bold;">Graduation Year</section>
+                        <p><hr style="width:100%; margin:auto;"></p>
+                        <section style="margin-left:2rem; color:#999999;">2026</section>
+                    </section>
                     </div>
 
-                    <!-- ADD A REVIEW -->
+                    <!-- MY REVIEWS -->
                     <div>
-                        <div class = "ReviewForm"><h3>Add a Review</h3></div>
-
-                        <form action="" method="get">
-                            <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;">Choose a Hike
-                                <img src="../public/assets/icons/CaretDown.svg" class="filter-icon">
+                        <div class="reviews-holder">
+                            <h3>Reviews</h3>
+                            <div class="reviews-row">
+                                <div class="review">
+                                    <div class="review-inner">
+                                        <div class="reviewer">
+                                            <div class="profile">
+                                                <img src="../public/assets/icons/profile-pic.svg">
+                                            </div>
+                                            <div class="reviewer-info">
+                                                <text>Hamin J.</text>
+                                            </div>
+                                        </div>
+                                        <text class="copy1">This was a super fun hike! Best to go in the morning when its less crowded. Also really liked the view at the top of the trail. Really hard to beat it!</text>
+                                        <div class="stars">
+                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="review">
-                                <textarea type="text" name="review" style="min-width:100%; height:250px; border-radius: 10px;"
-                                          placeholder=" Write a Review..."></textarea>
-                            </div>
-                            <input type="submit" value="Submit" class="filterButton" style="margin-top:20px;float:right">
-                        </form>
+                        </div>
                     </div>
 
                 </div>
@@ -213,6 +358,14 @@
 
                     tabIndicator.style.left = `calc(calc(100% / 4) * ${i})`;
                 });
+            }
+
+            // overlay
+            function on() {
+                document.getElementById("overlay").style.display = "block";
+            }
+            function off() {
+                document.getElementById("overlay").style.display = "none";
             }
         </script>
     </body>
