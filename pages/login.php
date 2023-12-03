@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/login-stylesheet.css">
+    <link rel="stylesheet" href="../pages/login.module.css">
     <title>Login</title>
 </head>
 <body>
@@ -60,6 +60,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
     <p class="signup-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
 </div>
-
+<div class="footer">
+    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+    <div class="footer-links">
+        <a href="../pages/teampage.php">Team</a>
+        <a href="../pages/faq.html">FAQ</a>
+    </div>
+</div>
 </body>
 </html>

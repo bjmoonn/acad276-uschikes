@@ -150,15 +150,6 @@ $mysqli->close();
 
     </div>
 
-<div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-    <div class="body">Acad 276: Dev II</div>
-    <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
-    <div class="body"><a href="../faq.html">FAQ</a></div>
-</div>
-
-
-
 <div class="GroupPopup" id="groupPopup">
     <img src="x.png" class="x" id="closeButton">
     <p class="Popupheading">Create a Group</p>
@@ -227,5 +218,14 @@ $mysqli->close();
 </script>
 
 
+
+
+    <div class="footer">
+    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+    <div class="footer-links">
+        <a href="../pages/teampage.php">Team</a>
+        <a href="../pages/faq.html">FAQ</a>
+    </div>
+</div>
 </body>
 </html>

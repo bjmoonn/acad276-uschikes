@@ -210,6 +210,54 @@
     </style>
 </head>
 <body>
+
+<?php
+
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+$sql = "SELECT * FROM mainView WHERE hikeID = " . $_REQUEST["hikeid"];
+$result = $mysql->query($sql);
+if ($result->num_rows > 0) {
+while($currentrow = $result->fetch_assoc()) {
+    $h_img = $currentrow["imageURL"];
+    $h_name = $currentrow["name"];
+    $h_desc = $currentrow["details"];
+    $h_leng = $currentrow["length"];
+    $h_dur = $currentrow["duration"];
+    $h_diff = $currentrow["difficulty"];
+    $h_lat = $currentrow["lattitude"];
+    $h_long = $currentrow["longitude"];
+}
+}
+
+?>
+
+<script>
+    function distance(lat1, lon1, lat2, lon2, unit) {
+        if ((lat1 == lat2) && (lon1 == lon2)) {
+            return 0;
+        }
+        else {
+            var radlat1 = Math.PI * lat1/180;
+            var radlat2 = Math.PI * lat2/180;
+            var theta = lon1-lon2;
+            var radtheta = Math.PI * theta/180;
+            var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+            if (dist > 1) {
+                dist = 1;
+            }
+            dist = Math.acos(dist);
+            dist = dist * 180/Math.PI;
+            dist = dist * 60 * 1.1515;
+            if (unit=="K") { dist = dist * 1.609344 }
+            if (unit=="N") { dist = dist * 0.8684 }
+            return dist;
+        }
+    }
+</script>
+
 <div >
     <div class="nav">
         <div class="logo">
@@ -224,19 +272,15 @@
     </div>
 
 <div class="holder">
-    <div class="individual-hero" style="background-image: url('hikeOnImages/image4.jpeg');height:60%;object-fit: cover;top:0;">
+    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: cover;top:0;">
         <div class="individual-title-holder">
 
             <div class="individual-hero-text">
-                <h3 style="line-height:0px">Hollywood Sign Hike</h3>
+                <h3 style="line-height:0px"><?php echo $h_name?></h3>
                 <div class="individual-hero-details">
                     <div class="icon-text">
-                        <img src="../public/assets/icons/map-pin.svg" class="icon">
-                        <text class="copy1">North Hollywood</text>
-                    </div>
-                    <div class="icon-text">
                         <img src="../public/assets/icons/road.svg" class="icon">
-                        <text class="copy1">2.5 mi away</text>
+                        <text class="copy1"><script>document.write(distance(<?php echo $h_lat . ", " . -$h_long . ", 34.0224, 118.2851" ?>, "M").toFixed(1).toString());</script> miles from campus</text>
                     </div>
                 </div>
                 <div class="stars">
@@ -261,7 +305,7 @@
             <div class="text-content">
                 <div class="about-holder">
                     <text class="caption1">About</text>
-                    <text class="copy1">The Hollywood Sign Hike is a popular outdoor activity in Los Angeles, California, that offers stunning views of the iconic Hollywood Sign and the surrounding cityscape. It's a favorite among locals and tourists alike, providing an opportunity to get up close to one of the most famous landmarks in the world.</text>
+                    <text class="copy1"><?php echo $h_desc?></text>
                 </div>
                 <div class="info-holder">
                     <text class="caption1">Details</text>
@@ -270,21 +314,34 @@
                             <img src="../public/assets/icons/footprints.svg" class="icon">
                             <div class="info-text">
                                 <text style="color:#999">Trail Length:</text>
-                                <text>3.3 mi.</text>
+                                <text><?php echo $h_leng;
+                                if($h_leng > 1){
+                                    echo " miles";
+                                }
+                                else{
+                                    echo " mile";
+                                }
+                                ?></text>
                             </div>
                         </div>
                         <div class="info-content">
                             <img src="../public/assets/icons/mountains.svg" class="icon">
                             <div class="info-text">
                                 <text style="color:#999">Elevation:</text>
-                                <text>1250 ft.</text>
+                                <text><?php echo $h_dur;
+                                    if($h_dur > 1){
+                                        echo " hours";
+                                    }
+                                    else{
+                                        echo " hour";
+                                    }?></text>
                             </div>
                         </div>
                         <div class="info-content">
                             <img src="../public/assets/icons/car.svg" class="icon">
                             <div class="info-text">
-                                <text style="color:#999">Parking:</text>
-                                <text>3200 Canyon Dr, Los Angeles, CA.</text>
+                                <text style="color:#999">Street Address:</text>
+                                <text>database not done</text>
                             </div>
                         </div>
 
@@ -467,11 +524,12 @@
 
 
     <div class="footer">
-        <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-        <div class="body">Acad 276: Dev II</div>
-        <div class="body"><a href="../pages/Team-page.php">The Team</a></div>
-        <div class="body"><a href="../faq.html">FAQ</a></div>
+    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
+    <div class="footer-links">
+        <a href="../pages/teampage.php">Team</a>
+        <a href="../pages/faq.html">FAQ</a>
     </div>
+</div>
 
 
 </body>
