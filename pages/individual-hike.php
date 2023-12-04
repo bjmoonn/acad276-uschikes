@@ -1,4 +1,6 @@
-<?php include 'logged-in.php'; ?>
+<?php include 'logged-in.php';
+session_start();
+ ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -132,6 +134,7 @@
             width:12rem;
         }
         .review{
+            max-width:50%;
             display: flex;
             padding: 24px 40px;
             align-items: flex-start;
@@ -142,6 +145,7 @@
             background: #FFF;
         }
         .review-inner{
+
             display: flex;
             flex-direction: column;
             background-color:white;
@@ -322,7 +326,7 @@
                 flex-direction:column;
             }
             #map{
-                width: 20rem;
+                width: 30rem;
             }
             .about-holder{
                 width:20rem;
@@ -409,10 +413,10 @@ while($currentrow = $result->fetch_assoc()) {
         $to = $_REQUEST["friend-email"];
         $subject = "Let's go on a hike!";
 
-        $message = "Hey there, ". $_REQUEST["friend-name"]. "<br>"." A friend suggested you might like this hike: " . $current_url."<br><br>"."Their custom message: ".$_REQUEST["special-message"];
+        $message = "Hey there, ". $_REQUEST["friend-name"]. "!" ." A friend suggested you might like this hike: " . $current_url."<br><br>".". Their custom message: ".$_REQUEST["special-message"];
         $from = $_SESSION['email'];
         $headers = "From: $from";
-        $test = mail($to,$subject,$message,$from);
+        $test = mail($to,$subject,$message,$headers);
         // if you set a variable EQUAL to the mail command
         // then that variable "stores" the response from the php server
         if ($test==1)
@@ -454,15 +458,26 @@ while($currentrow = $result->fetch_assoc()) {
             <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
         </div>
         <div class="nav-items">
-            <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
+            <!--<text class="body bold"><a href="../pages/map-page.php">Map</a></text>-->
             <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
-            <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
+            <text class="body bold">
+                <?php
+                session_start();
+
+                // Check if the user is logged in
+                if (isset($_SESSION["login"]) === false) {
+                    // User is not logged in
+                    $path = '../pages/login.php';
+                } else {
+                    $path = '../pages/profilepage.php';
+                }
+                ?>
+                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
         </div>
     </div>
 
 <div class="holder">
-    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: cover;top:0;">
+    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: fill;top:0; background-position:center;">
         <div class="individual-title-holder">
 
             <div class="individual-hero-text">
@@ -482,10 +497,23 @@ while($currentrow = $result->fetch_assoc()) {
             </div>
 
             <div class="button-holder">
-                <button class="search-button">
-                    <img src="../public/assets/icons/heart-empty.svg" class="icon">
+                <button class="search-button" id="like-button">
+                    <img src="../public/assets/icons/heart-empty.svg" id="like-unfilled" class="icon">
                     <span class="btn-text">Like</span>
                 </button>
+                <!--script for button liking-->
+                <script>
+
+                    const imageElement = document.getElementById('like-unfilled');
+                    const changeButton = document.getElementById('like-button');
+
+                    function changeImageSrc() {
+                        imageElement.src = '../public/assets/icons/heart-filled.svg';
+                    }
+
+                    changeButton.addEventListener('click', changeImageSrc);
+                </script>
+
                 <button class="search-button" onclick="on()">
                     <img src="../public/assets/icons/share.svg" class="icon">
                     <span class="btn-text">Share</span>
@@ -749,7 +777,7 @@ while($currentrow = $result->fetch_assoc()) {
     <div class="footer">
     <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
     <div class="footer-links">
-        <a href="../pages/teampage.php">Team</a>
+    <a href="../pages/TeamPage.php">Team</a>
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>
