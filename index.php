@@ -202,7 +202,7 @@ if ($result->num_rows > 0) {
         <div class="footer">
             <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
             <div class="footer-links">
-                <a href="../pages/teampage.php">Team</a>
+                <a href="../pages/TeamPage.php">Team</a>
                 <a href="../pages/faq.html">FAQ</a>
             </div>
         </div>
