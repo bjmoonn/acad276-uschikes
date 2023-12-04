@@ -68,7 +68,7 @@ $mysqli->close();
     </div>
     <div class="headline">
         <text class="title">Groups</text>
-        <text class="copy1">Connect with other outdoor Trojans! Join an upcoming hike.</text>
+        <text class="body">Connect with other outdoor Trojans! Join an upcoming hike.</text>
     </div>
 
     <div class="featuredbox">
@@ -181,32 +181,19 @@ $mysqli->close();
     <img src="x.png" class="x" id="closeButton">
     <p class="Popupheading">Create a Group</p>
     <div class="formContainer">
-        <form action="CreateGroupResults.php" method="post">
-            First and Last Name: <input type="text" name="ownerName" required>
-            <br>
-            <br>
+        <form action="CreateGroupResults.php" method="post" class="groupSubmitForm">
+            User ID: <input type="text" name="userID" required>
+
             Group Name: <input type="text" name="groupName" required>
-            <br>
-            <br>
-            Hike Location: <input type="text" name="hikeLocation" required>
-            <br>
-            <br>
-            <label for="selectedDate">Select a Date:</label>
-            <input type="date" id="selectedDate" name="selectedDate" required>
-            <br>
-            <br>
-            Start Time: <input type="time" id="selectedTime" name="selectedTime" required>
-            <br>
-            <br>
-            Difficulty: <input type="text" name="difficultyLevel" required>
-            <br>
-            <br>
-            Please add a description or anything information you would want potential members to know:
-            <br>
-            <br>
-            <textarea id="hikeDescription" name="userInput" rows="4" cols="40" placeholder="Type here..."></textarea>
-           <br>
-            <br>
+
+            Hike ID <input type="text" name="hikeID" required>
+            
+            <label for="startDateTime">Start Date/Time:</label>
+            <input type="date" id="startDateTime" name="startDateTime" required>
+
+            <label for="endDateTime">End Date/Time:</label>
+            <input type="date" id="endDateTime" name="endDateTime" required>
+
             <input type="submit">
         </form>
     </div>
@@ -243,91 +230,98 @@ $mysqli->close();
 
 
 <form action="results.php" method="post">
-    <div class="bigger-filter-container" id="filtersPopUp" class="shaddow">
+    <div class="bigger-filter-container" id="filtersPopUp" class="shadow">
         <img src="x.png" class="x2" id="closeFiltersButton">
-        <div class="filter-container2 >
+        <div class="filter-container2">
             <div class="dropdown-groups">
+                <!-- Difficulty Dropdown -->
                 <div class="dropdown">
                     <div class="dropdown-text body"><strong>Difficulty</strong></div>
                     <div class="dropdown-wrapper">
                         <div class="dropdown-inner">
                             <div class="checkbox-holder">
-                                <label for="myDifficultyCheckbox1" class="copy1 lightgrey">Easy</label>
+                                <label for="Easy" class="body lightgrey">Easy</label>
                                 <input type="checkbox" id="Easy" name="Easy">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myDifficultyCheckbox2" class="copy1 lightgrey">Moderate</label>
+                                <label for="Moderate" class="body lightgrey">Moderate</label>
                                 <input type="checkbox" id="Moderate" name="Moderate">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myDifficultyCheckbox3" class="copy1 lightgrey">Hard</label>
+                                <label for="Hard" class="body lightgrey">Hard</label>
                                 <input type="checkbox" id="Hard" name="Hard">
                             </div>
                         </div>
                     </div>
                 </div>
+
+                
                 <div class="dropdown">
                     <div class="dropdown-text body"><strong>From USC</strong></div>
                     <div class="dropdown-wrapper">
                         <div class="dropdown-inner">
                             <div class="checkbox-holder">
-                                <label for="myDistanceCheckbox1" class="copy1 lightgrey">1-5 mi</label>
+                                <label for="15Box" class="body lightgrey">1-5 mi</label>
                                 <input type="checkbox" id="15Box" name="15Box">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myDistanceCheckbox2" class="copy1 lightgrey">5-20 mi</label>
+                                <label for="520Box" class="body lightgrey">5-20 mi</label>
                                 <input type="checkbox" id="520Box" name="520Box">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myDistanceCheckbox3" class="copy1 lightgrey">20+ mi</label>
+                                <label for="20Box" class="body lightgrey">20+ mi</label>
                                 <input type="checkbox" id="20Box" name="20Box">
                             </div>
                         </div>
                     </div>
                 </div>
+
+                
                 <div class="dropdown">
                     <div class="dropdown-text body"><strong>Length</strong></div>
                     <div class="dropdown-wrapper">
                         <div class="dropdown-inner">
                             <div class="checkbox-holder">
-                                <label for="myLengthCheckbox1" class="copy1 lightgrey">1-5 mi</label>
+                                <label for="15" class="body lightgrey">1-5 mi</label>
                                 <input type="checkbox" id="15" name="15">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myLengthCheckbox2" class="copy1 lightgrey">5-10 mi</label>
+                                <label for="510" class="body lightgrey">5-10 mi</label>
                                 <input type="checkbox" id="510" name="510">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myLengthCheckbox3" class="copy1 lightgrey">10+ mi</label>
+                                <label for="10" class="body lightgrey">10+ mi</label>
                                 <input type="checkbox" id="10" name="10">
                             </div>
                         </div>
                     </div>
                 </div>
+
+                
                 <div class="dropdown">
                     <div class="dropdown-text body"><strong>Duration</strong></div>
                     <div class="dropdown-wrapper">
                         <div class="dropdown-inner">
                             <div class="checkbox-holder">
-                                <label for="myDurationCheckbox1" class="copy1 lightgrey">0-1 hr</label>
+                                <label for="1" class="body lightgrey">0-1 hr</label>
                                 <input type="checkbox" id="1" name="1">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myLengthCheckbox2" class="copy1 lightgrey">1-2 hrs</label>
+                                <label for="12" class="body lightgrey">1-2 hrs</label>
                                 <input type="checkbox" id="12" name="12">
                             </div>
                             <div class="checkbox-holder">
-                                <label for="myLengthCheckbox3" class="copy1 lightgrey">2+ hrs</label>
+                                <label for="2" class="body lightgrey">2+ hrs</label>
                                 <input type="checkbox" id="2" name="2">
-                        </form>
-                        </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <button class="search-button">Search</button>
             </div>
         </div>
+        <button class="search-button">Search</button>
     </div>
+</form>
 
 <script>
     // Function to open the filtersPopUp
