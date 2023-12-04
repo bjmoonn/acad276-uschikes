@@ -18,15 +18,42 @@ $userid = "haminjin_guest";
 $userpw = "DevIIHikeOn123";
 $db = "haminjin_hikeOn";
 
-// establish a connection
+// Establish a connection
 $mysqli = new mysqli($host, $userid, $userpw, $db);
 
 // Check connection
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
+
+// Initialize an error message variable
+$error_message = '';
+
+// Process the form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $groupName = $_POST['groupName'];  // Replace 'groupName' with the actual name attribute of your form field
+    $hikeDate = $_POST['selectedDate'];  // Replace 'selectedDate' with the actual name attribute of your form field
+    // Add more variables as needed for other form fields
+
+    // Insert data into the database
+    $sql = "INSERT INTO groups (groupName, hikeDate) VALUES ('$groupName', '$hikeDate')";
+
+    if ($mysqli->query($sql) === TRUE) {
+        echo "New group created successfully";
+    } else {
+        $error_message = "Error: " . $sql . "<br>" . $mysqli->error;
+    }
+}
+
+// Close the database connection
 $mysqli->close();
 ?>
+
+<!-- Display error message if there is any -->
+<?php if (!empty($error_message)) : ?>
+    <div style="color: red;"><?php echo $error_message; ?></div>
+<?php endif; ?>
 
     <div class="nav">
         <div class="logo">
@@ -47,7 +74,7 @@ $mysqli->close();
     <div class="featuredbox">
         <div class="featured">Featured</div>
         <div class="container1">
-        <div class="filtersbutton "> Filters </div>
+            <div class="filtersbutton" id="openFiltersButton"> Filters </div>
         <div class="CreateGroupButton" onclick="toggleGroupPopup()"> Create A Group </div>
         </div>
     </div>
@@ -154,7 +181,7 @@ $mysqli->close();
     <img src="x.png" class="x" id="closeButton">
     <p class="Popupheading">Create a Group</p>
     <div class="formContainer">
-        <form action="CreateGroupResults.php" method="get">
+        <form action="CreateGroupResults.php" method="post">
             First and Last Name: <input type="text" name="ownerName" required>
             <br>
             <br>
@@ -169,9 +196,6 @@ $mysqli->close();
             <br>
             <br>
             Start Time: <input type="time" id="selectedTime" name="selectedTime" required>
-            <br>
-            <br>
-            Terrain Type: <input type="text" name="difficultyLevel" required>
             <br>
             <br>
             Difficulty: <input type="text" name="difficultyLevel" required>
@@ -218,7 +242,112 @@ $mysqli->close();
 </script>
 
 
+<form action="results.php" method="post">
+    <div class="bigger-filter-container" id="filtersPopUp" class="shaddow">
+        <img src="x.png" class="x2" id="closeFiltersButton">
+        <div class="filter-container2 >
+            <div class="dropdown-groups">
+                <div class="dropdown">
+                    <div class="dropdown-text body"><strong>Difficulty</strong></div>
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown-inner">
+                            <div class="checkbox-holder">
+                                <label for="myDifficultyCheckbox1" class="copy1 lightgrey">Easy</label>
+                                <input type="checkbox" id="Easy" name="Easy">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myDifficultyCheckbox2" class="copy1 lightgrey">Moderate</label>
+                                <input type="checkbox" id="Moderate" name="Moderate">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myDifficultyCheckbox3" class="copy1 lightgrey">Hard</label>
+                                <input type="checkbox" id="Hard" name="Hard">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="dropdown-text body"><strong>From USC</strong></div>
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown-inner">
+                            <div class="checkbox-holder">
+                                <label for="myDistanceCheckbox1" class="copy1 lightgrey">1-5 mi</label>
+                                <input type="checkbox" id="15Box" name="15Box">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myDistanceCheckbox2" class="copy1 lightgrey">5-20 mi</label>
+                                <input type="checkbox" id="520Box" name="520Box">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myDistanceCheckbox3" class="copy1 lightgrey">20+ mi</label>
+                                <input type="checkbox" id="20Box" name="20Box">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="dropdown-text body"><strong>Length</strong></div>
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown-inner">
+                            <div class="checkbox-holder">
+                                <label for="myLengthCheckbox1" class="copy1 lightgrey">1-5 mi</label>
+                                <input type="checkbox" id="15" name="15">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myLengthCheckbox2" class="copy1 lightgrey">5-10 mi</label>
+                                <input type="checkbox" id="510" name="510">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myLengthCheckbox3" class="copy1 lightgrey">10+ mi</label>
+                                <input type="checkbox" id="10" name="10">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <div class="dropdown-text body"><strong>Duration</strong></div>
+                    <div class="dropdown-wrapper">
+                        <div class="dropdown-inner">
+                            <div class="checkbox-holder">
+                                <label for="myDurationCheckbox1" class="copy1 lightgrey">0-1 hr</label>
+                                <input type="checkbox" id="1" name="1">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myLengthCheckbox2" class="copy1 lightgrey">1-2 hrs</label>
+                                <input type="checkbox" id="12" name="12">
+                            </div>
+                            <div class="checkbox-holder">
+                                <label for="myLengthCheckbox3" class="copy1 lightgrey">2+ hrs</label>
+                                <input type="checkbox" id="2" name="2">
+                        </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="search-button">Search</button>
+            </div>
+        </div>
+    </div>
 
+<script>
+    // Function to open the filtersPopUp
+    function openFiltersPopUp() {
+        var filtersPopUp = document.getElementById('filtersPopUp');
+        filtersPopUp.style.display = 'block';
+    }
+
+    // Function to close the filtersPopUp
+    function closeFiltersPopUp() {
+        var filtersPopUp = document.getElementById('filtersPopUp');
+        filtersPopUp.style.display = 'none';
+    }
+
+    // Add a click event listener to open the filtersPopUp
+    document.getElementById('openFiltersButton').addEventListener('click', openFiltersPopUp);
+
+    // Add a click event listener to close the filtersPopUp
+    document.getElementById('closeFiltersButton').addEventListener('click', closeFiltersPopUp);
+</script>
 
     <div class="footer">
     <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
@@ -227,5 +356,6 @@ $mysqli->close();
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>
+
 </body>
 </html>
