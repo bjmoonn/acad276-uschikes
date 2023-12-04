@@ -1,76 +1,82 @@
+<?php
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+?>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Profile Page</title>
-        <link rel="stylesheet" href="../css/styles.css" type="text/css">
-        <link rel="stylesheet" href="../css/typography.css" type="text/css">
-        <link rel="stylesheet" href="../css/colors.css" type="text/css">
-        <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
-        <meta name="viewport" content="width=device-width, initial-scale=0.5">
-        <style>
-            .background {
-                padding-bottom:0;
-            }
-            .tabs {
-                width: 100%;
-                position: relative;
-            }
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="typography.css" type="text/css">
+    <link rel="stylesheet" href="colors.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <style>
+        .background {
+            padding-bottom:0;
+        }
+        .tabs {
+            width: 100%;
+            position: relative;
+        }
 
-            .tabs .tab-header {
-                height: 4rem;
-                display: flex;
-                align-items: center;
-            }
-            .tabs .tab-header > div {
-                width: calc(100% / 4);
-                text-align: center;
-                cursor: pointer;
-                font-size: 1rem;
-                text-transform: uppercase;
-                outline: none;
-            }
-            .tabs .tab-header > div.active {
-                font-weight: bold;
-                color: #3E5D15;
+        .tabs .tab-header {
+            height: 4rem;
+            display: flex;
+            align-items: center;
+        }
+        .tabs .tab-header > div {
+            width: calc(100% / 4);
+            text-align: center;
+            cursor: pointer;
+            font-size: 1rem;
+            text-transform: uppercase;
+            outline: none;
+        }
+        .tabs .tab-header > div.active {
+            font-weight: bold;
+            color: #3E5D15;
 
-            }
-            .tabs .tab-indicator {
-                position: absolute;
-                width: calc(100%/4);
-                height: .3rem;
-                background: #3E5D15;
-                left:0;
-                border-radius: 1rem;
-                transition:all 500ms ease-in-out;
-            }
+        }
+        .tabs .tab-indicator {
+            position: absolute;
+            width: calc(100%/4);
+            height: .3rem;
+            background: #3E5D15;
+            left:0;
+            border-radius: 1rem;
+            transition:all 500ms ease-in-out;
+        }
 
-            .tabs .tab-body {
-                position: relative;
-                min-height:75%;
-                padding: 2rem 1rem;
-            }
-            .tabs .tab-body > div {
-                position: absolute;
-                top: -200%;
-                opacity:0;
-                margin-top:1rem;
-                transform:scale(0.9);
-                transition: opacity 500ms ease-in-out 0ms,
-                transform 500ms ease-in-out 0ms;
-                width:100%;
-            }
-            .tabs .tab-body >div.active {
-                top:0;
-                opacity:1;
-                transform:scale(1);
-                margin-top:0;
-            }
-            .profilepage-body {
-                width:100%;
-                min-height: 50%;
-            }
-
-            /*reviews css*/
+        .tabs .tab-body {
+            position: relative;
+            min-height:75%;
+            padding: 2rem 1rem;
+        }
+        .tabs .tab-body > div {
+            position: absolute;
+            top: -200%;
+            opacity:0;
+            margin-top:1rem;
+            transform:scale(0.9);
+            transition: opacity 500ms ease-in-out 0ms,
+            transform 500ms ease-in-out 0ms;
+            width:100%;
+        }
+        .tabs .tab-body >div.active {
+            top:0;
+            opacity:1;
+            transform:scale(1);
+            margin-top:0;
+        }
+        .profilepage-body {
+            width:100%;
+            min-height: 50%;
+        }
+        /*reviews css*/
         .reviews-holder{
             padding-bottom:5rem;
         }
@@ -160,80 +166,146 @@
                 padding: 2rem 1rem 1rem 1rem;
             }
         }
-        </style>
-    </head>
-    <body>
-        <!-- NAV -->
-        <div class="background">
-            <div class="nav">
-                <div class="logo">
-                    <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
+
+    </style>
+</head>
+<body>
+<!-- NAV -->
+<div class="background">
+    <div class="nav">
+        <div class="logo">
+            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
+        </div>
+        <div class="nav-items">
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold">
+                <?php
+                session_start();
+
+                // Check if the user is logged in
+                if (isset($_SESSION["login"]) === false) {
+                    // User is not logged in
+                    $path = '../pages/login.php';
+                } else {
+                    $path = '../pages/profilepage.php';
+                }
+                ?>
+                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
+        </div>
+    </div>
+</div>
+
+<!-- ACCOUNT NAME. PHOTO, AND BACKGROUND IMAGE-->
+<!-- BACKGROUND IMAGE -->
+<div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
+    <img src = "../public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
+</div>
+<div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
+
+    <!-- ACCOUNT NAME AND PHOTO-->
+    <div class = "account-header" style="padding-bottom:3rem;">
+        <div style="text-align:center;">
+            <img src="../public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Hamin Jin</div>
+    </div>
+
+    <div class = "profilepage-body">
+
+        <!-- TAB SLIDER SECTION -->
+        <div class = "tabs">
+            <div class = "tab-header">
+                <div class = "active">
+                    Saved
                 </div>
-                <div class="nav-items">
-                    <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
-                    <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-                    <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
-                    <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
+                <div>
+                    Completed
+                </div>
+                <div>
+                    Settings
+                </div>
+                <div>
+                    My Reviews
                 </div>
             </div>
-        </div>
 
-        <!-- ACCOUNT NAME. PHOTO, AND BACKGROUND IMAGE-->
-        <!-- BACKGROUND IMAGE -->
-        <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-            <img src = "../public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
-        </div>
-        <div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
+            <!-- SLIDER -->
+            <div class = "tab-indicator"></div>
 
-        <!-- ACCOUNT NAME AND PHOTO-->
-        <div class = "account-header" style="padding-bottom:3rem;">
-            <div style="text-align:center;">
-                <img src="../public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Hamin Jin</div>
-        </div>
+            <!-- DYNAMIC BODY TEXT (FOR ALL TABS) -->
+            <div class = "tab-body">
 
-        <div class = "profilepage-body">
+                <!-- SAVED -->
+                <div class = "active">
+                    <h3>Your Saved Hikes</h3>
+                    <p>
+                        <?php
+                        $sql_saved = "SELECT * FROM favorites, mainHikes";
+                        $result_saved = $mysql->query($sql_saved);
 
-            <!-- TAB SLIDER SECTION -->
-            <div class = "tabs">
-                <div class = "tab-header">
-                    <div class = "active">
-                        Saved
-                    </div>
-                    <div>
-                        Completed
-                    </div>
-                    <div>
-                        Settings
-                    </div>
-                    <div>
-                        My Reviews
-                    </div>
+                        if($result_saved->num_rows > 0) {
+                            while($currentrow = $result_saved->fetch_assoc()) {
+                                echo '
+                                        <div class="hike-individual">
+                                            <div class="hike-thumbnail">
+                                                <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                            </div>
+                                             <div class="hike-description">
+                                                <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                                <div class="body">' . $currentrow["name"] . '</div>
+                                                <div class="body">' . $currentrow["length"] . ' miles</div>
+                                                <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                                <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                                    ' . $currentrow["difficulty"] . '
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ';
+                            }
+                        } else {
+                            echo "No saved hikes.";
+                        }
+                        ?>
+                    </p>
                 </div>
 
-                <!-- SLIDER -->
-                <div class = "tab-indicator"></div>
 
-                <!-- DYNAMIC BODY TEXT (FOR ALL TABS) -->
-                <div class = "tab-body">
+                <!-- COMPLETED -->
+                <div>
+                    <h3>Your Completed Hikes</h3>
+                    <p>
+                        <?php
+                        $sql_completed = "SELECT * FROM completedHikes, mainHikes";
+                        $result_completed = $mysql->query($sql_completed);
 
-                    <!-- SAVED -->
-                    <div class = "active">
-                        <h3>Your Saved Hikes</h3>
-                        <p>
-                            No saved hikes.
-                        </p>
-                    </div>
+                        if($result_completed->num_rows > 0) {
+                            while($currentrow = $result_completed->fetch_assoc()) {
+                                // PHP logic
+                                echo '
+                                        <div class="hike-individual">
+                                            <div class="hike-thumbnail">
+                                                <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                            </div>
+                                             <div class="hike-description">
+                                                <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                                <div class="body">' . $currentrow["name"] . '</div>
+                                                <div class="body">' . $currentrow["length"] . ' miles</div>
+                                                <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                                <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                                    ' . $currentrow["difficulty"] . '
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ';
+                            }
+                        } else {
+                            echo "No completed hikes. Start Hiking-On!";
+                        }
+                        ?>
+                    </p>
+                </div>
 
-
-                    <!-- COMPLETED -->
-                    <div>
-                        <h3>Your Completed Hikes</h3>
-                        <p>No completed hikes. Start Hiking-On!</p>
-                    </div>
-
-                    <!-- SETTINGS -->
-                    <div>
-                        <h3>Profile</h3>
+                <!-- SETTINGS -->
+                <div>
+                    <h3>Profile</h3>
                     <p><hr></p>
 
                     <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
@@ -253,14 +325,19 @@
                             <label for="name">Name: </label>
                             <input type="text" id="name" name="name" required><br><br>
 
-                            <label for="email">Email: </label>
-                            <input type="email" id="email" name="email" required><br><br>
-
                             <label for="major">Major: </label>
                             <input type="text" id="major" name="major" required><br><br>
 
-                            <label for="year">Graduation Year: </label>
-                            <input type="text" id="year" name="year" required><br><br>
+                            <label for="year">Grade: </label>
+                            <select id="year" name="year" required>
+                                <option value="" disabled selected></option>
+                                <option value="freshman">Freshman</option>
+                                <option value="sophomore">Sophomore</option>
+                                <option value="junior">Junior</option>
+                                <option value="senior">Senior</option>
+                                <option value="graduate">Graduate</option>
+                                <option value="professor">Professor</option>
+                            </select><br><br>
 
                             <label for="gender">Gender: </label>
                             <select id="gender" name="gender" required>
@@ -296,34 +373,49 @@
 
                     <!-- grad year -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
-                        <section style="font-size:1rem;font-weight:bold;">Graduation Year</section>
+                        <section style="font-size:1rem;font-weight:bold;">Grade</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">2026</section>
+                        <section style="margin-left:2rem; color:#999999;">Sophomore</section>
                     </section>
-                    </div>
 
-                    <!-- MY REVIEWS -->
-                    <div>
-                        <div class="reviews-holder">
-                            <h3>Reviews</h3>
-                            <div class="reviews-row">
-                                <div class="review">
-                                    <div class="review-inner">
-                                        <div class="reviewer">
-                                            <div class="profile">
-                                                <img src="../public/assets/icons/profile-pic.svg">
-                                            </div>
-                                            <div class="reviewer-info">
-                                                <text>Hamin J.</text>
-                                            </div>
-                                        </div>
-                                        <text class="copy1">This was a super fun hike! Best to go in the morning when its less crowded. Also really liked the view at the top of the trail. Really hard to beat it!</text>
-                                        <div class="stars">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                        </div>
+                </div>
+
+                <!-- MY REVIEWS -->
+                <div>
+
+                    <div class="reviews-holder">
+                        <h3>My Reviews</h3>
+                        <div class="reviews-row">
+                            <div class="review">
+                                <div class="review-inner">
+                                    <?php
+                                    $sql_reviews = "SELECT comments, rating, fullName, profPicURL FROM userReviews, users, fullNames, profPics WHERE hikeID = " . $_REQUEST["hikeid"];
+                                    $result_reviews = $mysql->query($sql_reviews);
+
+                                    if($result_reviews->num_rows > 0) {
+                                        while($currentrow = $result_reviews->fetch_assoc()) {
+                                            echo '
+                                                <div class="reviewer">
+                                                    <div class="profile">
+                                                        <img src = '. $currentrow["profPicURL"]. '>
+                                                    </div>
+                                                    <div class="reviewer-info">
+                                                        <text>' . $currentrow["fullName"] . '</text>
+                                                    </div>
+                                                </div>
+                                                <text class="copy1">' . $currentrow["comments"] . '</text>
+                                                <div class="stars">
+                                                    <img src="../public/assets/icons/star.svg" class="icon">
+                                                    <img src="../public/assets/icons/star.svg" class="icon">
+                                                    <img src="../public/assets/icons/star.svg" class="icon">
+                                                    <img src="../public/assets/icons/star.svg" class="icon">
+                                                </div>
+                                            ';
+                                        }
+                                    } else {
+                                        echo "No reviews written. Comment your thoughts on hikes you have completed!";
+                                    }
+                                    ?>
                                     </div>
                                 </div>
                             </div>
@@ -331,42 +423,45 @@
                     </div>
 
                 </div>
-            </div>
-        </div></div>
 
-        <div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-        <a href="../pages/teampage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
+            </div>
+        </div>
+    </div></div>
+
+<div class="footer">
+    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
+    <div class="body">Acad 276: Dev II</div>
+    <div class="body"><a href="../pages/teampage.php">The Team</a></div>
+    <div class="body"><a href="../pages/faq.html">FAQ</a></div>
 </div>
 
-        <script>
-            let tabHeader = document.getElementsByClassName("tab-header")[0];
-            let tabIndicator = document.getElementsByClassName("tab-indicator")[0];
-            let tabBody = document.getElementsByClassName("tab-body")[0];
+<script>
+    // tab slider
+    let tabHeader = document.getElementsByClassName("tab-header")[0];
+    let tabIndicator = document.getElementsByClassName("tab-indicator")[0];
+    let tabBody = document.getElementsByClassName("tab-body")[0];
 
-            let tabsPane = tabHeader.getElementsByTagName("div");
+    let tabsPane = tabHeader.getElementsByTagName("div");
 
-            for(let i=0; i<tabsPane.length; i++) {
-                tabsPane[i].addEventListener("click", function() {
-                    tabHeader.getElementsByClassName("active")[0].classList.remove("active");
-                    tabsPane[i].classList.add("active");
-                    tabBody.getElementsByClassName("active")[0].classList.remove("active");
-                    tabBody.getElementsByTagName("div")[i].classList.add("active");
+    for(let i=0; i<tabsPane.length; i++) {
+        tabsPane[i].addEventListener("click", function() {
+            tabHeader.getElementsByClassName("active")[0].classList.remove("active");
+            tabsPane[i].classList.add("active");
+            tabBody.getElementsByClassName("active")[0].classList.remove("active");
+            tabBody.getElementsByTagName("div")[i].classList.add("active");
 
-                    tabIndicator.style.left = `calc(calc(100% / 4) * ${i})`;
-                });
-            }
+            tabIndicator.style.left = `calc(calc(100% / 4) * ${i})`;
+        });
+    }
 
-            // overlay
-            function on() {
-                document.getElementById("overlay").style.display = "block";
-            }
-            function off() {
-                document.getElementById("overlay").style.display = "none";
-            }
-        </script>
-    </body>
+    // overlay
+    function on() {
+        document.getElementById("overlay").style.display = "block";
+    }
+    function off() {
+        document.getElementById("overlay").style.display = "none";
+    }
+
+</script>
+</body>
 </html>

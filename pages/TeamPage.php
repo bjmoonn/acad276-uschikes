@@ -1,3 +1,10 @@
+<?php
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+?>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -99,9 +106,20 @@
             <img src="../../green%20logo.png">
         </div>
         <div class="nav-items">
-            <text class="copy1">Map</text>
-            <text class="copy1">Groups</text>
-            <text class="copy1">Profile</text>
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold">
+                <?php
+                session_start();
+
+                // Check if the user is logged in
+                if (isset($_SESSION["login"]) === false) {
+                    // User is not logged in
+                    $path = '../pages/login.php';
+                } else {
+                    $path = '../pages/profilepage.php';
+                }
+                ?>
+                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
         </div>
     </div>
     <div class="headline">
