@@ -25,6 +25,8 @@ $db = "haminjin_hikeOn";
 // Establish a connection
 $mysqli = new mysqli($host, $userid, $userpw, $db);
 
+session_start();
+
 // Check connection
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
@@ -104,6 +106,7 @@ function insertAndGetId($mysqli, $table, $columnName, $value)
     return $mysqli->insert_id;
 }
 ?>
+
 
 <!-- Display error message if there is any -->
 <?php if (!empty($error_message)) : ?>
@@ -317,7 +320,7 @@ function insertAndGetId($mysqli, $table, $columnName, $value)
 <div class="footer">
     <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
     <div class="footer-links">
-        <a href="../pages/teampage.php">Team</a>
+    <a href="../pages/TeamPage.php">Team</a>
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>

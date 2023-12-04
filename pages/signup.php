@@ -10,7 +10,7 @@ session_start();
     <link rel="stylesheet" href="../pages/login.module.css">
 </head>
 <body>
-    <?php include "logged-in.php" ?>
+<?php include "logged-in.php" ?>
 <div class="login-container">
     <h2>Sign Up</h2>
     <?php
@@ -21,43 +21,91 @@ session_start();
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Retrieve all user profile information
         $email = $_POST['email'];
         $password = $_POST['password'];
-
-        $query = "INSERT INTO users (userName, userPsswd) VALUES ('$email', '$password')";
+        $fullName = $_POST['full_name'];
+        $major = $_POST['major'];
+        $academicYearID = $_POST['academic_year'];
+        $genderID = $_POST['gender'];
 
         if (strpos($email, "@usc.edu") === false) {
             echo "<p>Only USC email addresses are allowed.</p>";
-        } else if ($mysql->query($query) === TRUE) {
-            echo "User created successfully!";
         } else {
-            echo "Error: " . $query . "<br>" . $mysql->error;
+            // Insert data into reference tables and get the generated IDs
+            $fullNameID = insertAndGetID($mysql, "fullNames", "fullName", $fullName);
+
+            $query = "INSERT INTO users (userName, userPsswd, fullNameId, major, yearID, genderID) 
+                      VALUES ('$email', '$password', '$fullNameID', '$major', '$academicYearID', '$genderID')";
+
+            if ($mysql->query($query) === TRUE) {
+                echo "User created successfully!";
+            } else {
+                echo "Error: " . $query . "<br>" . $mysql->error;
+            }
         }
     }
 
     $mysql->close();
+
+    // Function to insert data into reference tables and get the generated ID
+    function insertAndGetId($mysqli, $table, $columnName, $value)
+    {
+        $insertQuery = "INSERT INTO $table ($columnName) VALUES ('$value')";
+        $mysqli->query($insertQuery);
+        return $mysqli->insert_id;
+    }
     ?>
 
     <div class="logo-container">
         <img src="../public/assets/icons/green logo.png" alt="Logo">
     </div>
-    <form method="post" action="signup.php">
+    <form method="post" action="signup.php" enctype="multipart/form-data">
         <label for="email">Email:</label>
         <input type="text" name="email" required>
         <br>
         <label for="password">Password:</label>
         <input type="password" name="password" required>
         <br>
+        <label for="full_name">Full Name:</label>
+        <input type="text" name="full_name" required>
+        <br>
+        <label for="major">Major:</label>
+        <input type="text" name="major" required>
+        <br>
+        <label for="academic_year">Academic Year:</label>
+        <select name="academic_year">
+            <option value="1">Freshman</option>
+            <option value="2">Sophomore</option>
+            <option value="3">Junior</option>
+            <option value="4">Senior</option>
+            <option value="5">Graduate</option>
+            <option value="6">Professor</option>
+        </select>
+        <br>
+        <label for="gender">Gender:</label>
+        <select name="gender">
+            <option value="1">Male</option>
+            <option value="2">Female</option>
+            <option value="3">Non-binary</option>
+        </select>
+        <br>
+        <label for="background_pic">Background Picture:</label>
+        <input type="file" name="background_pic">
+        <br>
+        <label for="profile_pic">Profile Picture:</label>
+        <input type="file" name="profile_pic">
+        <br>
         <input type="submit" value="Sign Up">
     </form>
 </div>
+
         <div class="footer">
             <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
             <div class="footer-links">
-                <a href="../pages/teampage.php">Team</a>
+            <a href="../pages/TeamPage.php">Team</a>
                 <a href="../pages/faq.html">FAQ</a>
             </div>
         </div>
 </body>
 </html>
-
