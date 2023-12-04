@@ -315,14 +315,19 @@ if ($mysql->connect_error) {
                             <label for="name">Name: </label>
                             <input type="text" id="name" name="name" required><br><br>
 
-                            <label for="email">Email: </label>
-                            <input type="email" id="email" name="email" required><br><br>
-
                             <label for="major">Major: </label>
                             <input type="text" id="major" name="major" required><br><br>
 
-                            <label for="year">Graduation Year: </label>
-                            <input type="text" id="year" name="year" required><br><br>
+                            <label for="year">Grade: </label>
+                            <select id="year" name="year" required>
+                                <option value="" disabled selected></option>
+                                <option value="freshman">Freshman</option>
+                                <option value="sophomore">Sophomore</option>
+                                <option value="junior">Junior</option>
+                                <option value="senior">Senior</option>
+                                <option value="graduate">Graduate</option>
+                                <option value="professor">Professor</option>
+                            </select><br><br>
 
                             <label for="gender">Gender: </label>
                             <select id="gender" name="gender" required>
@@ -356,11 +361,11 @@ if ($mysql->connect_error) {
                         <section style="margin-left:2rem; color:#999999;">Business</section>
                     </section>
 
-                    <!-- grad year -->
+                    <!-- grade -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
-                        <section style="font-size:1rem;font-weight:bold;">Graduation Year</section>
+                        <section style="font-size:1rem;font-weight:bold;">Grade</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">2026</section>
+                        <section style="margin-left:2rem; color:#999999;">Sophomore</section>
                     </section>
                     </div>
 
