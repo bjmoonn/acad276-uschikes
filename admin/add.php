@@ -48,9 +48,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Add New Hike</title>
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
-        <link rel="stylesheet" href="css/typography.css" type="text/css">
-        <link rel="stylesheet" href="css/colors.css" type="text/css">
+    <<link rel="stylesheet" href="../css/styles.css" type="text/css">
+        <link rel="stylesheet" href=../css/typography.css" type="text/css">
+        <link rel="stylesheet" href="../css/colors.css" type="text/css">
+        <link rel="stylesheet" href="../admin/admin.module.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -60,9 +61,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="nav-items">
             <!--<text class="body bold"><a href="pages/map-page.php">Map</a></text>-->
-            <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
-            <text class="body bold"><a href="pages/login.php">Log-in</a></text>
-            <text class="body bold"><a href="pages/profilepage.php">Your Profile</a></text>
+            <text class="body bold"><a href="/pages/groupPage.php">Groups</a></text>
+            <text class="body bold"><a href="/pages/login.php">Log-in</a></text>
+            <text class="body bold"><a href="/pages/profilepage.php">Your Profile</a></text>
             <!-- login/profile button to be changed to dynamic when log in flow is complete -->
         </div>
     </div>

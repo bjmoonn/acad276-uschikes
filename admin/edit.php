@@ -62,9 +62,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Edit Hike</title>
-    <link rel="stylesheet" href="css/styles.css" type="text/css">
-        <link rel="stylesheet" href="css/typography.css" type="text/css">
-        <link rel="stylesheet" href="css/colors.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+        <link rel="stylesheet" href=../css/typography.css" type="text/css">
+        <link rel="stylesheet" href="../css/colors.css" type="text/css">
+        <link rel="stylesheet" href="../admin/admin.module.css" type="text/css">
         <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
