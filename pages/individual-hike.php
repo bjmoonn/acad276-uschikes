@@ -458,8 +458,19 @@ while($currentrow = $result->fetch_assoc()) {
         <div class="nav-items">
             <!--<text class="body bold"><a href="../pages/map-page.php">Map</a></text>-->
             <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
-            <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
+            <text class="body bold">
+                <?php
+                session_start();
+
+                // Check if the user is logged in
+                if (isset($_SESSION["login"]) === false) {
+                    // User is not logged in
+                    $path = '../pages/login.php';
+                } else {
+                    $path = '../pages/profilepage.php';
+                }
+                ?>
+                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
         </div>
     </div>
 
