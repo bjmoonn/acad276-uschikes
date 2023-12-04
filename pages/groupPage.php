@@ -1,3 +1,7 @@
+<?php
+include ("logged-in.php");
+session_start();
+?>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -10,15 +14,15 @@
 
 
 </head>
-<body>
 
 <?php
+
 $host = "webdev.iyaserver.com";
 $userid = "haminjin_guest";
 $userpw = "DevIIHikeOn123";
 $db = "haminjin_hikeOn";
 
-// establish a connection
+// Establish a connection
 $mysqli = new mysqli($host, $userid, $userpw, $db);
 
 session_start();
@@ -27,173 +31,235 @@ session_start();
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
-$mysqli->close();
+
+// Initialize an error message variable
+$error_message = '';
+
+// Process the form submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $groupName = $_POST['groupName'];
+
+    $query = "SELECT * FROM mainView WHERE name = '" . $_POST['hikeLocation'] . "'" ;
+
+    $results = $mysqli->query($query);
+    while($currentrow = $results->fetch_assoc()) {
+        $hikeID = $currentrow['hikeID'];
+    }
+
+    $location = $hikeID;
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $endtime = $_POST['time1'];
+
+    $query = "SELECT * FROM groupLvls WHERE groupLvl = '" . $_POST['difficultyLevel'] . "'" ;
+
+    $results = $mysqli->query($query);
+    while($currentrow = $results->fetch_assoc()) {
+        $diffID = $currentrow['groupLvlID'];
+    }
+
+    $difficulty = $diffID;
+    $description = $_POST['userInput'];
+
+    $query = "SELECT * FROM users WHERE userName = '" . $_SESSION["email"] . "'" ;
+
+    $results = $mysqli->query($query);
+    while($currentrow = $results->fetch_assoc()) {
+        $userID = $currentrow['userID'];
+    }
+
+    $username = $userID;
+
+// Combine date and time into a single string
+    $startDateTimeString = $date . ' ' . $time;
+    $endDateTimeString = $date . ' ' . $endtime;
+
+// Create a DateTime object
+    $DateTime = new DateTime($startDateTimeString);
+    $EndDateTime = new DateTime($endDateTimeString);
+
+// Format the DateTime object to the format you want to store in the database
+    $DateTimeFormatted = $DateTime->format('Y-m-d H:i:s');
+    $EndDateTimeFormatted = $DateTime->format('Y-m-d H:i:s');
+
+    echo 'Combined Date and Time: ' . $startDateTimeString;
+
+    // Insert data into reference tables and get the generated IDs
+    $descriptionID = insertAndGetID($mysqli, "groupDescriptions", "groupDescription", $description);
+
+    // Insert data into the database
+    $query = "INSERT INTO groups (userID, hikeID, groupName, startDateTime, endDateTime, groupLvlID, groupDescriptionID) VALUES ('$username','$location', '$groupName',' $DateTimeFormatted',' $EndDateTimeFormatted','$difficulty','$descriptionID')";
+
+    if ($mysqli->query($query) === TRUE) {
+        echo "New group created successfully";
+    } else {
+        $error_message = "Error: " . $query . "<br>" . $mysqli->error;
+    }
+}
+
+// Function to insert data into reference tables and get the generated ID
+function insertAndGetId($mysqli, $table, $columnName, $value)
+{
+    $insertQuery = "INSERT INTO $table ($columnName) VALUES ('$value')";
+    $mysqli->query($insertQuery);
+    return $mysqli->insert_id;
+}
 ?>
 
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <?php
-                session_start();
 
-                // Check if the user is logged in
-                if (isset($_SESSION["login"]) === false) {
-                    // User is not logged in
-                    $path = '../pages/login.php';
-                } else {
-                    $path = '../pages/profilepage.php';
-                }
-                ?>
-                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
-        </div>
-    </div>
-    <div class="headline">
-        <text class="title">Groups</text>
-        <text class="copy1">Connect with other outdoor Trojans! Join an upcoming hike.</text>
-    </div>
+<!-- Display error message if there is any -->
+<?php if (!empty($error_message)) : ?>
+    <div style="color: red;"><?php echo $error_message; ?></div>
+<?php endif; ?>
 
-    <div class="featuredbox">
-        <div class="featured">Featured</div>
-        <div class="container1">
-        <div class="filtersbutton "> Filters </div>
-        <div class="CreateGroupButton" onclick="toggleGroupPopup()"> Create A Group </div>
-        </div>
+<div class="nav">
+    <div class="logo">
+        <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
     </div>
+    <div class="nav-items">
+        <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
+        <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+        <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
+        <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
+    </div>
+</div>
+<div class="headline">
+    <text class="title">Groups</text>
+    <text class="copy1">Connect with other outdoor Trojans!</text>
+</div>
+
+<div class="featuredbox">
+    <div class="featured">Featured</div>
+    <div class="container1">
+        <?php
+
+        if($_SESSION["login"] == true){
+            echo '<div class="CreateGroupButton" onclick="toggleGroupPopup()"> Create A Group </div>';
+        }
+        else{
+            echo '<div class="CreateGroupButton"> Login to Create a Group </div>';
+        }
+
+        ?>
+    </div>
+</div>
 
 <div class="break"></div>
 
-    <div>
-        <div class="category">Casual</div>
+<div>
+    <div class="category">Casual</div>
 
-        <div class="groupcard">
-            <div class="buttonsContainer">
-                <div class="detailsButton"> Details</div>
-                <div class="joinGroupButton"> Join Group </div>
-            </div>
-            <div class="hikeTitle">Group: Hollywood Hike</div>
-            <div class="hikeDistance">4.1 mi away • 20 min</div>
-            <div class="profile-container">
-             <img src="../public/assets/images/profile1.avif" class="profileIcon">
-                <img src="../public/assets/images/profile2.webp" class="profileIcon">
-                <img src="../public/assets/images/profile3.avif" class="profileIcon">
-                <img src="../public/assets/images/profile4.webp" class="profileIcon">
-            </div>
-        </div>
+    <?php
 
-        <div class="groupcard">
-            <div class="buttonsContainer">
-                <div class="detailsButton"> Details</div>
-                <div class="joinGroupButton"> Join Group </div>
-            </div>
-            <div class="hikeTitle">Group: Malibu Adventure</div>
-            <div class="hikeDistance">16.2 mi away • 40 min</div>
-            <div class="profile-container">
-                <img src="../public/assets/images/profile5.webp" class="profileIcon">
-                <img src="../public/assets/images/profile6.avif" class="profileIcon">
-                <img src="../public/assets/images/profile7.jpeg" class="profileIcon">
-            </div>
-        </div>
+    $query = "SELECT * FROM hike_groups2 WHERE groupLvl = 'Casual'" ;
 
-        <div class="category">Amateaur</div>
+    $results = $mysqli->query($query);
+    while($currentrow = $results->fetch_assoc()) {
+        echo '<div class="groupcard">
+        <div class="hikeTitle">'. $currentrow["groupName"] . ' at ' . $currentrow["name"] .'</div>
+        <div class="hikeDistance">hosted by '. $currentrow["userName"] .', at '. $currentrow["startDateTime"] .'</div>
+        <br>
+        <div class="hikeDistance">'. $currentrow["groupDescription"] .'</div>
+    </div>';
+    }
 
-        <div class="groupcard">
-            <div class="buttonsContainer">
-                <div class="detailsButton"> Details</div>
-                <div class="joinGroupButton"> Join Group </div>
-            </div>
-            <div class="hikeTitle">Group: Desert Fun</div>
-            <div class="hikeDistance">100 mi away •  3 hours</div>
-            <div class="profile-container">
-                <img src="../public/assets/images/profile8.jpeg" class="profileIcon">
-                <img src="../public/assets/images/profile9.jpeg" class="profileIcon">
-            </div>
-        </div>
 
-        <div class="groupcard">
-            <div class="buttonsContainer">
-                <div class="detailsButton"> Details</div>
-                <div class="joinGroupButton"> Join Group </div>
-            </div>
-            <div class="hikeTitle">Group: Runyun Canyon</div>
-            <div class="hikeDistance">12.1 mi away • 36 min</div>
-            <div class="profile-container">
-                <img src="../public/assets/images/profile3.avif" class="profileIcon">
-                <img src="../public/assets/images/profile8.jpeg" class="profileIcon">
-                <img src="../public/assets/images/profile1.avif" class="profileIcon">
-                <img src="../public/assets/images/profile7.jpeg" class="profileIcon">
-            </div>
-        </div>
 
-        <div class="category">Hardcore</div>
+    ?>
 
-        <div class="groupcard">
-            <div class="buttonsContainer">
-                <div class="detailsButton"> Details</div>
-                <div class="joinGroupButton"> Join Group </div>
-            </div>
-            <div class="hikeTitle">Group: Temescal Canyon</div>
-            <div class="hikeDistance">25.3 mi away • 1 hour 6 min</div>
-            <div class="profile-container">
-                <img src="../public/assets/images/profile9.jpeg" class="profileIcon">
-                <img src="../public/assets/images/profile5.webp" class="profileIcon">
-                <img src="../public/assets/images/profile4.webp" class="profileIcon">
-                <img src="../public/assets/images/profile2.webp" class="profileIcon">
-            </div>
-        </div>
 
-        <div class="groupcard">
-            <div class="buttonsContainer">
-                <div class="detailsButton"> Details</div>
-                <div class="joinGroupButton"> Join Group </div>
-            </div>
-            <div class="hikeTitle">Group: Climbing Trip! </div>
-            <div class="hikeDistance">30.9 mi away • 58 min</div>
-            <div class="profile-container">
-                <img src="../public/assets/images/profile6.avif" class="profileIcon">
-                <img src="../public/assets/images/profile3.avif" class="profileIcon">
-                <img src="../public/assets/images/profile7.jpeg" class="profileIcon">
-                <img src="../public/assets/images/profile8.jpeg" class="profileIcon">
-            </div>
-        </div>
+    <div class="category">Amateur</div>
 
-    </div>
+    <?php
+
+    $query = "SELECT * FROM hike_groups2 WHERE groupLvl = 'Amateur'" ;
+
+    $results = $mysqli->query($query);
+    while($currentrow = $results->fetch_assoc()) {
+        echo '<div class="groupcard">
+        <div class="hikeTitle">'. $currentrow["groupName"] . ' at ' . $currentrow["name"] .'</div>
+        <div class="hikeDistance">hosted by '. $currentrow["userName"] .', at '. $currentrow["startDateTime"] .'</div>
+        <br>
+        <div class="hikeDistance">'. $currentrow["groupDescription"] .'</div>
+    </div>';
+    }
+
+
+
+    ?>
+
+
+    <div class="category">Hardcore</div>
+
+    <?php
+
+    $query = "SELECT * FROM hike_groups2 WHERE groupLvl = 'Hardcore'" ;
+
+    $results = $mysqli->query($query);
+    while($currentrow = $results->fetch_assoc()) {
+        echo '<div class="groupcard">
+        <div class="hikeTitle">'. $currentrow["groupName"] . ' at ' . $currentrow["name"] .'</div>
+        <div class="hikeDistance">hosted by '. $currentrow["userName"] .', at '. $currentrow["startDateTime"] .'</div>
+        <br>
+        <div class="hikeDistance">'. $currentrow["groupDescription"] .'</div>
+    </div>';
+    }
+
+
+
+    ?>
+
+
+</div>
 
 <div class="GroupPopup" id="groupPopup">
     <img src="x.png" class="x" id="closeButton">
     <p class="Popupheading">Create a Group</p>
     <div class="formContainer">
-        <form action="CreateGroupResults.php" method="get">
-            First and Last Name: <input type="text" name="ownerName" required>
+        <form method="post" action="groupPage.php">
             <br>
             <br>
             Group Name: <input type="text" name="groupName" required>
             <br>
             <br>
-            Hike Location: <input type="text" name="hikeLocation" required>
+            Hike Location: <select name="hikeLocation">
+                <?php
+                $sql = "SELECT * FROM mainView";
+                $results = $mysqli->query($sql);
+                while($currentrow = $results->fetch_assoc()) {
+                    echo "<option>" . $currentrow['name'] . "</option>";
+                }
+                ?>
+            </select>
             <br>
             <br>
             <label for="selectedDate">Select a Date:</label>
-            <input type="date" id="selectedDate" name="selectedDate" required>
+            <input type="date" id="selectedDate" name="date" required>
             <br>
             <br>
-            Start Time: <input type="time" id="selectedTime" name="selectedTime" required>
+            Start Time: <input type="time" id="selectedTime" name="time" required>
             <br>
             <br>
-            Terrain Type: <input type="text" name="difficultyLevel" required>
+            End Time: <input type="time" id="selectedTime" name="time1" required>
             <br>
             <br>
-            Difficulty: <input type="text" name="difficultyLevel" required>
+            Group Difficulty: <select name="difficultyLevel">
+                <?php
+                $sql = "SELECT * FROM groupLvls";
+                $results = $mysqli->query($sql);
+                while($currentrow = $results->fetch_assoc()) {
+                    echo "<option>" . $currentrow['groupLvl'] . "</option>";
+                }
+                ?>
+            </select>
             <br>
             <br>
             Please add a description or anything information you would want potential members to know:
             <br>
             <br>
             <textarea id="hikeDescription" name="userInput" rows="4" cols="40" placeholder="Type here..."></textarea>
-           <br>
+            <br>
             <br>
             <input type="submit">
         </form>
@@ -229,15 +295,35 @@ $mysqli->close();
     }
 </script>
 
+    <br>
+    <br>
+<script>
+    // Function to open the filtersPopUp
+    function openFiltersPopUp() {
+        var filtersPopUp = document.getElementById('filtersPopUp');
+        filtersPopUp.style.display = 'block';
+    }
 
+    // Function to close the filtersPopUp
+    function closeFiltersPopUp() {
+        var filtersPopUp = document.getElementById('filtersPopUp');
+        filtersPopUp.style.display = 'none';
+    }
 
+    // Add a click event listener to open the filtersPopUp
+    document.getElementById('openFiltersButton').addEventListener('click', openFiltersPopUp);
 
-    <div class="footer">
+    // Add a click event listener to close the filtersPopUp
+    document.getElementById('closeFiltersButton').addEventListener('click', closeFiltersPopUp);
+</script>
+
+<div class="footer">
     <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
     <div class="footer-links">
     <a href="../pages/TeamPage.php">Team</a>
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>
+
 </body>
 </html>
