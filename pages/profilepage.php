@@ -1,3 +1,10 @@
+<?php
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+?>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -220,7 +227,33 @@
                     <div class = "active">
                         <h3>Your Saved Hikes</h3>
                         <p>
-                            No saved hikes.
+                            <?php
+                            $sql_saved = "SELECT * FROM favorites, mainHikes";
+                            $result_saved = $mysql->query($sql_saved);
+
+                            if($result_saved->num_rows > 0) {
+                                while($currentrow = $result_saved->fetch_assoc()) {
+                                    echo '
+                                        <div class="hike-individual">
+                                            <div class="hike-thumbnail">
+                                                <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                            </div>
+                                             <div class="hike-description">
+                                                <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                                <div class="body">' . $currentrow["name"] . '</div>
+                                                <div class="body">' . $currentrow["length"] . ' miles</div>
+                                                <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                                <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                                    ' . $currentrow["difficulty"] . '
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ';
+                                }
+                            } else {
+                                echo "No saved hikes.";
+                            }
+                            ?>
                         </p>
                     </div>
 
@@ -228,7 +261,36 @@
                     <!-- COMPLETED -->
                     <div>
                         <h3>Your Completed Hikes</h3>
-                        <p>No completed hikes. Start Hiking-On!</p>
+                        <p>
+                            <?php
+                            $sql_completed = "SELECT * FROM completedHikes, mainHikes";
+                            $result_completed = $mysql->query($sql_completed);
+
+                            if($result_completed->num_rows > 0) {
+                                while($currentrow = $result_completed->fetch_assoc()) {
+                                    // PHP logic
+                                    echo '
+                                        <div class="hike-individual">
+                                            <div class="hike-thumbnail">
+                                                <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                            </div>
+                                             <div class="hike-description">
+                                                <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
+                                                <div class="body">' . $currentrow["name"] . '</div>
+                                                <div class="body">' . $currentrow["length"] . ' miles</div>
+                                                <div class="body">' . $currentrow["duration"] . ' hr</div>
+                                                <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
+                                                    ' . $currentrow["difficulty"] . '
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ';
+                                }
+                            } else {
+                                echo "No completed hikes. Start Hiking-On!";
+                            }
+                            ?>
+                        </p>
                     </div>
 
                     <!-- SETTINGS -->
@@ -309,21 +371,34 @@
                             <div class="reviews-row">
                                 <div class="review">
                                     <div class="review-inner">
-                                        <div class="reviewer">
-                                            <div class="profile">
-                                                <img src="../public/assets/icons/profile-pic.svg">
-                                            </div>
-                                            <div class="reviewer-info">
-                                                <text>Hamin J.</text>
-                                            </div>
-                                        </div>
-                                        <text class="copy1">This was a super fun hike! Best to go in the morning when its less crowded. Also really liked the view at the top of the trail. Really hard to beat it!</text>
-                                        <div class="stars">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                        </div>
+                                        <?php
+                                            $sql_reviews = "SELECT comments, rating, fullName, profPicURL FROM userReviews, users, fullNames, profPics WHERE hikeID = " . $_REQUEST["hikeid"];
+                                            $result_reviews = $mysql->query($sql_reviews);
+
+                                            if($result_reviews->num_rows > 0) {
+                                                while($currentrow = $result_reviews->fetch_assoc()) {
+                                                    echo '
+                                                        <div class="reviewer">
+                                                            <div class="profile">
+                                                                <img src = '. $currentrow["profPicURL"]. '>
+                                                            </div>
+                                                            <div class="reviewer-info">
+                                                                <text>' . $currentrow["fullName"] . '</text>
+                                                            </div>
+                                                        </div>
+                                                        <text class="copy1">' . $currentrow["comments"] . '</text>
+                                                        <div class="stars">
+                                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                                            <img src="../public/assets/icons/star.svg" class="icon">
+                                                        </div>
+                                                    ';
+                                                }
+                                            } else {
+                                                echo "No reviews written. Comment your thoughts on hikes you have completed!";
+                                            }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
