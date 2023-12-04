@@ -1,7 +1,7 @@
+<?php include 'logged-in.php'; ?>
+
 <?php
 $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
-
-session_start();
 
 if ($mysql->connect_error) {
     die("Connection failed: " . $mysql->connect_error);

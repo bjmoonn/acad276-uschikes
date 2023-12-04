@@ -1,6 +1,5 @@
-<?php include 'logged-in.php';
-session_start();
- ?>
+<?php include 'logged-in.php'; ?>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
