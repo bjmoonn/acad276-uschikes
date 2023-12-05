@@ -1,24 +1,25 @@
 <?php
 $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
 
-session_start();
-
 if ($mysql->connect_error) {
     die("Connection failed: " . $mysql->connect_error);
 }
 
-if ($mysql->connect_error) {
-    die("Connection failed: " . $mysql->connect_error);
+// Check if user is logged in
+if(isset($_SESSION["login"]) === false) {
+    // Send user to login page
+    $path = '../pages/login.php';
+} else {
+    $path = '../pages/profilepage.php';
 }
 ?>
-
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Profile Page</title>
-    <link rel="stylesheet" href="styles.css" type="text/css">
-    <link rel="stylesheet" href="typography.css" type="text/css">
-    <link rel="stylesheet" href="colors.css" type="text/css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/typography.css" type="text/css">
+    <link rel="stylesheet" href="../css/colors.css" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <style>
@@ -186,41 +187,38 @@ if ($mysql->connect_error) {
         <div class="nav-items">
             <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
             <text class="body bold">
-                <?php
-                session_start();
-
-                // Check if the user is logged in
-                if (isset($_SESSION["login"]) === false) {
-                    // User is not logged in
-                    $path = '../pages/login.php';
-                } else {
-                    $path = '../pages/profilepage.php';
-                }
-                ?>
-                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
+                <a href="<?php echo $path; ?>">
+                    <img src="../public/assets/images/profile-picture.png" style="width:3rem;">
+                </a>
+            </text>
         </div>
     </div>
 </div>
 
-<!-- ACCOUNT NAME. PHOTO, AND BACKGROUND IMAGE-->
+<!-- ACCOUNT NAME, PHOTO, BACKGROUND IMAGE -->
 <!-- BACKGROUND IMAGE -->
 <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-    <img src = "../public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
+    <img src="../public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
 </div>
-<div class = "profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
 
-    <!-- ACCOUNT NAME AND PHOTO-->
-    <div class = "account-header" style="padding-bottom:3rem;">
+<div class="profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
+
+    <!-- ACCOUNT NAME AND PHOTO -->
+    <div class="account-header" style="padding-bottom:3rem;">
         <div style="text-align:center;">
-            <img src="../public/assets/icons/profile-pic.svg" style="width:6rem;"><br><br>Hamin Jin</div>
+            <img src="../public/assets/images/profile-picture.png" style="width:6rem;"><br><br>Hamin Jin
+        </div>
     </div>
 
-    <div class = "profilepage-body">
+    <!-- PROFILE PAGE BODY -->
+    <div class="profilepage-body">
 
         <!-- TAB SLIDER SECTION -->
-        <div class = "tabs">
-            <div class = "tab-header">
-                <div class = "active">
+        <div class="tabs">
+
+            <!-- TAB SLIDER HEADERS -->
+            <div class="tab-header">
+                <div class="active">
                     Saved
                 </div>
                 <div>
@@ -234,18 +232,23 @@ if ($mysql->connect_error) {
                 </div>
             </div>
 
+            <!-- SLIDER -->
+            <div class="tab-indicator"></div>
 
-                    <!-- SAVED -->
-                    <div class = "active">
-                        <h3>Your Saved Hikes</h3>
-                        <p>
-                            <?php
-                            $sql_saved = "SELECT * FROM favorites, mainHikes";
-                            $result_saved = $mysql->query($sql_saved);
+            <!-- DYNAMIC BODY TEXT (FOR ALL TABS) -->
+            <div class="tab-body">
 
-                            if($result_saved->num_rows > 0) {
-                                while($currentrow = $result_saved->fetch_assoc()) {
-                                    echo '
+                <!-- SAVED -->
+                <div class="active" id="saved">
+                    <h3>Your Saved Hikes</h3>
+                    <p>
+                        <?php
+                        $sql_saved = "SELECT * FROM favorites, mainHikes";
+                        $result_saved = $mysql->query($sql_saved);
+
+                        if($result_saved->num_rows > 0) {
+                            while($currentrow = $result_saved->fetch_assoc()) {
+                                echo '
                                         <div class="hike-individual">
                                             <div class="hike-thumbnail">
                                                 <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
@@ -261,27 +264,26 @@ if ($mysql->connect_error) {
                                             </div>
                                         </div>
                                     ';
-                                }
-                            } else {
-                                echo "No saved hikes.";
                             }
-                            ?>
-                        </p>
-                    </div>
+                        } else {
+                            echo "No saved hikes.";
+                        }
+                        ?>
+                    </p>
+                </div>
 
+                <!-- COMPLETED -->
+                <div id="completed">
+                    <h3>Your Completed Hikes</h3>
+                    <p>
+                        <?php
+                        $sql_completed = "SELECT * FROM completedHikes, mainHikes";
+                        $result_completed = $mysql->query($sql_completed);
 
-                    <!-- COMPLETED -->
-                    <div>
-                        <h3>Your Completed Hikes</h3>
-                        <p>
-                            <?php
-                            $sql_completed = "SELECT * FROM completedHikes, mainHikes";
-                            $result_completed = $mysql->query($sql_completed);
-
-                            if($result_completed->num_rows > 0) {
-                                while($currentrow = $result_completed->fetch_assoc()) {
-                                    // PHP logic
-                                    echo '
+                        if($result_completed->num_rows > 0) {
+                            while($currentrow = $result_completed->fetch_assoc()) {
+                                // PHP logic
+                                echo '
                                         <div class="hike-individual">
                                             <div class="hike-thumbnail">
                                                 <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
@@ -297,41 +299,42 @@ if ($mysql->connect_error) {
                                             </div>
                                         </div>
                                     ';
-                                }
-                            } else {
-                                echo "No completed hikes. Start Hiking-On!";
                             }
-                            ?>
-                        </p>
-                    </div>
+                        } else {
+                            echo "No completed hikes. Start Hiking-On!";
+                        }
+                        ?>
+                    </p>
+                </div>
 
                 <!-- SETTINGS -->
-                <div>
+                <div id="settings">
                     <h3>Profile</h3>
                     <p><hr></p>
 
+                    <!-- NAME AND PROFILE PICTURE -->
                     <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
                         <section style="display: flex; align-items: center;">
-                            <img src="../public/assets/icons/profile-pic.svg" style="width: 3.5rem; margin-right: 3rem;">
+                            <img src="../public/assets/images/profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
                             <section style="position: relative;">Hamin Jin</section>
                         </section>
+                        <!-- EDIT PROFILE BUTTON -->
                         <section id="editProfile" style="position: relative;" onclick="on()">Edit Profile</section>
                     </section>
 
-                    <!-- edit profile overlay -->
+                    <!-- EDIT PROFILE OVERLAY -->
                     <section id="overlay">
                         <h3 style="padding-left:2rem; padding-top:1rem; padding-bottom:0.5rem;">Edit Your Information:</h3>
-                        <!--                        <img src = "../public/assets/icons/light-x.svg" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;" onclick="off()">-->
-                        <img src = "light-x.svg" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;" onclick="off()">
+                        <img src = "../public/assets/icons/light-x.svg" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;" onclick="off()">
                         <form action="#" method="post" enctype="multipart/form-data">
-                            <label for="name">Name: </label>
-                            <input type="text" id="name" name="name" required><br><br>
+                            <label for="name">Full Name: </label>
+                            <input type="text" id="name" name="full_name" required><br><br>
 
                             <label for="major">Major: </label>
                             <input type="text" id="major" name="major" required><br><br>
 
-                            <label for="year">Grade: </label>
-                            <select id="year" name="year" required>
+                            <label for="year">Academic Year: </label>
+                            <select id="year" name="academic_year" required>
                                 <option value="" disabled selected></option>
                                 <option value="freshman">Freshman</option>
                                 <option value="sophomore">Sophomore</option>
@@ -359,73 +362,83 @@ if ($mysql->connect_error) {
                         </form>
                     </section>
 
-                    <!-- username -->
+                    <!-- EMAIL -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Email Address</section>
                         <p><hr style="width:100%; margin:auto;"></p>
                         <section style="margin-left:2rem; color:#999999;">jinnyjin@usc.edu</section>
                     </section>
 
-                    <!-- email -->
+                    <!-- MAJOR -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Major</section>
                         <p><hr style="width:100%; margin:auto;"></p>
                         <section style="margin-left:2rem; color:#999999;">Business</section>
                     </section>
 
-                    <!-- grade -->
+                    <!-- ACADEMIC YEAR -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
-                        <section style="font-size:1rem;font-weight:bold;">Grade</section>
+                        <section style="font-size:1rem;font-weight:bold;">Academic Year</section>
                         <p><hr style="width:100%; margin:auto;"></p>
                         <section style="margin-left:2rem; color:#999999;">Sophomore</section>
                     </section>
-                    <!-- MY REVIEWS -->
-                    <div>
-                        <div class="reviews-holder">
-                            <h3>Reviews</h3>
-                            <div class="reviews-row">
-                                <div class="review">
-                                    <div class="review-inner">
-                                        <?php
-                                            $sql_reviews = "SELECT comments, rating, fullName, profPicURL FROM userReviews, users, fullNames, profPics WHERE hikeID = " . $_REQUEST["hikeid"];
-                                            $result_reviews = $mysql->query($sql_reviews);
 
-                                            if($result_reviews->num_rows > 0) {
-                                                while($currentrow = $result_reviews->fetch_assoc()) {
-                                                    echo '
-                                                        <div class="reviewer">
-                                                            <div class="profile">
-                                                                <img src = '. $currentrow["profPicURL"]. '>
-                                                            </div>
-                                                            <div class="reviewer-info">
-                                                                <text>' . $currentrow["fullName"] . '</text>
-                                                            </div>
-                                                        </div>
-                                                        <text class="copy1">' . $currentrow["comments"] . '</text>
-                                                        <div class="stars">
-                                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                                            <img src="../public/assets/icons/star.svg" class="icon">
-                                                        </div>
-                                                    ';
-                                                }
-                                            } else {
-                                                echo "No reviews written. Comment your thoughts on hikes you have completed!";
-                                            }
-                                        ?>
-                                    </div>
+                    <!-- GENDER -->
+                    <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
+                        <section style="font-size:1rem;font-weight:bold;">Gender</section>
+                        <p><hr style="width:100%; margin:auto;"></p>
+                        <section style="margin-left:2rem; color:#999999;">Male</section>
+                    </section>
+                </div>
+
+                <!-- MY REVIEWS -->
+                <div id="myreviews">
+                    <div class="reviews-holder">
+                        <h3>My Reviews</h3>
+                        <div class="reviews-row">
+                            <div class="review">
+                                <div class="review-inner">
+                                    <?php
+                                    $sql_reviews = "SELECT comments, rating, fullName, profPicURL FROM userReviews, users, fullNames, profPics WHERE hikeID = " . $_REQUEST["hikeid"];
+                                    $result_reviews = $mysql->query($sql_reviews);
+
+                                    if($result_reviews->num_rows > 0) {
+                                        while($currentrow = $result_reviews->fetch_assoc()) {
+                                            echo '
+                                                <div class="reviewer">
+                                                    <div class="profile">
+                                                        <img src = '. $currentrow["profPicURL"]. '>
+                                                    </div>
+                                                    <div class="reviewer-info">
+                                                        <text>' . $currentrow["fullName"] . '</text>
+                                                    </div>
+                                                </div>
+                                                <text class="copy1">' . $currentrow["comments"] . '</text>
+                                                <div class="stars">
+                                                    <img src="public/assets/icons/star.svg" class="icon">
+                                                    <img src="public/assets/icons/star.svg" class="icon">
+                                                    <img src="public/assets/icons/star.svg" class="icon">
+                                                    <img src="public/assets/icons/star.svg" class="icon">
+                                                </div>
+                                            ';
+                                        }
+                                    } else {
+                                        echo "No reviews written. Comment your thoughts on hikes you have completed!";
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
-            </div>
-        </div>
-    </div></div>
+                </div><!-- DYNAMIC TAB BODY TEXT CLOSE-->
 
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
 <div class="footer">
     <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
     <div class="body">Acad 276: Dev II</div>
@@ -434,7 +447,7 @@ if ($mysql->connect_error) {
 </div>
 
 <script>
-    // tab slider
+    // tab slider script
     let tabHeader = document.getElementsByClassName("tab-header")[0];
     let tabIndicator = document.getElementsByClassName("tab-indicator")[0];
     let tabBody = document.getElementsByClassName("tab-body")[0];
@@ -452,14 +465,14 @@ if ($mysql->connect_error) {
         });
     }
 
-    // overlay
+    // overlay script
     function on() {
         document.getElementById("overlay").style.display = "block";
     }
     function off() {
         document.getElementById("overlay").style.display = "none";
     }
-
 </script>
+
 </body>
 </html>
