@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+// Check if the user is logged in
+if (isset($_SESSION["login"]) === false) {
+    // User is not logged in
+    $path = 'pages/login.php';
+} else {
+    $path = 'pages/profilepage.php';
+}
 ?>
     <!DOCTYPE html>
     <html lang="en">
@@ -46,21 +54,23 @@ session_start();
         </style>
     </head>
 <body>
-<!-- <?php include "pages/logged-in.php" ?> -->
+ <?php include "pages/logged-in.php" ?>
     <div class="main">
 
         <div class="nav">
             <div class="logo">
-                <a href="index.php"><img src="public/assets/icons/green logo.png"></a>
+                <a href="../index.php"><img src="public/assets/icons/green logo.png"></a>
             </div>
             <div class="nav-items">
-                <!--<text class="body bold"><a href="pages/map-page.php">Map</a></text>-->
                 <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
-                <text class="body bold"><a href="pages/login.php">Log-in</a></text>
-                <text class="body bold"><a href="pages/profilepage.php">Your Profile</a></text>
-                <!-- login/profile button to be changed to dynamic when log in flow is complete -->
+                <text class="body bold">
+                    <a href="<?php echo $path; ?>">
+                        <img src="public/assets/images/profile-picture.png" style="width:3rem;">
+                    </a>
+                </text>
             </div>
         </div>
+
     </div>
     <div class="headline">
         <div class="title">Hike On!</div>
@@ -202,8 +212,8 @@ if ($result->num_rows > 0) {
         <div class="footer">
             <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
             <div class="footer-links">
-                <a href="../pages/TeamPage.php">Team</a>
-                <a href="../pages/faq.html">FAQ</a>
+                <a href="pages/TeamPage.php">Team</a>
+                <a href="pages/faq.html">FAQ</a>
             </div>
         </div>
 

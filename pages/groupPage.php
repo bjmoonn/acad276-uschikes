@@ -113,17 +113,8 @@ function insertAndGetId($mysqli, $table, $columnName, $value)
     <div style="color: red;"><?php echo $error_message; ?></div>
 <?php endif; ?>
 
-<div class="nav">
-    <div class="logo">
-        <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-    </div>
-    <div class="nav-items">
-        <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
-        <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-        <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
-        <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
-    </div>
-</div>
+<?php include "../pages/nav.php" ?>
+
 <div class="headline">
     <text class="title">Groups</text>
     <text class="copy1">Connect with other outdoor Trojans!</text>
@@ -317,13 +308,7 @@ function insertAndGetId($mysqli, $table, $columnName, $value)
     document.getElementById('closeFiltersButton').addEventListener('click', closeFiltersPopUp);
 </script>
 
-<div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
-</div>
+<?php include "../pages/footer.php"?>
 
 </body>
 </html>
