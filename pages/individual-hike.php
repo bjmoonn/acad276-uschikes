@@ -572,7 +572,9 @@ while($currentrow = $result->fetch_assoc()) {
             <div class="map-holder">
                 <div id="map">
                     <script>
-                        var _coords = [{"lat":"34.0211722","long":"-118.2871978","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"},{"lat":"34.0235346","long":"-118.2857239","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"}];
+                        var latd = "<?php echo $h_lat; ?>";
+                        var long = "<?php echo $h_lat; ?>";
+                        var _coords = [{"lat":"<?php echo $h_lat; ?>","long":"<?php echo $h_long; ?>","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"},{"lat":"<?php echo $h_lat; ?>","long":"<?php echo $h_long; ?>","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"}];
                         var map;
 
                         function initMap() {
