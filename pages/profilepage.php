@@ -1,4 +1,6 @@
 <?php
+include 'logged-in.php';
+session_start();
 $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
 
 if ($mysql->connect_error) {
@@ -16,7 +18,7 @@ if(isset($_SESSION["login"]) === false) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Profile Page</title>
+    <title>1Profile Page</title>
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="../css/typography.css" type="text/css">
     <link rel="stylesheet" href="../css/colors.css" type="text/css">
@@ -132,7 +134,7 @@ if(isset($_SESSION["login"]) === false) {
             gap: .25rem;
             border-radius: 2rem;
             border: 1px solid var(--ui-border, #E5E5E5);
-            background: var(--ui-white, #FFF);
+            background: white;
             box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
         }
         #editProfile:hover {
@@ -312,11 +314,26 @@ if(isset($_SESSION["login"]) === false) {
                     <h3>Profile</h3>
                     <p><hr></p>
 
+                    <?php
+                        $sql = "SELECT userID, fullName, userName, year, major, gender FROM users, years, genders, fullNames WHERE userID =" .$_REQUEST['userID'];
+                        $result = $mysql->query($sql);
+
+                        if($result->num_rows>0) {
+                            while($currentrow = $result->fetch_assoc()) {
+                                $fullName = $currentrow['fullName'];
+                                $email = $currentrow['userName'];
+                                $year = $currentrow['year'];
+                                $major = $currentrow['major'];
+                                $gender = $currentrow['gender'];
+                            }
+                        }
+                    ?>
+
                     <!-- NAME AND PROFILE PICTURE -->
                     <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
                         <section style="display: flex; align-items: center;">
                             <img src="../public/assets/images/profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
-                            <section style="position: relative;">Hamin Jin</section>
+                            <section style="position: relative;"><?php echo $fullName ?></section>
                         </section>
                         <!-- EDIT PROFILE BUTTON -->
                         <section id="editProfile" style="position: relative;" onclick="on()">Edit Profile</section>
@@ -366,28 +383,28 @@ if(isset($_SESSION["login"]) === false) {
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Email Address</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">jinnyjin@usc.edu</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $email ?></section>
                     </section>
 
                     <!-- MAJOR -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Major</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">Business</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $major ?></section>
                     </section>
 
                     <!-- ACADEMIC YEAR -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Academic Year</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">Sophomore</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $year ?></section>
                     </section>
 
                     <!-- GENDER -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Gender</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">Male</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $gender ?></section>
                     </section>
                 </div>
 

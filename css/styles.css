@@ -8,10 +8,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  align-items: center;
-  justify-content: center;
 }
-
 a {
   text-decoration: none;
   color: inherit;
@@ -217,23 +214,18 @@ a {
 }
 
 @media only screen and (max-width: 480px) {
-    .nav {
-        flex-direction: column;
-        text-align: center;
-    }
+  .nav {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .nav-items {
-        margin-top: 1rem;
-        flex-direction: column; 
-    }
+  .nav-items {
+    margin-top: 1rem;
+    flex-direction: column;
+  }
 
-    .nav-items a {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-}
-
-
-.pagination {
-  font-size: 1.5rem;
+  .nav-items a {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
 }
