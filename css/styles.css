@@ -53,6 +53,20 @@ a {
   margin: auto;
 }
 
+.browse-results {
+  margin: 4rem auto 3.5rem auto;
+  padding-left: 11rem;
+  padding-right: 11rem;
+}
+
+.hike-name{
+  overflow: hidden;
+  height: 0.1rem;
+  font-size: 1rem; /* 16px */
+  line-height: 1.5;
+  height: 1.5rem;
+}
+
 .filter-container {
   display: flex;
   flex-direction: row;
@@ -211,6 +225,10 @@ a {
 
 .overlay.show {
   display: block;
+}
+
+.hike-table{
+  margin: auto;
 }
 
 @media only screen and (max-width: 480px) {
