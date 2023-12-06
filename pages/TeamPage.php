@@ -49,38 +49,38 @@ if ($mysql->connect_error) {
 
 
         .peopleContainer {
-            width: 700px;
+            width: 45rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 400px;
+            height: 24.8rem;
             position: relative;
             margin: auto;
         }
 
         .nameContainer1 {
-            width: 700px;
+            width: 45rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 40px;
+            height: 2.3rem;
             position: absolute;
             top: 180;
-            gap: 65px;
+            gap: 4.8rem;
         }
         .nameContainer2 {
-            width: 700px;
+            width: 45rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 40px;
+            height: 2.3rem;
             margin:auto;
-            gap: 65px;
+            gap: 4.8rem;
         }
 
         .name {
-            width:170px;
-            height:40px;
+            width:10.625rem;
+            height:2.3rem;
             text-align: center;
             display: flex;
             justify-content: center;
@@ -89,12 +89,16 @@ if ($mysql->connect_error) {
         }
 
         .aboutTeam {
-            width: 1000px;
-            height: 230px;
+            width: 65rem;
+            height: 18.5rem;
             margin: auto;
-            margin-top: 30px;
-            margin-bottom: 30px;
+            margin-top: 1.875rem;
+            margin-bottom: 1.875rem;
             text-align: center;
+        }
+
+        p {
+            font-size: 1.3rem;
         }
 
     </style>

@@ -237,3 +237,12 @@ a {
 .pagination {
   font-size: 1.5rem;
 }
+
+.background-image {
+  background-image: url('../public/assets/cover-photo-1.jpg'); /* Replace 'background.jpg' with the path to your image */
+  background-size: cover; /* Cover the entire viewport */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the background image */
+  width:100px;
+  height: 100px;
+}
