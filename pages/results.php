@@ -328,9 +328,6 @@ $result = $mysql->query($sql);
 </div>
 
 <div class="browse-results">
-    <div class="heading">
-        <h3>Search Results</h3>
-    </div>
     <table class="hike-table">
         <?php
         if ($result) {
@@ -384,7 +381,10 @@ $result = $mysql->query($sql);
         <br>
         <?php
       for ($page=1; $page<=$number_of_pages; $page++) {
-          echo '<strong><a href="results.php?page=' . $page . '">' . $page . '</a>, </strong>';
+          echo '<strong><a href="results.php?page=' . $page . '">' . $page . '</a></strong>';
+          if($page != $number_of_pages){
+              echo ", ";
+          }
       }
       ?>
     </div>

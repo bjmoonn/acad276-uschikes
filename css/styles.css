@@ -55,8 +55,10 @@ a {
 
 .browse-results {
   margin: 4rem auto 3.5rem auto;
-  padding-left: 11rem;
-  padding-right: 11rem;
+}
+.pagination{
+  margin: auto;
+  text-align: center;
 }
 
 .hike-name{
