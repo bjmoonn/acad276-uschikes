@@ -819,6 +819,36 @@ while($currentrow = $result->fetch_assoc()) {
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>
+<script>
+    function checkLikeStatus(hikeName) {
+        fetch('like-feature-check.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify({ hikeName: hikeName }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.likeStatus === 1) {
+                    imageElement.classList.add('liked');
+                    imageElement.src = '../public/assets/icons/heart-filled.svg';
+                    likeStatus = 1;
+                } else if (data.likeStatus === 0) {
+                    imageElement.classList.remove('liked');
+                    imageElement.src = '../public/assets/icons/heart-empty.svg';
+                    likeStatus = 0;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching like status: ', error);
+            });
+    }
+    console.log(likeStatus);
+    document.addEventListener('DOMContentLoaded', function () {
+        checkLikeStatus(hikeName);
+    });
+</script>
 </body>
 </html>
 
