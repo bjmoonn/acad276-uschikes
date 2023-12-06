@@ -580,13 +580,6 @@ while($currentrow = $result->fetch_assoc()) {
                                     }?></text>
                             </div>
                         </div>
-                        <div class="info-content">
-                            <img src="../public/assets/icons/car.svg" class="icon">
-                            <div class="info-text">
-                                <text style="color:#999">Street Address:</text>
-                                <text>database not done</text>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
