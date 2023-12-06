@@ -1,5 +1,24 @@
 <?php include 'logged-in.php';
 session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $review = $_POST["review"];
+    $currentHike = $_REQUEST["hikeid"];
+
+    $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+    if ($mysql->connect_error) {
+        die("Connection failed: " . $mysql->connect_error);
+    }
+    $query = "INSERT INTO userReviews (comments, userID, hikeID, rating) VALUES ('$review', '1', '$currentHike', '5');";
+    echo $query;
+    $mysql->query($query);
+
+    $mysql->close();
+
+}
+
+
  ?>
 <html lang="en">
 <head>
@@ -30,6 +49,7 @@ session_start();
                         // Add the "active" class to the clicked star and any stars with a lower index
                         // and remove the "active" class from any stars with a higher index
                         index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+                        document.write(index2);
                     });
                 });
             });
@@ -209,7 +229,6 @@ session_start();
             gap: 16px;
         }
         .reviews-holder{
-            padding-bottom:80px;
         }
         .map-holder{
             border-radius:20px;
@@ -680,8 +699,43 @@ while($currentrow = $result->fetch_assoc()) {
         </div>
     </div>
     <div class="divider"></div>
+    <div>
+        <div>
+            <div class = "ReviewForm"><h1>Reviews</h1></div>
+            <br>
+            <form action="individual-hike.php?hikeid=<?php echo $_REQUEST['hikeid']?>" method="post" class="add-review-holder">
+                <br>
+                <div class="review-criteria-holder">
+                    <div class="stars" >
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <script>rateStars()</script>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div>
+                        <textarea type="text" name="review" style="min-width:100%; height:250px; border-radius: 10px;"
+                                  placeholder=" Write a Review..."></textarea>
+                </div>
+                <br>
+                <input type="submit" value="Submit" class="search-button" style="margin-top:20px;float:right;width:10rem">
+                <br>
+                <br>
+            </form>
+            <?php
+
+
+            ?>
+        </div>
+    </div>
+    <br>
+    <br>
     <div class="reviews-holder">
-        <h1>Reviews</h1>
         <div class="reviews-row">
             <div class="review">
                 <div class="review-inner">
@@ -702,10 +756,9 @@ while($currentrow = $result->fetch_assoc()) {
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <div class="divider"></div>
+        <div class="divider"></div>
     <div class="recs-holder">
         <h1>Similar hikes</h1>
         <div class="browse">
@@ -740,40 +793,15 @@ while($currentrow = $result->fetch_assoc()) {
                 } else {
                     echo "<div class='body'>0 results</div>";
                 }
-                $mysql->close();
+
                 ?>
-            </div>
-        </div>
-        <div class="divider"></div>
-        <div>
-            <div>
-                <div class = "ReviewForm"><h1>Add Your Review</h1></div>
-                <form action="" method="get" class="add-review-holder">
-                    <div class="review-criteria-holder">
-                        <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;display:flex;align-items: center;">
-                            Choose a hike
-                            <img src="../public/assets/icons/CaretDown.svg" class="filter-icon">
-                        </div>
-                        <div class="stars" >
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <script>rateStars()</script>
-                    </div>
-                    <div>
-                        <textarea type="text" name="review" style="min-width:100%; height:250px; border-radius: 10px;"
-                                  placeholder=" Write a Review..."></textarea>
-                    </div>
-                    <input type="submit" value="Submit" class="search-button" style="margin-top:20px;float:right;width:10rem">
-                </form>
             </div>
         </div>
 
     </div>
 </div>
+    <br>
+    <br>
 
 
     <div class="footer">

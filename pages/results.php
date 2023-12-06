@@ -340,7 +340,7 @@ $result = $mysql->query($sql);
                     <td>
                         <div class="hike-individual">
                             <div class="hike-thumbnail">
-                                <a href="../pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                             </div>
                             <div class="hike-description">
                                 <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
