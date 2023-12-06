@@ -453,28 +453,9 @@ while($currentrow = $result->fetch_assoc()) {
             </form>
         </div>
     </div>
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <!--<text class="body bold"><a href="../pages/map-page.php">Map</a></text>-->
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <?php
-                session_start();
 
-                // Check if the user is logged in
-                if (isset($_SESSION["login"]) === false) {
-                    // User is not logged in
-                    $path = '../pages/login.php';
-                } else {
-                    $path = '../pages/profilepage.php';
-                }
-                ?>
-                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
-        </div>
-    </div>
+    <!-- NAV -->
+    <?php include "../pages/nav.php" ?>
 
 <div class="holder">
     <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: fill;top:0; background-position:center;">
@@ -775,14 +756,8 @@ while($currentrow = $result->fetch_assoc()) {
     </div>
 </div>
 
-
-    <div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
-</div>
+    <!-- FOOTER -->
+    <?php include "../pages/footer.php"?>
 
 
 </body>

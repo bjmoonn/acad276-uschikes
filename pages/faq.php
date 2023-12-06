@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -17,8 +18,9 @@
             margin-right:15%;
         }
         header {
-            display:flex;
+            display: flex;
             justify-content: space-between;
+            align-items: center;
         }
         dl {
             width: 100%;
@@ -63,6 +65,14 @@
             background-color: #E5E5E5;
         }
 
+        #show-hide {
+            padding: 1rem;
+            border-radius: 2rem;
+            border: 1px solid var(--ui-border, #E5E5E5);
+            background: white;
+            box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+        }
+
     </style>
 </head>
 <body>
@@ -70,27 +80,15 @@
 <!-- NAV -->
 <div class="main">
     <!-- Navigation -->
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/map-page.php">Map</a></text>
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold"><a href="../pages/login.php">Log-in</a></text>
-            <text class="body bold"><a href="../pages/profilepage.php">Profile</a></text>
-        </div>
-    </div>
+    <?php include "../pages/nav.php" ?>
 </div>
 
 <!-- PAGE CONTENT -->
-<div class="faq" style="padding-bottom:5rem;">
+<div class="faq" style="padding-bottom:13.5rem;">
     <!-- TITLE & BUTTONS -->
-    <header>
+    <header style="display:flex; flex-direction:row; align-items: center;">
         <h3>Frequently Asked Questions</h3>
-        <div class="buttons" style="float:right; height:2rem; padding-top:3rem;">
-            <div id = "show-hide" class="filterButton">Show All</div>
-        </div>
+        <div id = "show-hide" class="filterButton">Show All</div>
     </header>
 
     <!-- QUESTIONS & ANSWERS -->
@@ -136,12 +134,7 @@
 
 </div>
 
-<div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-    <div class="body">Acad 276: Dev II</div>
-    <a href="../pages/TeamPage.php">Team</a>
-    <div class="body"><a href="../pages/faq.html">FAQ</a></div>
-</div>
+<?php include "../pages/footer.php"?>
 
 <script>
     $(".faq-question").hover(function() {

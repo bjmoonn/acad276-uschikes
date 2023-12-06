@@ -8,9 +8,14 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="../pages/login.module.css">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/typography.css" type="text/css">
+    <link rel="stylesheet" href="../css/colors.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 <?php include "logged-in.php" ?>
+<?php include "../pages/nav.php" ?>
 <div class="login-container">
     <h2>Sign Up</h2>
     <?php
@@ -100,12 +105,6 @@ session_start();
     </form>
 </div>
 
-        <div class="footer">
-            <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-            <div class="footer-links">
-            <a href="../pages/TeamPage.php">Team</a>
-                <a href="../pages/faq.html">FAQ</a>
-            </div>
-        </div>
+        <?php include "../pages/footer.php"?>
 </body>
 </html>

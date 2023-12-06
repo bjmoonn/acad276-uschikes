@@ -18,7 +18,7 @@ if(isset($_SESSION["login"]) === false) {
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>1Profile Page</title>
+    <title>Profile Page</title>
     <link rel="stylesheet" href="../css/styles.css" type="text/css">
     <link rel="stylesheet" href="../css/typography.css" type="text/css">
     <link rel="stylesheet" href="../css/colors.css" type="text/css">
@@ -181,21 +181,7 @@ if(isset($_SESSION["login"]) === false) {
 </head>
 <body>
 <!-- NAV -->
-<div class="background">
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <a href="<?php echo $path; ?>">
-                    <img src="../public/assets/images/profile-picture.png" style="width:3rem;">
-                </a>
-            </text>
-        </div>
-    </div>
-</div>
+<?php include "../pages/nav.php" ?>
 
 <!-- ACCOUNT NAME, PHOTO, BACKGROUND IMAGE -->
 <!-- BACKGROUND IMAGE -->
@@ -456,12 +442,7 @@ if(isset($_SESSION["login"]) === false) {
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-    <div class="body">Acad 276: Dev II</div>
-    <a href="../pages/TeamPage.php">Team</a>
-    <div class="body"><a href="../pages/faq.html">FAQ</a></div>
-</div>
+<?php include "../pages/footer.php"?>
 
 <script>
     // tab slider script

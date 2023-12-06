@@ -213,27 +213,7 @@ $result = $mysql->query($sql);
 </head>
 <body>
 <div class="background">
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <?php
-                session_start();
-
-                // Check if the user is logged in
-                if (isset($_SESSION["login"]) === false) {
-                    // User is not logged in
-                    $path = '../pages/login.php';
-                } else {
-                    $path = '../pages/profilepage.php';
-                }
-                ?>
-                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
-        </div>
-    </div>
+    <?php include "../pages/nav.php" ?>
     <div class="headline">
         <div class="title">Results</div>
         <div class="body lightgrey">You have <?php echo $number_of_results;?> results available.</div>
@@ -389,13 +369,9 @@ $result = $mysql->query($sql);
     </div>
 </div>
 
-<div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
-</div>
+<br>
+
+<?php include "../pages/footer.php"?>
 </body>
 
 </html>
