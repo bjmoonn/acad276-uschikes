@@ -126,10 +126,10 @@ function insertAndGetId($mysqli, $table, $columnName, $value)
         if($_SESSION["login"] == true){
             echo '<div class="CreateGroupButton" onclick="toggleGroupPopup()"> Create A Group </div>';
         }
-        else{
+
+        if($_SESSION["login"] == false){
             echo '<div class="CreateGroupButton"> Login to Create a Group </div>';
         }
-
         ?>
     </div>
 </div>
