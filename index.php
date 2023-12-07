@@ -66,7 +66,7 @@ if (isset($_SESSION["login"]) === false) {
                 <text class="body bold"><a href="pages/groupPage.php">Groups</a></text>
                 <text class="body bold">
                     <a href="<?php echo $path; ?>">
-                        <img src="defaultPP.png" style="width:3rem;" class="ppImg">
+                        <img src="./defaultPP.png" style="width:3rem;" class="ppImg">
                     </a>
                 </text>
             </div>

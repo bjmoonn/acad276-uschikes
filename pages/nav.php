@@ -12,7 +12,7 @@
     if (isset($_SESSION["login"]) === false) {
         // User is not logged in
         $path = '../pages/login.php';
-        $profPicURL = '../public/assets/images/profile_picture.png';
+        $profPicURL = './defaultPP.png';
     } else {
         $path = '../pages/profilepage.php';
     }
