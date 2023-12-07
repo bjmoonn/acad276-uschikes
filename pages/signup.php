@@ -101,7 +101,7 @@ session_start();
         <label for="profilePicture">Upload Profile Picture: </label>
         <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
         <br>
-        <input type="submit" value="Sign Up">
+        <input type="submit" value="Sign Up" onClick="window.location.href = '../pages/login.php';">
     </form>
 </div>
 
