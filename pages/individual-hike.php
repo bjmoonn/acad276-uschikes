@@ -85,6 +85,7 @@ session_start();
             gap: 1rem;
             align-self: stretch;
             padding-bottom:3rem;
+            margin-top:5rem;
         }
         .text-content{
             display: flex;
@@ -421,8 +422,9 @@ while($currentrow = $result->fetch_assoc()) {
         // then that variable "stores" the response from the php server
         if ($test==1)
         {
-            echo "Mail sent to " . $_REQUEST["friend-email"];
-            exit();
+            header("Location: individual-hike.php?hikeid=". $current_url);
+            //echo "Mail sent to " . $_REQUEST["friend-email"];
+            //exit();
         }
     }
     ?>
@@ -453,37 +455,20 @@ while($currentrow = $result->fetch_assoc()) {
             </form>
         </div>
     </div>
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <!--<text class="body bold"><a href="../pages/map-page.php">Map</a></text>-->
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <?php
-                session_start();
 
-                // Check if the user is logged in
-                if (isset($_SESSION["login"]) === false) {
-                    // User is not logged in
-                    $path = '../pages/login.php';
-                } else {
-                    $path = '../pages/profilepage.php';
-                }
-                ?>
-                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
-        </div>
-    </div>
+    <!-- NAV -->
+    <?php include "../pages/nav.php" ?>
 
 <div class="holder">
-    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: fill;top:0; background-position:center;">
+    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: fill;top:0; background-size: cover; background-position:center;">
         <div class="individual-title-holder">
 
             <div class="individual-hero-text">
-                <h3 style="line-height:0px"><?php echo $h_name?></h3>
+
+                <h1 style="line-height:0px"><?php echo $h_name?></h1>
+
                 <div class="individual-hero-details">
-                    <div class="icon-text">
+                    <div class="icon-text" style="min-width:5rem>
                         <img src="../public/assets/icons/road.svg" class="icon">
                         <text class="copy1"><script>document.write(distance(<?php echo $h_lat . ", " . -$h_long . ", 34.0224, 118.2851" ?>, "M").toFixed(1).toString());</script> miles from campus</text>
                     </div>
@@ -503,15 +488,51 @@ while($currentrow = $result->fetch_assoc()) {
                 </button>
                 <!--script for button liking-->
                 <script>
-
                     const imageElement = document.getElementById('like-unfilled');
                     const changeButton = document.getElementById('like-button');
+                    let hikeName = document.getElementById('hike-name').innerText;
+                    console.log('Hike Name:', hikeName);
+                    let likeStatus = 0;
 
-                    function changeImageSrc() {
-                        imageElement.src = '../public/assets/icons/heart-filled.svg';
+                    function toggleLike() {
+
+                        // Check if the user is logged in
+                        const isLoggedIn = <?php echo isset($_SESSION['login']) && $_SESSION['login'] === true ? 'true' : 'false'; ?>;
+
+                        if (!isLoggedIn) {
+                            console.log('User is not logged in. Redirect to login page or show a message.');
+                            return;
+                        }
+
+                        // Toggle the 'liked' class on the image element
+                        if (likeStatus === 1) {
+                            imageElement.classList.remove('liked');
+                            imageElement.src = '../public/assets/icons/heart-empty.svg';
+                            likeStatus = 0;
+                        } else {
+                            imageElement.classList.add('liked');
+                            imageElement.src = '../public/assets/icons/heart-filled.svg';
+                            likeStatus = 1;
+                        }
+                        console.log(likeStatus);
+
+                        //javascript ==> php
+                        fetch('like-feature.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json; charset=utf-8',
+                            },
+                            body: JSON.stringify({
+                                hikeName: hikeName,
+                                likeStatus: likeStatus,
+                            }),
+                        }).then(function(response){
+                            return response.text();
+                        }).then(function(data){
+                            console.log(data);
+                        });
                     }
-
-                    changeButton.addEventListener('click', changeImageSrc);
+                    changeButton.addEventListener('click', toggleLike);
                 </script>
 
                 <button class="search-button" onclick="on()">
@@ -564,8 +585,12 @@ while($currentrow = $result->fetch_assoc()) {
                         <div class="info-content">
                             <img src="../public/assets/icons/car.svg" class="icon">
                             <div class="info-text">
-                                <text style="color:#999">Street Address:</text>
-                                <text>database not done</text>
+                                <text style="color:#999">Coordinates:</text>
+                                <text>
+                                    Longitude: <?php echo $h_long ?>
+                                    <br><br>
+                                    Latitude: <?php echo $h_lat ?>
+                                </text>
                             </div>
                         </div>
 
@@ -591,7 +616,9 @@ while($currentrow = $result->fetch_assoc()) {
             <div class="map-holder">
                 <div id="map">
                     <script>
-                        var _coords = [{"lat":"34.0211722","long":"-118.2871978","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"},{"lat":"34.0235346","long":"-118.2857239","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"}];
+                        var latd = "<?php echo $h_lat; ?>";
+                        var long = "<?php echo $h_lat; ?>";
+                        var _coords = [{"lat":"<?php echo $h_lat; ?>","long":"<?php echo $h_long; ?>","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"},{"lat":"<?php echo $h_lat; ?>","long":"<?php echo $h_long; ?>","name":"Watt Way, University Park, Los Angeles, Los Angeles County, California, 90089, United States"}];
                         var map;
 
                         function initMap() {
@@ -748,11 +775,11 @@ while($currentrow = $result->fetch_assoc()) {
                 <div class = "ReviewForm"><h1>Add Your Review</h1></div>
                 <form action="" method="get" class="add-review-holder">
                     <div class="review-criteria-holder">
-                        <div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;display:flex;align-items: center;">
+                        <!--<div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;display:flex;align-items: center;">
                             Choose a hike
                             <img src="../public/assets/icons/CaretDown.svg" class="filter-icon">
-                        </div>
-                        <div class="stars" >
+                        </div>-->
+                        <div class="stars" style="margin-bottom:2rem;">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -773,6 +800,12 @@ while($currentrow = $result->fetch_assoc()) {
     </div>
 </div>
 
+<<<<<<< HEAD
+    <!-- FOOTER -->
+    <?php include "../pages/footer.php"?>
+
+
+=======
 
     <div class="footer">
     <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
@@ -781,8 +814,37 @@ while($currentrow = $result->fetch_assoc()) {
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>
-
-
+<script>
+    function checkLikeStatus(hikeName) {
+        fetch('like-feature-check.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify({ hikeName: hikeName }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.likeStatus === 1) {
+                    imageElement.classList.add('liked');
+                    imageElement.src = '../public/assets/icons/heart-filled.svg';
+                    likeStatus = 1;
+                } else if (data.likeStatus === 0) {
+                    imageElement.classList.remove('liked');
+                    imageElement.src = '../public/assets/icons/heart-empty.svg';
+                    likeStatus = 0;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching like status: ', error);
+            });
+    }
+    console.log(likeStatus);
+    document.addEventListener('DOMContentLoaded', function () {
+        checkLikeStatus(hikeName);
+    });
+</script>
+>>>>>>> haminjin-bg-and-pp-pictures
 </body>
 </html>
 
