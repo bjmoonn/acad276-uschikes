@@ -2,27 +2,38 @@
 // Start the session
 session_start();
 
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+
+if ($mysql->connect_error) {
+    die("Connection failed: " . $mysql->connect_error);
+}
+
 // Check if the user is logged in
 if (isset($_SESSION["login"]) === true) {
     // User is logged in
     $username = $_SESSION['email'];
-    ?>
 
-    <!-- Floating overlay with welcome message -->
-    <div class="overlay">
-        Welcome <?php echo $username; ?>
-    </div>
+    $query = "SELECT bgPicURL, profPicURL FROM user_profile WHERE userName = '$username'";
+    $result = $mysql->query($query);
 
-    <script>
-        // Display the overlay after the page has loaded
-        window.addEventListener('load', function () {
-            document.querySelector('.overlay').classList.add('show');
-        });
-    </script>
+    if ($result === false) {
+        die("Error in query: " . $mysql->error);
+    }
 
-    <?php
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+
+        $bgPicURL = $row['bgPicURL'];
+        $profPicURL = $row['profPicURL'];
+
+        $_SESSION['bgPicURL'] = '../public/uploads/' . $row['bgPicURL'];
+        $_SESSION['profPicURL'] = '../public/uploads/' . $row['profPicURL'];
+
+    }
+
+    $result->close();
 } else {
-    // User is not logged in, you can redirect them to the login page or do other actions
-    echo "User not logged in";
+    echo "User is not logged in";
 }
+$mysql->close();
 ?>

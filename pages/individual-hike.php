@@ -481,7 +481,7 @@ while($currentrow = $result->fetch_assoc()) {
         <div class="individual-title-holder">
 
             <div class="individual-hero-text">
-                <h3 style="line-height:0px"><?php echo $h_name?></h3>
+                <h3 style="line-height:0px" id="hike-name"><?php echo $h_name?></h3>
                 <div class="individual-hero-details">
                     <div class="icon-text">
                         <img src="../public/assets/icons/road.svg" class="icon">
@@ -503,15 +503,51 @@ while($currentrow = $result->fetch_assoc()) {
                 </button>
                 <!--script for button liking-->
                 <script>
-
                     const imageElement = document.getElementById('like-unfilled');
                     const changeButton = document.getElementById('like-button');
+                    let hikeName = document.getElementById('hike-name').innerText;
+                    console.log('Hike Name:', hikeName);
+                    let likeStatus = 0;
 
-                    function changeImageSrc() {
-                        imageElement.src = '../public/assets/icons/heart-filled.svg';
+                    function toggleLike() {
+
+                        // Check if the user is logged in
+                        const isLoggedIn = <?php echo isset($_SESSION['login']) && $_SESSION['login'] === true ? 'true' : 'false'; ?>;
+
+                        if (!isLoggedIn) {
+                            console.log('User is not logged in. Redirect to login page or show a message.');
+                            return;
+                        }
+
+                        // Toggle the 'liked' class on the image element
+                        if (likeStatus === 1) {
+                            imageElement.classList.remove('liked');
+                            imageElement.src = '../public/assets/icons/heart-empty.svg';
+                            likeStatus = 0;
+                        } else {
+                            imageElement.classList.add('liked');
+                            imageElement.src = '../public/assets/icons/heart-filled.svg';
+                            likeStatus = 1;
+                        }
+                        console.log(likeStatus);
+
+                        //javascript ==> php
+                        fetch('like-feature.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json; charset=utf-8',
+                            },
+                            body: JSON.stringify({
+                                hikeName: hikeName,
+                                likeStatus: likeStatus,
+                            }),
+                        }).then(function(response){
+                            return response.text();
+                        }).then(function(data){
+                            console.log(data);
+                        });
                     }
-
-                    changeButton.addEventListener('click', changeImageSrc);
+                    changeButton.addEventListener('click', toggleLike);
                 </script>
 
                 <button class="search-button" onclick="on()">
@@ -783,8 +819,36 @@ while($currentrow = $result->fetch_assoc()) {
         <a href="../pages/faq.html">FAQ</a>
     </div>
 </div>
-
-
+<script>
+    function checkLikeStatus(hikeName) {
+        fetch('like-feature-check.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify({ hikeName: hikeName }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.likeStatus === 1) {
+                    imageElement.classList.add('liked');
+                    imageElement.src = '../public/assets/icons/heart-filled.svg';
+                    likeStatus = 1;
+                } else if (data.likeStatus === 0) {
+                    imageElement.classList.remove('liked');
+                    imageElement.src = '../public/assets/icons/heart-empty.svg';
+                    likeStatus = 0;
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching like status: ', error);
+            });
+    }
+    console.log(likeStatus);
+    document.addEventListener('DOMContentLoaded', function () {
+        checkLikeStatus(hikeName);
+    });
+</script>
 </body>
 </html>
 
