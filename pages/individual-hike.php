@@ -5,7 +5,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["login"]) === true) 
 
     $review = $_POST["review"];
     $currentHike = $_REQUEST["hikeid"];
-    $loginID = $_SESSION["email"];
     $stars = $_REQUEST["activeStarsCount"];
 
     $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
@@ -13,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["login"]) === true) 
         die("Connection failed: " . $mysql->connect_error);
     }
 
+    $loginID = $_SESSION["email"];
     $query = "SELECT * FROM users WHERE userName = '$loginID'";
     $result = $mysql->query($query);
     while($currentrow = $result->fetch_assoc()) {

@@ -107,6 +107,7 @@ if(isset($_SESSION["login"]) === false) {
         /*reviews css*/
         .reviews-holder{
             padding-bottom:5rem;
+            overflow: hidden;
         }
         .reviews-row{
             display: flex;
@@ -258,42 +259,113 @@ if(isset($_SESSION["login"]) === false) {
                 <div class="active" id="myreviews">
 
                     <div class="reviews-holder">
-                        <h3>My Reviews</h3>
-                        <div class="reviews-row">
-                            <div class="review">
-                                <div class="review-inner">
-                                    <?php
-                                    $sql_reviews = "SELECT comments, rating, fullName, profPicURL FROM userReviews, users, fullNames, profPics WHERE hikeID = " . $_REQUEST["hikeid"];
-                                    $result_reviews = $mysql->query($sql_reviews);
-
-                                    if($result_reviews->num_rows > 0) {
-                                        while($currentrow = $result_reviews->fetch_assoc()) {
-                                            echo '
-                                                <div class="reviewer">
-                                                    <div class="profile">
-                                                        <img src = '. $currentrow["profPicURL"]. '>
-                                                    </div>
-                                                    <div class="reviewer-info">
-                                                        <text>' . $currentrow["fullName"] . '</text>
-                                                    </div>
-                                                </div>
-                                                <text class="copy1">' . $currentrow["comments"] . '</text>
-                                                <div class="stars">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                </div>
-                                            ';
+                        <h3>My Recent Reviews</h3>
+                            <?php
+                            $loginID = $_SESSION["email"];
+                            $query = "SELECT * FROM users WHERE userName = '$loginID'";
+                            $result = $mysql->query($query);
+                            while($currentrow = $result->fetch_assoc()) {
+                                $loginID = $currentrow["userID"];
+                            }
+                            $sql = "SELECT * FROM userReviews WHERE userID = $loginID";
+                            $result = $mysql->query($sql);
+                            if ($result->num_rows > 0) {
+                                $count = 0;
+                                while($currentrow = $result->fetch_assoc()) {
+                                    if($count <= 2){
+                                        $count++;
+                                        $currentUSER = $currentrow['userID'];
+                                        $query = "SELECT * FROM users WHERE userID = $currentUSER";
+                                        $result2 = $mysql->query($query);
+                                        while($currentrow2 = $result2->fetch_assoc()) {
+                                            $reviewUser = $currentrow2["userName"];
                                         }
-                                    } else {
-                                        echo "No reviews written. Comment your thoughts on hikes you have completed!";
-                                    }
-                                    ?>
-                                </div>
+
+
+                                        $newEcho = '<br><div class="reviews-row">
+            <div class="review">
+                <div class="review-inner">
+                    <div class="reviewer">
+                        <div class="profile">
+                            <img src="../public/assets/icons/profile-pic.svg">
+                        </div>
+                        <div class="reviewer-info">
+                            <text>' . $reviewUser . '</text>
+                        </div>
+                    ';
+
+                                        if($currentrow["rating"] == 1){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
                             </div>
                         </div>
                     </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 2){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 3){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 4){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 5){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+
+                                        echo $newEcho;
+                                    }
+
+                                }
+                            }
+                            else{
+                                echo "no reviews";
+                            }
+                            ?>
+
+                                </div>
                 </div>
 
                 <!-- SAVED -->
