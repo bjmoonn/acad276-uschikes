@@ -95,11 +95,11 @@ session_start();
             <option value="3">Non-binary</option>
         </select>
         <br>
-        <label for="background_pic">Background Picture:</label>
-        <input type="file" name="background_pic">
+        <label for="backgroundPicture">Upload Background Picture: </label>
+        <input type="file" id="backgroundPicture" name="backgroundPicture" accept="image/*">
         <br>
-        <label for="profile_pic">Profile Picture:</label>
-        <input type="file" name="profile_pic">
+        <label for="profilePicture">Upload Profile Picture: </label>
+        <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
         <br>
         <input type="submit" value="Sign Up">
     </form>

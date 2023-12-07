@@ -153,8 +153,26 @@ if(isset($_SESSION["login"]) === false) {
             gap: .25rem;
             border-radius: 2rem;
             border: 1px solid var(--ui-border, #E5E5E5);
-            background: #FFFFFF;
+            background: var(--ui-white, #FFF);
             box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        #saved {
+            max-height: 40rem;
+            overflow-y: auto;
+            padding: 1.25rem;
+            box-shadow: inset 0 -0.625rem 0.625rem -0.5rem rgba(0, 0, 0, 0.25);
+
+        }
+        #myreviews {
+            max-height: 40rem;
+            overflow-y: auto;
+            padding: 1.25rem;
+            box-shadow: inset 0 -0.625rem 0.625rem -0.5rem rgba(0, 0, 0, 0.25);
+        }
+        #saved-cards {
+            width: 35rem;
+            margin: 0.625rem;
         }
         #editProfile:hover {
             background: #E5E5E5;
@@ -200,13 +218,25 @@ if(isset($_SESSION["login"]) === false) {
 </head>
 <body>
 <div class="background">
-    <?php include "../pages/nav.php" ?>
+    <div class="nav">
+        <div class="logo">
+            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
+        </div>
+        <div class="nav-items">
+            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
+            <text class="body bold">
+                <a href="<?php echo $path; ?>">
+                    <img src="<?php echo $profPicURL;?>" style="width:3rem; aspect-ratio: 1/1; border-radius: 50%;" class="ppImg">
+                </a>
+            </text>
+        </div>
+    </div>
 </div>
 
 <!-- ACCOUNT NAME, PHOTO, BACKGROUND IMAGE -->
 <!-- BACKGROUND IMAGE -->
 <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-    <img src="<?php echo $bgPicURL; ?>" style="width:70%;height:15rem;border-radius:2rem;">
+    <img src="<?php echo $bgPicURL; ?>" style="width:70%;height:15rem;border-radius:2rem;" class=".ppImg">
 </div>
 
 <div class="profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
@@ -214,7 +244,7 @@ if(isset($_SESSION["login"]) === false) {
     <!-- ACCOUNT NAME AND PHOTO -->
     <div class="account-header" style="padding-bottom:3rem;">
         <div style="text-align:center;">
-            <img src="<?php echo $profPicURL; ?>" style="width:6rem;"><br><br><?php echo $fullName; ?>
+            <img src="<?php echo $profPicURL;?>" style="width:6rem; aspect-ratio: 1/1; border-radius: 50%;" class="ppImg"><br><br><?php echo $fullName; ?>
         </div>
     </div>
 
@@ -258,24 +288,21 @@ if(isset($_SESSION["login"]) === false) {
                             $sql = "SELECT * FROM userReviews WHERE userID = $loginID";
                             $result = $mysql->query($sql);
                             if ($result->num_rows > 0) {
-                                $count = 0;
                                 while($currentrow = $result->fetch_assoc()) {
-                                    if($count <= 2){
-                                        $count++;
                                         $currentUSER = $currentrow['userID'];
                                         $query = "SELECT * FROM users WHERE userID = $currentUSER";
                                         $result2 = $mysql->query($query);
                                         while($currentrow2 = $result2->fetch_assoc()) {
                                             $reviewUser = $currentrow2["userName"];
-                                        }
-
 
                                         $newEcho = '<br><div class="reviews-row">
             <div class="review">
                 <div class="review-inner">
                     <div class="reviewer">
                         <div class="profile">
-                            <img src="../public/assets/icons/profile-pic.svg">
+                            <a href="' . $path .'">
+                                <img src="' . $profPicURL . '" style="width:3rem; aspect-ratio: 1/1; border-radius: 50%;" class="ppImg">
+                            </a>
                         </div>
                         <div class="reviewer-info">
                             <text>' . $reviewUser . '</text>
@@ -367,7 +394,7 @@ if(isset($_SESSION["login"]) === false) {
                         if($result_saved->num_rows > 0) {
                             while($currentrow = $result_saved->fetch_assoc()) {
                                 echo '
-                                        <div class="hike-individual">
+                                        <div class="hike-individual" id="saved-cards">
                                             <div class="hike-thumbnail">
                                                 <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                                             </div>
@@ -495,7 +522,8 @@ if(isset($_SESSION["login"]) === false) {
                     <!-- NAME AND PROFILE PICTURE -->
                     <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
                         <section style="display: flex; align-items: center;">
-                            <img src="../public/assets/images/profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
+                            <img src="<?php echo $profPicURL; ?>" class="ppImg" style="width: 3.5rem;
+                                 margin-right: 3rem; aspect-ratio: 1/1; border-radius: 50%;">
                             <section style="position: relative;"><?php echo $fullName;?></section>
                         </section>
                         <!-- EDIT PROFILE BUTTON -->

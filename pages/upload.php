@@ -18,24 +18,38 @@ function handleFileUpload($fileInputName, $uploadDirectory) {
     // File was uploaded
     $file = $_FILES[$fileInputName];
 
-    echo "Received a file in the form object '$fileInputName'.<br>";
-    echo "File was named <strong>{$file['name']}</strong><br>";
-    echo "File was saved as a temp file at <strong>{$file['tmp_name']}</strong><br>";
+    // Check file size
+    $maxFileSize = 5 * 1024 * 1024; // 5 MB (you can adjust this value)
+    if ($file['size'] > $maxFileSize) {
+        echo "<script>alert('Error: File size exceeds the maximum limit.');</script>";
+        return false;
+    }
 
-    // Sanitize the file name to remove spaces and special characters
-    $sanitizedFileName = preg_replace("/[^a-zA-Z0-9_\-\.]/", "_", $file['name']);
-    $filename = uniqid() . '_' . $sanitizedFileName;
-    $destination = $uploadDirectory . $filename;
+    // Check file type
+    $allowedFileTypes = array('jpg', 'jpeg', 'png', 'gif'); // Add more if needed
+    $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($fileExtension, $allowedFileTypes)) {
+        echo "<script>alert('Error: Invalid file type.');</script>";
+        return false;
+    }
+
+//    echo "Received a file in the form object '$fileInputName'.<br>";
+//    echo "File was named <strong>{$file['name']}</strong><br>";
+//    echo "File was saved as a temp file at <strong>{$file['name']}</strong><br>";
+
+    $destination = $uploadDirectory . '/' . $file['name'];
 
     // Move the uploaded file to the destination
     if (move_uploaded_file($file['tmp_name'], $destination)) {
-        echo "File saved successfully at <strong>{$destination}</strong><br>";
+//        echo "File saved successfully at <strong>{$destination}</strong><br>";
         return $destination;
     } else {
-        echo "Failed to save the file.<br>";
+//        echo "Failed to save the file. Error: " . $_FILES[$fileInputName]['error'] . "<br>";
         return false;
     }
+
 }
+
 
 // create function to update bgPicsTable
 function updateBackgroundPicturesTable($mysql, $fileName) {
@@ -67,13 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userID = getColumnValue($mysql, 'users', 'userID');
 
     // Handle Profile Picture Upload
-    $profilePicPath = handleFileUpload('profilePicture', '../acad276/uschikes-copy/public/uploads');
+    $profilePicPath = handleFileUpload('profilePicture', '../public/uploads');
     if ($profilePicPath) {
         updateProfilePicturesTable($mysql,  $_FILES['profilePicture']['name']);
     }
 
     // Handle Background Picture Upload
-    $bgPicPath = handleFileUpload('backgroundPicture', '../acad276/uschikes-copy/public/uploads');
+    $bgPicPath = handleFileUpload('backgroundPicture', '../public/uploads');
     if ($bgPicPath) {
         updateBackgroundPicturesTable($mysql,  $_FILES['profilePicture']['name']);
     }

@@ -18,19 +18,20 @@ if ($mysql->connect_error) {
 
     <style>
         .image-container {
-            width:50rem;
+            width:800px;
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
+            max-width: 800px;
             margin: auto;
-            gap: 1.25rem;
+            gap: 20px;
         }
 
         .circle-image {
-            width: 10.625rem;
-            height: 10.625rem;
+            width: 170px;
+            height: 170px;
             border-radius: 50%;
-            margin: 0.625rem; /* Adjust margin as needed */
+            margin: 10px; /* Adjust margin as needed */
             overflow: hidden;
             border: 2px solid #333; /* Add border styling */
         }
@@ -43,43 +44,43 @@ if ($mysql->connect_error) {
 
         .background {
             background-image: url('../public/assets/hero-background.png');
-            max-height:85%;
+            height:90%;
         }
 
 
         .peopleContainer {
-            width: 43.75rem;
+            width: 700px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 25rem;
+            height: 400px;
             position: relative;
             margin: auto;
         }
 
         .nameContainer1 {
-            width: 43.75rem;
+            width: 700px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 2.5rem;
+            height: 40px;
             position: absolute;
-            top: 11.25rem;
-            gap: 4.063rem;
+            top: 180;
+            gap: 65px;
         }
         .nameContainer2 {
-            width: 43.75rem;
+            width: 700px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 2.5rem;
+            height: 40px;
             margin:auto;
-            gap: 4.063rem;
+            gap: 65px;
         }
 
         .name {
-            width:10.625rem;
-            height:2.5rem;
+            width:170px;
+            height:40px;
             text-align: center;
             display: flex;
             justify-content: center;
@@ -88,51 +89,46 @@ if ($mysql->connect_error) {
         }
 
         .aboutTeam {
-            width: 55rem;
-            height: 14.375rem;
+            width: 1000px;
+            height: 230px;
             margin: auto;
-            padding: 1.5rem;
+            margin-top: 30px;
+            margin-bottom: 30px;
             text-align: center;
-        }
-
-        .content {
-            transform:translateY(-20%);
-            padding:1.5rem;
         }
 
     </style>
 
 </head>
 <body>
-<?php include "../pages/nav.php" ?>
-<div class="background">
-    <div class="content">
-        <div class="headline">
-            <text class="title">Meet the USC Hikes Team!</text>
-            <text class="copy1"></text>
-        </div>
 
-        <div class="peopleContainer">
-            <div class= "image-container">
-                <img src="../public/assets/images/Hamin.png" class="circle-image">
-                <img src="../public/assets/images/Joey.png" class="circle-image">
-                <img src="../public/assets/images/jaden.png" class="circle-image">
-                <div class="nameContainer1">
-                    <div class="name">Hamin</div>
-                    <div class="name">Joey</div>
-                    <div class="name">Jaden</div>
-                </div>
-                <img src="../public/assets/images/lindsey.png" class="circle-image">
-                <img src="../public/assets/images/BJ.png" class="circle-image">
-                <img src="../public/assets/images/arya.png" class="circle-image">
-            </div>
-        </div>
-            <div class="nameContainer2">
-                <div class="name">Lindsey</div>
-                <div class="name">Byeongjun</div>
-                <div class="name">Arya</div>
-            </div>
+<div class="background">
+    <?php include "../pages/nav.php" ?>
+    <div class="headline">
+        <text class="title">Meet the USC Hikes Team!</text>
+        <text class="copy1"></text>
     </div>
+
+    <div class="peopleContainer">
+        <div class= "image-container">
+            <img src="../public/assets/images/Hamin.png" class="circle-image">
+            <img src="../public/assets/images/Joey.png" class="circle-image">
+            <img src="../public/assets/images/jaden.png" class="circle-image">
+            <div class="nameContainer1">
+                <div class="name">Hamin</div>
+                <div class="name">Joey</div>
+                <div class="name">Jaden</div>
+            </div>
+            <img src="../public/assets/images/lindsey.png" class="circle-image">
+            <img src="../public/assets/images/BJ.png" class="circle-image">
+            <img src="../public/assets/images/arya.png" class="circle-image">
+        </div>
+    </div>
+        <div class="nameContainer2">
+            <div class="name">Lindsey</div>
+            <div class="name">Byeongjun</div>
+            <div class="name">Arya</div>
+        </div>
 
 </div>
 

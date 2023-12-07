@@ -25,8 +25,6 @@ $db = "haminjin_hikeOn";
 // Establish a connection
 $mysqli = new mysqli($host, $userid, $userpw, $db);
 
-session_start();
-
 // Check connection
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);

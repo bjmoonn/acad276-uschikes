@@ -6,6 +6,8 @@
         die("Connection failed: " . $mysql->connect_error);
     }
 
+    $profPicURL = $_SESSION['profPicURL'];
+
     // Check if the user is logged in
     if (isset($_SESSION["login"]) === false) {
         // User is not logged in
@@ -22,7 +24,7 @@
             <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
             <text class="body bold">
                 <a href="<?php echo $path; ?>">
-                    <img src="../public/assets/images/profile-picture.png" style="width:3rem;">
+                    <img src="<?php echo $profPicURL;?>" style="width:3rem; aspect-ratio: 1/1; border-radius: 50%;" class="ppImg">
                 </a>
             </text>
         </div>

@@ -137,7 +137,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["login"]) === true) 
             gap: 1rem;
             align-self: stretch;
             padding-bottom:3rem;
-            margin-top:5rem;
         }
         .text-content{
             display: flex;
@@ -472,9 +471,8 @@ while($currentrow = $result->fetch_assoc()) {
         // then that variable "stores" the response from the php server
         if ($test==1)
         {
-            header("Location: individual-hike.php?hikeid=". $current_url);
-            //echo "Mail sent to " . $_REQUEST["friend-email"];
-            //exit();
+            echo "Mail sent to " . $_REQUEST["friend-email"];
+            exit();
         }
     }
     ?>
@@ -510,13 +508,13 @@ while($currentrow = $result->fetch_assoc()) {
     <?php include "../pages/nav.php" ?>
 
 <div class="holder">
-    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: fill;top:0; background-size: cover; background-position:center;">
+    <div class="individual-hero" style="background-image: url('../public/assets/images/<?php echo $h_img?>'); height:60%;object-fit: fill;top:0; background-position:center;">
         <div class="individual-title-holder">
 
             <div class="individual-hero-text">
-                <h1 style="line-height:0px"><?php echo $h_name ?></h1>
+                <h3 style="line-height:0px" id="hike-name"><?php echo $h_name?></h3>
                 <div class="individual-hero-details">
-                    <div class="icon-text" style="min-width:5rem>
+                    <div class="icon-text">
                         <img src="../public/assets/icons/road.svg" class="icon">
                         <text class="copy1"><script>document.write(distance(<?php echo $h_lat . ", " . -$h_long . ", 34.0224, 118.2851" ?>, "M").toFixed(1).toString());</script> miles from campus</text>
                     </div>
@@ -622,17 +620,6 @@ while($currentrow = $result->fetch_assoc()) {
                                     else{
                                         echo " hour";
                                     }?></text>
-                            </div>
-                        </div>
-                        <div class="info-content">
-                            <img src="../public/assets/icons/car.svg" class="icon">
-                            <div class="info-text">
-                                <text style="color:#999">Coordinates:</text>
-                                <text>
-                                    Longitude: <?php echo $h_long ?>
-                                    <br><br>
-                                    Latitude: <?php echo $h_lat ?>
-                                </text>
                             </div>
                         </div>
 
@@ -811,7 +798,9 @@ while($currentrow = $result->fetch_assoc()) {
                 <div class="review-inner">
                     <div class="reviewer">
                         <div class="profile">
-                            <img src="../public/assets/icons/profile-pic.svg">
+                            <a href="' . $path .'">
+                                <img src="' . $profPicURL . '" style="width:3rem; border-radius: 50%; aspect-ratio: 1/1;" class="ppImg">
+                            </a>
                         </div>
                         <div class="reviewer-info">
                             <text>' . $reviewUser . '</text>
@@ -927,39 +916,13 @@ while($currentrow = $result->fetch_assoc()) {
                 ?>
             </div>
         </div>
-        <div class="divider"></div>
-        <div>
-            <div>
-                <div class = "ReviewForm"><h1>Add Your Review</h1></div>
-                <form action="" method="get" class="add-review-holder">
-                    <div class="review-criteria-holder">
-                        <!--<div class="filterButton" id="choose-a-hike" style="float: left; margin-bottom: 20px;display:flex;align-items: center;">
-                            Choose a hike
-                            <img src="../public/assets/icons/CaretDown.svg" class="filter-icon">
-                        </div>-->
-                        <div class="stars" style="margin-bottom:2rem;">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                        </div>
-                        <script>rateStars()</script>
-                    </div>
-                    <div>
-                        <textarea type="text" name="review" style="min-width:100%; height:250px; border-radius: 10px;"
-                                  placeholder=" Write a Review..."></textarea>
-                    </div>
-                    <input type="submit" value="Submit" class="search-button" style="margin-top:20px;float:right;width:10rem">
-                </form>
-            </div>
-        </div>
 
     </div>
 </div>
     <br>
     <br>
 
+    <!-- FOOTER -->
     <?php include "../pages/footer.php"?>
 </div>
 <script>
