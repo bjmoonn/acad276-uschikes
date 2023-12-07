@@ -198,10 +198,6 @@ if(isset($_SESSION["login"]) === false) {
     </style>
 </head>
 <body>
-<!-- NAV -->
-<<<<<<< HEAD
-<?php include "../pages/nav.php" ?>
-=======
 <div class="background">
     <div class="nav">
         <div class="logo">
@@ -217,7 +213,6 @@ if(isset($_SESSION["login"]) === false) {
         </div>
     </div>
 </div>
->>>>>>> haminjin-bg-and-pp-pictures
 
 <!-- ACCOUNT NAME, PHOTO, BACKGROUND IMAGE -->
 <!-- BACKGROUND IMAGE -->
