@@ -152,7 +152,7 @@ if(isset($_SESSION["login"]) === false) {
             gap: .25rem;
             border-radius: 2rem;
             border: 1px solid var(--ui-border, #E5E5E5);
-            background: var(--ui-white, #FFF);
+            background: #FFFFFF;
             box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
         }
         #editProfile:hover {
@@ -199,25 +199,9 @@ if(isset($_SESSION["login"]) === false) {
 </head>
 <body>
 <!-- NAV -->
-<<<<<<< HEAD
-<?php include "../pages/nav.php" ?>
-=======
 <div class="background">
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <a href="<?php echo $path; ?>">
-                    <img src="<?php echo $profPicURL; ?>" style="width:3rem;">
-                </a>
-            </text>
-        </div>
-    </div>
+    <?php include "../pages/nav.php" ?>
 </div>
->>>>>>> haminjin-bg-and-pp-pictures
 
 <!-- ACCOUNT NAME, PHOTO, BACKGROUND IMAGE -->
 <!-- BACKGROUND IMAGE -->
