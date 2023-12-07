@@ -42,10 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css" type="text/css">
+    <link rel="stylesheet" href="../css/typography.css" type="text/css">
+    <link rel="stylesheet" href="../css/colors.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../pages/login.module.css">
     <title>Login</title>
 </head>
-<body>
+<div>
+    <?php include "../pages/nav.php"?>
 <div class="login-container">
     <h2>Login</h2>
     <div class="logo-container">
@@ -56,16 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="email" id="email" name="email" required>
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
+        <button type="submit" style="background-color: black;">Login</button>
     </form>
     <p class="signup-link">Don't have an account? <a href="signup.php">Sign Up</a></p>
 </div>
-<div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
+
+<div style="position:fixed; bottom:0; min-width:97%;"
+    <?php include "../pages/footer.php"?>
 </div>
+
 </body>
 </html>

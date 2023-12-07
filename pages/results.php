@@ -1,16 +1,101 @@
 <?php
-$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
-
-
+include 'logged-in.php';
 session_start();
+$mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
 
 if ($mysql->connect_error) {
     die("Connection failed: " . $mysql->connect_error);
 }
 
-$results_per_page = 10;
+$results_per_page = 8;
 
-$sql="SELECT COUNT(hikeID) AS total FROM mainView";
+$sql="SELECT COUNT(hikeID) AS total FROM mainView ";
+
+if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+    $sql .= "WHERE ";
+}
+//Difficulty
+if(isset($_REQUEST['Easy'])){
+    $sql .= "(difficulty = 'Easy' ";
+    if(isset($_REQUEST['Moderate'])){
+        $sql .= "OR difficulty = 'Moderate' ";
+    }
+    if(isset($_REQUEST['Hard'])){
+        $sql .= "OR difficulty = 'Hard' ";
+    }
+    if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['Moderate'])){
+    $sql .= "(difficulty = 'Moderate' ";
+    if(isset($_REQUEST['Hard'])){
+        $sql .= "OR difficulty = 'Hard' ";
+    }
+    if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['Hard'])){
+    $sql .= "(difficulty = 'Hard' ";
+    if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+        $sql .= ") AND ";
+    }
+}
+
+//Length
+if(isset($_REQUEST['15'])){
+    $sql .= "(length <= 5 ";
+    if(isset($_REQUEST['510'])){
+        $sql .= "OR (length >= 5 AND length <= 10) ";
+    }
+    if(isset($_REQUEST['10'])){
+        $sql .= "OR 10 <= length ";
+    }
+    if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['510'])){
+    $sql .= "((length >= 5 AND length <= 10) ";
+    if(isset($_REQUEST['10'])){
+        $sql .= "OR 10 <= length ";
+    }
+    if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['50'])){
+    $sql .= "(10 <= length ";
+    if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+        $sql .= ") AND ";
+    }
+}
+
+//Duration
+if(isset($_REQUEST['1'])){
+    $sql .= "(duration <= 1 ";
+    if(isset($_REQUEST['12'])){
+        $sql .= "OR (duration >= 1 AND duration <= 2) ";
+    }
+    if(isset($_REQUEST['2'])){
+        $sql .= "OR 2 <= duration ";
+    }
+}
+else if(isset($_REQUEST['12'])){
+    $sql .= "((duration >= 1 AND duration <= 2) ";
+    if(isset($_REQUEST['2'])){
+        $sql .= "OR 2 <= duration ";
+    }
+}
+else if(isset($_REQUEST['2'])){
+    $sql .= "(2 <= duration ";
+}
+
+if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['1']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+    $sql .= ");";
+}
+
 $result = $mysql->query($sql);
 $row = $result->fetch_assoc();
 $number_of_results = $row['total'];
@@ -25,7 +110,95 @@ if (!isset($_GET['page'])) {
 
 $start_from = ($page-1) * $results_per_page;
 
-$sql = "SELECT * FROM mainView LIMIT " . $start_from . ", " . $results_per_page;
+$sql = "SELECT * FROM mainView ";
+
+if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+    $sql .= "WHERE ";
+}
+//Difficulty
+if(isset($_REQUEST['Easy'])){
+    $sql .= "(difficulty = 'Easy' ";
+    if(isset($_REQUEST['Moderate'])){
+        $sql .= "OR difficulty = 'Moderate' ";
+    }
+    if(isset($_REQUEST['Hard'])){
+        $sql .= "OR difficulty = 'Hard' ";
+    }
+    if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['Moderate'])){
+    $sql .= "(difficulty = 'Moderate' ";
+    if(isset($_REQUEST['Hard'])){
+        $sql .= "OR difficulty = 'Hard' ";
+    }
+    if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['Hard'])){
+    $sql .= "(difficulty = 'Hard' ";
+    if(isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+        $sql .= ") AND ";
+    }
+}
+
+//Length
+if(isset($_REQUEST['15'])){
+    $sql .= "(length <= 5 ";
+    if(isset($_REQUEST['510'])){
+        $sql .= "OR (length >= 5 AND length <= 10) ";
+    }
+    if(isset($_REQUEST['10'])){
+        $sql .= "OR 10 <= length ";
+    }
+    if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['510'])){
+    $sql .= "((length >= 5 AND length <= 10) ";
+    if(isset($_REQUEST['10'])){
+        $sql .= "OR 10 <= length ";
+    }
+    if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+        $sql .= ") AND ";
+    }
+}
+else if(isset($_REQUEST['50'])){
+    $sql .= "(10 <= length ";
+    if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12'])){
+        $sql .= ") AND ";
+    }
+}
+
+//Duration
+if(isset($_REQUEST['1'])){
+    $sql .= "(duration <= 1 ";
+    if(isset($_REQUEST['12'])){
+        $sql .= "OR (duration >= 1 AND duration <= 2) ";
+    }
+    if(isset($_REQUEST['2'])){
+        $sql .= "OR 2 <= duration ";
+    }
+}
+else if(isset($_REQUEST['12'])){
+    $sql .= "((duration >= 1 AND duration <= 2) ";
+    if(isset($_REQUEST['2'])){
+        $sql .= "OR 2 <= duration ";
+    }
+}
+else if(isset($_REQUEST['2'])){
+    $sql .= "(2 <= duration ";
+}
+
+if(isset($_REQUEST['1']) || isset($_REQUEST['2']) || isset($_REQUEST['12']) || isset($_REQUEST['Easy']) || isset($_REQUEST['Hard']) || isset($_REQUEST['Moderate']) || isset($_REQUEST['15']) || isset($_REQUEST['10']) || isset($_REQUEST['510']) || isset($_REQUEST['15']) || isset($_REQUEST['1']) || isset($_REQUEST['10']) || isset($_REQUEST['510'])){
+    $sql .= ")";
+}
+
+$sql .= "LIMIT " . $start_from . ", " . $results_per_page . ";";
+
 $result = $mysql->query($sql);
 ?>
 
@@ -40,30 +213,10 @@ $result = $mysql->query($sql);
 </head>
 <body>
 <div class="background">
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <?php
-                session_start();
-
-                // Check if the user is logged in
-                if (isset($_SESSION["login"]) === false) {
-                    // User is not logged in
-                    $path = '../pages/login.php';
-                } else {
-                    $path = '../pages/profilepage.php';
-                }
-                ?>
-                <a href="<?php echo $path; ?>"><img src="../public/assets/icons/profile-pic.svg" style="width:3rem;"></a>
-        </div>
-    </div>
+    <?php include "../pages/nav.php" ?>
     <div class="headline">
         <div class="title">Results</div>
-        <div class="body lightgrey">You have 0 results available.</div>
+        <div class="body lightgrey">You have <?php echo $number_of_results;?> results available.</div>
     </div>
     <form action="results.php" method="post">
         <div class="bigger-filter-container">
@@ -153,27 +306,24 @@ $result = $mysql->query($sql);
 
 </div>
 
-<div class="browse">
-    <div class="heading">
-        <h3>Search Results</h3>
-    </div>
+<div class="browse-results">
     <table class="hike-table">
         <?php
         if ($result) {
             $count = 0; // Counter for the number of results displayed
             while($currentrow = $result->fetch_assoc()) {
-                if ($count % 5 == 0) {
+                if ($count % 4 == 0) {
                     echo '<tr>';
                 }
                 echo '
                     <td>
                         <div class="hike-individual">
                             <div class="hike-thumbnail">
-                                <a href="../pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
+                                <a href="individual-hike.php?hikeid=' . $currentrow["hikeID"] . '"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
                             </div>
                             <div class="hike-description">
                                 <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
-                                <div class="body">' . $currentrow["name"] . '</div>
+                                <div class="hike-name">' . $currentrow["name"] . '</div>
                                 <div class="body">' . $currentrow["length"] . ' miles</div>
                                 <div class="body">' . $currentrow["duration"] . ' hr</div>
                                 <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
@@ -185,12 +335,12 @@ $result = $mysql->query($sql);
                 ';
 
                 $count++;
-                if ($count % 5 == 0) {
+                if ($count % 4 == 0) {
                     echo '</tr>';
                 }
             }
-            if ($count % 5 != 0) {
-                while ($count % 5 != 0) {
+            if ($count % 4 != 0) {
+                while ($count % 4 != 0) {
                     echo '<td></td>';
                     $count++;
                 }
@@ -202,26 +352,26 @@ $result = $mysql->query($sql);
         ?>
     </table> 
 
-
     <div class="pagination">
-      <?php
+        <br>
+        <br>
+        Pages
+        <br>
+        <br>
+        <?php
       for ($page=1; $page<=$number_of_pages; $page++) {
-          echo '<a href="results.php?page=' . $page . '">' . $page . '</a> ';
+          echo '<strong><a href="results.php?page=' . $page . '">' . $page . '</a></strong>';
+          if($page != $number_of_pages){
+              echo ", ";
+          }
       }
       ?>
     </div>
 </div>
 
-
 <br>
 
-<div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
-</div>
+<?php include "../pages/footer.php"?>
 </body>
 
 </html>

@@ -1,8 +1,27 @@
 <?php
+include 'logged-in.php';
+include 'upload.php';
+session_start();
 $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
 
 if ($mysql->connect_error) {
     die("Connection failed: " . $mysql->connect_error);
+}
+
+$email = $_SESSION['email'];
+$bgPicURL = $_SESSION['bgPicURL'];
+$profPicURL = $_SESSION['profPicURL'];
+
+//For Displaying Settings Data
+$query = "SELECT userName, fullName, major, year, gender FROM user_profile WHERE userName ='$email'";
+$result = $mysql->query($query);
+
+if ($result && $result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $major = $row['major'];
+    $academic_year = $row['year'];
+    $gender = $row['gender'];
+    $fullName = $row['fullName'];
 }
 
 // Check if user is logged in
@@ -13,6 +32,7 @@ if(isset($_SESSION["login"]) === false) {
     $path = '../pages/profilepage.php';
 }
 ?>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -37,7 +57,7 @@ if(isset($_SESSION["login"]) === false) {
             align-items: center;
         }
         .tabs .tab-header > div {
-            width: calc(100% / 4);
+            width: calc(100% / 3);
             text-align: center;
             cursor: pointer;
             font-size: 1rem;
@@ -51,7 +71,7 @@ if(isset($_SESSION["login"]) === false) {
         }
         .tabs .tab-indicator {
             position: absolute;
-            width: calc(100%/4);
+            width: calc(100%/3);
             height: .3rem;
             background: #3E5D15;
             left:0;
@@ -87,6 +107,7 @@ if(isset($_SESSION["login"]) === false) {
         /*reviews css*/
         .reviews-holder{
             padding-bottom:5rem;
+            overflow: hidden;
         }
         .reviews-row{
             display: flex;
@@ -132,7 +153,7 @@ if(isset($_SESSION["login"]) === false) {
             gap: .25rem;
             border-radius: 2rem;
             border: 1px solid var(--ui-border, #E5E5E5);
-            background: var(--ui-white, #FFF);
+            background: #FFFFFF;
             box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.25);
         }
         #editProfile:hover {
@@ -167,7 +188,7 @@ if(isset($_SESSION["login"]) === false) {
             }
 
             .tabs .tab-indicator {
-                width: calc(100% / 4);
+                width: calc(100% / 3);
             }
 
             .tabs .tab-body > div {
@@ -178,27 +199,14 @@ if(isset($_SESSION["login"]) === false) {
     </style>
 </head>
 <body>
-<!-- NAV -->
 <div class="background">
-    <div class="nav">
-        <div class="logo">
-            <a href="../index.php"><img src="../public/assets/icons/green logo.png"></a>
-        </div>
-        <div class="nav-items">
-            <text class="body bold"><a href="../pages/groupPage.php">Groups</a></text>
-            <text class="body bold">
-                <a href="<?php echo $path; ?>">
-                    <img src="../public/assets/images/profile-picture.png" style="width:3rem;">
-                </a>
-            </text>
-        </div>
-    </div>
+    <?php include "../pages/nav.php" ?>
 </div>
 
 <!-- ACCOUNT NAME, PHOTO, BACKGROUND IMAGE -->
 <!-- BACKGROUND IMAGE -->
 <div class="background-image" style="text-align:center;display:flex;justify-content:center; align-items:center;">
-    <img src="../public/assets/images/background-profilepage1.jpeg" style="width:70%;height:15rem;border-radius:2rem;">
+    <img src="<?php echo $bgPicURL; ?>" style="width:70%;height:15rem;border-radius:2rem;">
 </div>
 
 <div class="profilepage" style="margin-left:15%; margin-right:15%;margin-top:-3%;">
@@ -206,7 +214,7 @@ if(isset($_SESSION["login"]) === false) {
     <!-- ACCOUNT NAME AND PHOTO -->
     <div class="account-header" style="padding-bottom:3rem;">
         <div style="text-align:center;">
-            <img src="../public/assets/images/profile-picture.png" style="width:6rem;"><br><br>Hamin Jin
+            <img src="<?php echo $profPicURL; ?>" style="width:6rem;"><br><br><?php echo $fullName; ?>
         </div>
     </div>
 
@@ -219,16 +227,13 @@ if(isset($_SESSION["login"]) === false) {
             <!-- TAB SLIDER HEADERS -->
             <div class="tab-header">
                 <div class="active">
+                    My Reviews
+                </div>
+                <div>
                     Saved
                 </div>
                 <div>
-                    Completed
-                </div>
-                <div>
                     Settings
-                </div>
-                <div>
-                    My Reviews
                 </div>
             </div>
 
@@ -238,12 +243,125 @@ if(isset($_SESSION["login"]) === false) {
             <!-- DYNAMIC BODY TEXT (FOR ALL TABS) -->
             <div class="tab-body">
 
+                <!-- MY REVIEWS -->
+                <div class="active" id="myreviews">
+
+                    <div class="reviews-holder">
+                        <h3>My Recent Reviews</h3>
+                            <?php
+                            $loginID = $_SESSION["email"];
+                            $query = "SELECT * FROM users WHERE userName = '$loginID'";
+                            $result = $mysql->query($query);
+                            while($currentrow = $result->fetch_assoc()) {
+                                $loginID = $currentrow["userID"];
+                            }
+                            $sql = "SELECT * FROM userReviews WHERE userID = $loginID";
+                            $result = $mysql->query($sql);
+                            if ($result->num_rows > 0) {
+                                $count = 0;
+                                while($currentrow = $result->fetch_assoc()) {
+                                    if($count <= 2){
+                                        $count++;
+                                        $currentUSER = $currentrow['userID'];
+                                        $query = "SELECT * FROM users WHERE userID = $currentUSER";
+                                        $result2 = $mysql->query($query);
+                                        while($currentrow2 = $result2->fetch_assoc()) {
+                                            $reviewUser = $currentrow2["userName"];
+                                        }
+
+
+                                        $newEcho = '<br><div class="reviews-row">
+            <div class="review">
+                <div class="review-inner">
+                    <div class="reviewer">
+                        <div class="profile">
+                            <img src="../public/assets/icons/profile-pic.svg">
+                        </div>
+                        <div class="reviewer-info">
+                            <text>' . $reviewUser . '</text>
+                        </div>
+                    ';
+
+                                        if($currentrow["rating"] == 1){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 2){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 3){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 4){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+                                        else if($currentrow["rating"] == 5){
+                                            $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                                        }
+
+                                        echo $newEcho;
+                                    }
+
+                                }
+                            }
+                            else{
+                                echo "no reviews";
+                            }
+                            ?>
+
+                                </div>
+                </div>
+
                 <!-- SAVED -->
-                <div class="active" id="saved">
+                <div id="saved">
                     <h3>Your Saved Hikes</h3>
                     <p>
                         <?php
-                        $sql_saved = "SELECT * FROM favorites, mainHikes";
+                        $sql_saved = "SELECT * FROM user_favoriteHikes WHERE userName = '$email'";
                         $result_saved = $mysql->query($sql_saved);
 
                         if($result_saved->num_rows > 0) {
@@ -272,43 +390,105 @@ if(isset($_SESSION["login"]) === false) {
                     </p>
                 </div>
 
-                <!-- COMPLETED -->
-                <div id="completed">
-                    <h3>Your Completed Hikes</h3>
-                    <p>
-                        <?php
-                        $sql_completed = "SELECT * FROM completedHikes, mainHikes";
-                        $result_completed = $mysql->query($sql_completed);
-
-                        if($result_completed->num_rows > 0) {
-                            while($currentrow = $result_completed->fetch_assoc()) {
-                                // PHP logic
-                                echo '
-                                        <div class="hike-individual">
-                                            <div class="hike-thumbnail">
-                                                <a href="pages/individual-hike.php"><img src="../public/assets/images/' . $currentrow["imageURL"] . '" class="hikeDisplayImg"></a>
-                                            </div>
-                                             <div class="hike-description">
-                                                <div class="body hike-reviewer">' . $currentrow["lattitude"] . ' N, ' . $currentrow["longitude"] . ' W' . '</div>
-                                                <div class="body">' . $currentrow["name"] . '</div>
-                                                <div class="body">' . $currentrow["length"] . ' miles</div>
-                                                <div class="body">' . $currentrow["duration"] . ' hr</div>
-                                                <div class="hike-difficulty body" id="'. $currentrow["difficulty"] .'">
-                                                    ' . $currentrow["difficulty"] . '
-                                                </div>
-                                            </div>
-                                        </div>
-                                    ';
-                            }
-                        } else {
-                            echo "No completed hikes. Start Hiking-On!";
-                        }
-                        ?>
-                    </p>
-                </div>
 
                 <!-- SETTINGS -->
                 <div id="settings">
+                    <?php
+
+
+                    //For Editing Settings
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        // Retrieve session email
+                        $email = $_SESSION['email'];
+
+                        // Retrieve updated user profile information but check if value is inputted
+                        $newFullName = isset($_POST['full_name']) ? $_POST['full_name'] : null;
+                        $newMajor = isset($_POST['major']) ? $_POST['major'] : null;
+                        $newAcademicYearID = isset($_POST['academic_year']) ? $_POST['academic_year'] : null;
+                        $newGenderID = isset($_POST['gender']) ? $_POST['gender'] : null;
+
+                        $existingFullNameID = getFullNameId($mysql, $email);
+
+                        // NOT NEEDED FOR THIS PAGE (Update the existing user profile)
+                        // $fullNameID = insertAndGetID($mysql, "fullNames", "fullName", $newFullName);
+
+                        //check if form values are empty or null
+                        $userQuery = "UPDATE users SET";
+
+                        if ($newMajor !== null && $newMajor !== "") {
+                            $userQuery .= " major = '$newMajor',";
+                        }
+
+                        if ($newAcademicYearID !== null && $newAcademicYearID !== "") {
+                            $userQuery .= " yearID = '$newAcademicYearID',";
+                        }
+
+                        if ($newGenderID !== null && $newGenderID !== "") {
+                            $userQuery .= " genderID = '$newGenderID',";
+                        }
+
+                        $userQuery = rtrim($userQuery, ',');
+
+                        $userQuery .= " WHERE userName = '$email'";
+
+                        // Execute the 'users' query only if there are non-null values to update
+                        if (strpos($userQuery, '=') !== false) {
+                            if ($mysql->query($userQuery) === TRUE) {
+                                echo "User profile updated successfully!";
+                            } else {
+                                echo "Error: " . $userQuery . "<br>" . $mysql->error;
+                            }
+                        }
+
+                        // Check if the newFullName is not null and update the 'fullNames' table
+                        if ($newFullName !== null && $newFullName !== "") {
+                            $fullNameQuery = "UPDATE fullNames SET fullName = '$newFullName' WHERE fullNameID = '$existingFullNameID'";
+
+                            // Execute the 'fullNames' query
+                            if ($mysql->query($fullNameQuery) === FALSE) {
+                                echo "Error: " . $fullNameQuery . "<br>" . $mysql->error;
+                            }
+                        }
+                    }
+
+                    // Function to insert data into reference tables and get the generated ID
+                    function insertAndGetId($mysqli, $table, $columnName, $value)
+                    {
+                        $insertQuery = "INSERT INTO $table ($columnName) VALUES ('$value')";
+                        $mysqli->query($insertQuery);
+                        return $mysqli->insert_id;
+                    }
+
+                    // Function to get existing fullNameId for a user
+                    function getFullNameId($mysql, $email)
+                    {
+                        $query = "SELECT fullNameId FROM users WHERE userName = '$email'";
+                        $result = $mysql->query($query);
+
+                        if ($result && $result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row['fullNameId'];
+                        }
+
+                        return null;
+                    }
+
+                    //modified function getFullNameID to return values from database
+                    function getColumnValue($mysql, $table, $column)
+                    {
+                        $email = $_SESSION['email'];
+                        $query = "SELECT $column FROM $table WHERE userName = '$email'";
+                        $result = $mysql->query($query);
+
+                        if ($result && $result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row[$column];
+                        }
+
+                        return null;
+                    }
+
+                    ?>
                     <h3>Profile</h3>
                     <p><hr></p>
 
@@ -316,7 +496,7 @@ if(isset($_SESSION["login"]) === false) {
                     <section style="display: flex; padding:.5rem;justify-content: space-between; align-items: center; margin:auto;width: 90%; position: relative;">
                         <section style="display: flex; align-items: center;">
                             <img src="../public/assets/images/profile-picture.png" style="width: 3.5rem; margin-right: 3rem;">
-                            <section style="position: relative;">Hamin Jin</section>
+                            <section style="position: relative;"><?php echo $fullName;?></section>
                         </section>
                         <!-- EDIT PROFILE BUTTON -->
                         <section id="editProfile" style="position: relative;" onclick="on()">Edit Profile</section>
@@ -328,28 +508,28 @@ if(isset($_SESSION["login"]) === false) {
                         <img src = "../public/assets/icons/light-x.svg" style="position: absolute; top: 1rem; right: 1rem; cursor: pointer;" onclick="off()">
                         <form action="#" method="post" enctype="multipart/form-data">
                             <label for="name">Full Name: </label>
-                            <input type="text" id="name" name="full_name" required><br><br>
+                            <input type="text" id="name" name="full_name"><br><br>
 
                             <label for="major">Major: </label>
-                            <input type="text" id="major" name="major" required><br><br>
+                            <input type="text" id="major" name="major"><br><br>
 
                             <label for="year">Academic Year: </label>
-                            <select id="year" name="academic_year" required>
-                                <option value="" disabled selected></option>
-                                <option value="freshman">Freshman</option>
-                                <option value="sophomore">Sophomore</option>
-                                <option value="junior">Junior</option>
-                                <option value="senior">Senior</option>
-                                <option value="graduate">Graduate</option>
-                                <option value="professor">Professor</option>
+                            <select id="year" name="academic_year">
+                                <option value= null disabled selected></option>
+                                <option value="1">Freshman</option>
+                                <option value="2">Sophomore</option>
+                                <option value="3">Junior</option>
+                                <option value="4">Senior</option>
+                                <option value="5">Graduate</option>
+                                <option value="6">Professor</option>
                             </select><br><br>
 
                             <label for="gender">Gender: </label>
-                            <select id="gender" name="gender" required>
-                                <option value="" disabled selected></option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
+                            <select id="gender" name="gender">
+                                <option value= null disabled selected></option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">non-binary</option>
                             </select><br><br>
 
                             <label for="profilePicture">Upload Profile Picture: </label>
@@ -366,70 +546,29 @@ if(isset($_SESSION["login"]) === false) {
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Email Address</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">jinnyjin@usc.edu</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $email ?></section>
                     </section>
 
                     <!-- MAJOR -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Major</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">Business</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $major ?></section>
                     </section>
 
                     <!-- ACADEMIC YEAR -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Academic Year</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">Sophomore</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $academic_year ?></section>
                     </section>
 
                     <!-- GENDER -->
                     <section style=" padding-top:2rem;width:90%;position:relative; align-items: center; margin:auto; ">
                         <section style="font-size:1rem;font-weight:bold;">Gender</section>
                         <p><hr style="width:100%; margin:auto;"></p>
-                        <section style="margin-left:2rem; color:#999999;">Male</section>
+                        <section style="margin-left:2rem; color:#999999;"><?php echo $gender ?></section>
                     </section>
-                </div>
-
-                <!-- MY REVIEWS -->
-                <div id="myreviews">
-                    <div class="reviews-holder">
-                        <h3>My Reviews</h3>
-                        <div class="reviews-row">
-                            <div class="review">
-                                <div class="review-inner">
-                                    <?php
-                                    $sql_reviews = "SELECT comments, rating, fullName, profPicURL FROM userReviews, users, fullNames, profPics WHERE hikeID = " . $_REQUEST["hikeid"];
-                                    $result_reviews = $mysql->query($sql_reviews);
-
-                                    if($result_reviews->num_rows > 0) {
-                                        while($currentrow = $result_reviews->fetch_assoc()) {
-                                            echo '
-                                                <div class="reviewer">
-                                                    <div class="profile">
-                                                        <img src = '. $currentrow["profPicURL"]. '>
-                                                    </div>
-                                                    <div class="reviewer-info">
-                                                        <text>' . $currentrow["fullName"] . '</text>
-                                                    </div>
-                                                </div>
-                                                <text class="copy1">' . $currentrow["comments"] . '</text>
-                                                <div class="stars">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                    <img src="public/assets/icons/star.svg" class="icon">
-                                                </div>
-                                            ';
-                                        }
-                                    } else {
-                                        echo "No reviews written. Comment your thoughts on hikes you have completed!";
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 </div><!-- DYNAMIC TAB BODY TEXT CLOSE-->
@@ -439,12 +578,7 @@ if(isset($_SESSION["login"]) === false) {
 </div>
 
 <!-- FOOTER -->
-<div class="footer">
-    <img src="../public/assets/icons/logotype bottom.png" id="bottomLogo">
-    <div class="body">Acad 276: Dev II</div>
-    <a href="../pages/TeamPage.php">Team</a>
-    <div class="body"><a href="../pages/faq.html">FAQ</a></div>
-</div>
+<?php include "../pages/footer.php"?>
 
 <script>
     // tab slider script
@@ -453,17 +587,36 @@ if(isset($_SESSION["login"]) === false) {
     let tabBody = document.getElementsByClassName("tab-body")[0];
 
     let tabsPane = tabHeader.getElementsByTagName("div");
+    let savedTab = document.getElementById("saved");
+    let settingsTab = document.getElementById("settings");
 
-    for(let i=0; i<tabsPane.length; i++) {
-        tabsPane[i].addEventListener("click", function() {
+    for (let i = 0; i < tabsPane.length; i++) {
+        tabsPane[i].addEventListener("click", function () {
+            // Remove "active" class from the currently active tab
             tabHeader.getElementsByClassName("active")[0].classList.remove("active");
             tabsPane[i].classList.add("active");
+
+            // Remove "active" class from the currently active tab body
             tabBody.getElementsByClassName("active")[0].classList.remove("active");
             tabBody.getElementsByTagName("div")[i].classList.add("active");
 
-            tabIndicator.style.left = `calc(calc(100% / 4) * ${i})`;
+            // Move the tab indicator to the clicked tab
+            tabIndicator.style.left = `calc(calc(100% / 3) * ${i})`;
+
+            // Handle "saved" and "settings" tabs explicitly
+            if (i === 1) {
+                savedTab.classList.add("active");
+                settingsTab.classList.remove("active");
+            } else if (i === 2) {
+                savedTab.classList.remove("active");
+                settingsTab.classList.add("active");
+            } else {
+                settingsTab.classList.remove("active");
+                savedTab.classList.remove("active");
+            }
         });
     }
+
 
     // overlay script
     function on() {
@@ -471,6 +624,12 @@ if(isset($_SESSION["login"]) === false) {
     }
     function off() {
         document.getElementById("overlay").style.display = "none";
+
+        // Reset form fields by setting their values to an empty string
+        document.getElementById("name").value = null;
+        document.getElementById("major").value = null;
+        document.getElementById("year").value = null;
+        document.getElementById("gender").value = null;
     }
 </script>
 

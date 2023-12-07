@@ -1,5 +1,33 @@
 <?php include 'logged-in.php';
 session_start();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION["login"]) === true) {
+
+    $review = $_POST["review"];
+    $currentHike = $_REQUEST["hikeid"];
+    $stars = $_REQUEST["activeStarsCount"];
+
+    $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+    if ($mysql->connect_error) {
+        die("Connection failed: " . $mysql->connect_error);
+    }
+
+    $loginID = $_SESSION["email"];
+    $query = "SELECT * FROM users WHERE userName = '$loginID'";
+    $result = $mysql->query($query);
+    while($currentrow = $result->fetch_assoc()) {
+        $loginID = $currentrow["userID"];
+    }
+
+
+
+    $query = "INSERT INTO userReviews (comments, userID, hikeID, rating) VALUES ('$review', '$loginID', '$currentHike', '$stars');";
+    $mysql->query($query);
+
+    $mysql->close();
+}
+
+
  ?>
 <html lang="en">
 <head>
@@ -18,21 +46,45 @@ session_start();
         function off() {
             document.getElementById("overlay").style.display = "none";
         }
-        function rateStars(){
-            // Select all elements with the "i" tag and store them in a NodeList called "stars"
+        function rateStars() {
             const stars = document.querySelectorAll(".stars i");
-            // Loop through the "stars" NodeList
+            const activeStarsInput = document.getElementById("activeStarsInput");
+
             stars.forEach((star, index1) => {
-                // Add an event listener that runs a function when the "click" event is triggered
                 star.addEventListener("click", () => {
-                    // Loop through the "stars" NodeList Again
+                    let activeCount = 0; // Counter for active stars
                     stars.forEach((star, index2) => {
-                        // Add the "active" class to the clicked star and any stars with a lower index
-                        // and remove the "active" class from any stars with a higher index
-                        index1 >= index2 ? star.classList.add("active") : star.classList.remove("active");
+                        if (index1 >= index2) {
+                            star.classList.add("active");
+                            activeCount++;
+                        } else {
+                            star.classList.remove("active");
+                        }
                     });
+
+                    // Update the hidden input value
+                    activeStarsInput.value = activeCount;
+
+                    // Send activeCount to PHP using AJAX
+                    sendStarsCountToPHP(activeCount);
                 });
             });
+        }
+
+        function sendStarsCountToPHP(count) {
+            // Make an AJAX request to pass the count to PHP
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    // Handle response if needed
+                    // Maybe display a success message or do further actions
+                }
+            };
+
+            // Prepare the POST request to send the count to PHP
+            xhr.open("POST", "your_php_script.php", true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhr.send("starsCount=" + count); // Send the active stars count as a parameter
         }
     </script>
     <style>
@@ -210,7 +262,6 @@ session_start();
             gap: 16px;
         }
         .reviews-holder{
-            padding-bottom:80px;
         }
         .map-holder{
             border-radius:20px;
@@ -401,7 +452,6 @@ while($currentrow = $result->fetch_assoc()) {
     <!--php for sharing hike-->
     <?php
     require 'logged-in.php';
-    require 'login.php';
     if(!empty($_REQUEST["friend-email"]))
     {
         $message = "";
@@ -464,20 +514,12 @@ while($currentrow = $result->fetch_assoc()) {
         <div class="individual-title-holder">
 
             <div class="individual-hero-text">
-
-                <h1 style="line-height:0px"><?php echo $h_name?></h1>
-
+                <h1 style="line-height:0px"><?php echo $h_name ?></h1>
                 <div class="individual-hero-details">
                     <div class="icon-text" style="min-width:5rem>
                         <img src="../public/assets/icons/road.svg" class="icon">
                         <text class="copy1"><script>document.write(distance(<?php echo $h_lat . ", " . -$h_long . ", 34.0224, 118.2851" ?>, "M").toFixed(1).toString());</script> miles from campus</text>
                     </div>
-                </div>
-                <div class="stars">
-                    <img src="../public/assets/icons/star.svg" class="icon">
-                    <img src="../public/assets/icons/star.svg" class="icon">
-                    <img src="../public/assets/icons/star.svg" class="icon">
-                    <img src="../public/assets/icons/star.svg" class="icon">
                 </div>
             </div>
 
@@ -705,9 +747,66 @@ while($currentrow = $result->fetch_assoc()) {
         </div>
     </div>
     <div class="divider"></div>
+    <div>
+        <div>
+            <div class = "ReviewForm"><h1>Reviews</h1></div>
+            <br>
+            <form action="individual-hike.php?hikeid=<?php echo $_REQUEST['hikeid']?>" method="post" class="add-review-holder">
+                <br>
+                <div class="review-criteria-holder">
+                    <div class="stars" >
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <!-- Display the number of active stars -->
+                    <input type="hidden" id="activeStarsInput" name="activeStarsCount" value="0">
+                    <script>rateStars()</script>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div>
+                        <textarea type="text" name="review" style="min-width:100%; height:250px; border-radius: 10px;"
+                                  placeholder=" Write a Review..."></textarea>
+                </div>
+                <br>
+                <input type="submit" value="Submit" class="search-button" style="margin-top:20px;float:right;width:10rem">
+                <br>
+                <br>
+            </form>
+            <?php
+
+
+            ?>
+        </div>
+    </div>
+    <br>
+    <br>
     <div class="reviews-holder">
-        <h1>Reviews</h1>
-        <div class="reviews-row">
+        <?php
+        $id = $_REQUEST['hikeid'];
+        $mysql = new mysqli("webdev.iyaserver.com", "haminjin_guest", "DevIIHikeOn123", "haminjin_hikeOn");
+        if ($mysql->connect_error) {
+            die("Connection failed: " . $mysql->connect_error);
+        }
+
+        $sql = "SELECT * FROM userReviews WHERE hikeID = $id";
+        $result = $mysql->query($sql);
+        if ($result->num_rows > 0) {
+        while($currentrow = $result->fetch_assoc()) {
+
+            $currentUSER = $currentrow['userID'];
+            $query = "SELECT * FROM users WHERE userID = $currentUSER";
+            $result2 = $mysql->query($query);
+            while($currentrow2 = $result2->fetch_assoc()) {
+                $reviewUser = $currentrow2["userName"];
+            }
+
+
+            $newEcho = '<br><div class="reviews-row">
             <div class="review">
                 <div class="review-inner">
                     <div class="reviewer">
@@ -715,22 +814,81 @@ while($currentrow = $result->fetch_assoc()) {
                             <img src="../public/assets/icons/profile-pic.svg">
                         </div>
                         <div class="reviewer-info">
-                            <text>Hamin J.</text>
+                            <text>' . $reviewUser . '</text>
+                        </div>
+                    ';
+
+            if($currentrow["rating"] == 1){
+                        $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
                         </div>
                     </div>
-                    <text class="copy1">This was a super fun hike! Best to go in the morning when its less crowded. Also really liked the view at the top of the trail. Really hard to beat it!</text>
-                    <div class="stars">
-                        <img src="../public/assets/icons/star.svg" class="icon">
-                        <img src="../public/assets/icons/star.svg" class="icon">
-                        <img src="../public/assets/icons/star.svg" class="icon">
-                        <img src="../public/assets/icons/star.svg" class="icon">
+                </div>';
+            }
+            else if($currentrow["rating"] == 2){
+                $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>';
+            }
+            else if($currentrow["rating"] == 3){
+                $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+            else if($currentrow["rating"] == 4){
+                $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+            else if($currentrow["rating"] == 5){
+                $newEcho .= '</div>
+                            <text class="copy1">' . $currentrow["comments"] . '</text>
+                            <div class="stars">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                                <img src="../public/assets/icons/star.svg" class="icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
 
-        </div>
+            echo $newEcho;
+        }
+        }
+        else{
+            echo "no reviews";
+        }
+
+        ?>
     </div>
-    <div class="divider"></div>
+        <div class="divider"></div>
     <div class="recs-holder">
         <h1>Similar hikes</h1>
         <div class="browse">
@@ -765,7 +923,7 @@ while($currentrow = $result->fetch_assoc()) {
                 } else {
                     echo "<div class='body'>0 results</div>";
                 }
-                $mysql->close();
+
                 ?>
             </div>
         </div>
@@ -799,20 +957,10 @@ while($currentrow = $result->fetch_assoc()) {
 
     </div>
 </div>
+    <br>
+    <br>
 
-<<<<<<< HEAD
-    <!-- FOOTER -->
     <?php include "../pages/footer.php"?>
-
-
-=======
-
-    <div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
 </div>
 <script>
     function checkLikeStatus(hikeName) {
@@ -844,7 +992,6 @@ while($currentrow = $result->fetch_assoc()) {
         checkLikeStatus(hikeName);
     });
 </script>
->>>>>>> haminjin-bg-and-pp-pictures
 </body>
 </html>
 
