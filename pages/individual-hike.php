@@ -419,7 +419,6 @@ while($currentrow = $result->fetch_assoc()) {
     <!--php for sharing hike-->
     <?php
     require 'logged-in.php';
-    require 'login.php';
     if(!empty($_REQUEST["friend-email"]))
     {
         $message = "";
@@ -813,19 +812,8 @@ while($currentrow = $result->fetch_assoc()) {
     <br>
     <br>
 
-<<<<<<< HEAD
     <!-- FOOTER -->
     <?php include "../pages/footer.php"?>
-
-
-=======
-
-    <div class="footer">
-    <img class="footer-logo" src="public/assets/icons/logotype bottom.png">
-    <div class="footer-links">
-    <a href="../pages/TeamPage.php">Team</a>
-        <a href="../pages/faq.html">FAQ</a>
-    </div>
 </div>
 <script>
     function checkLikeStatus(hikeName) {
@@ -857,7 +845,6 @@ while($currentrow = $result->fetch_assoc()) {
         checkLikeStatus(hikeName);
     });
 </script>
->>>>>>> haminjin-bg-and-pp-pictures
 </body>
 </html>
 
